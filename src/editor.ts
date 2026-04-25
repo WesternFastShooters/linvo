@@ -1,4 +1,3 @@
-import { ViewExtensionManager } from '@blocksuite/affine/ext-loader';
 import {
   ColorScheme,
   DefaultTheme,
@@ -17,13 +16,11 @@ import {
 import type { ExtensionType, Store, Workspace } from '@blocksuite/affine/store';
 import type { TestAffineEditorContainer } from '@blocksuite/integration-test';
 
-import { whiteboardViewExtensions } from './extensions';
+import { whiteboardViewExtensionManager } from './extensions';
 import {
   mockDocModeService,
   mockEditorSetting,
 } from './mock-services';
-
-const viewExtensionManager = new ViewExtensionManager(whiteboardViewExtensions);
 
 function getCommonExtensions(
   editor: TestAffineEditorContainer
@@ -54,8 +51,9 @@ export function createEditor(doc: Store, _workspace: Workspace) {
   editor.doc = doc;
 
   const commonExtensions = getCommonExtensions(editor);
-  editor.pageSpecs = [...viewExtensionManager.get('edgeless'), ...commonExtensions];
-  editor.edgelessSpecs = [...viewExtensionManager.get('edgeless'), ...commonExtensions];
+  const edgelessSpecs = whiteboardViewExtensionManager.get('edgeless');
+  editor.pageSpecs = [...edgelessSpecs, ...commonExtensions];
+  editor.edgelessSpecs = [...edgelessSpecs, ...commonExtensions];
   editor.mode = 'edgeless';
 
   return editor;

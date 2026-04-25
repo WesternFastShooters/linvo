@@ -1,18 +1,14 @@
 import './style.css';
 
-import { SurfaceBlockSchema } from '@blocksuite/affine/blocks/surface';
-import { FrameBlockSchema, RootBlockSchema } from '@blocksuite/affine/model';
-import { StoreExtensionManager } from '@blocksuite/affine/ext-loader';
 import { Text } from '@blocksuite/affine/store';
 import {
   createAutoIncrementIdGenerator,
   TestWorkspace,
 } from '@blocksuite/affine/store/test';
-import { Schema } from '@blocksuite/affine/store';
 import { effects as integrationEffects } from '@blocksuite/integration-test/effects';
 
 import { configureEditor, createEditor } from './editor';
-import { whiteboardStoreExtensions } from './extensions';
+import { whiteboardStoreExtensionManager } from './extensions';
 
 integrationEffects();
 
@@ -22,15 +18,11 @@ async function bootstrap() {
     throw new Error('Missing #app container');
   }
 
-  const schema = new Schema();
-  schema.register([RootBlockSchema, SurfaceBlockSchema, FrameBlockSchema]);
-
   const workspace = new TestWorkspace({
     id: 'best-excalidraw',
     idGenerator: createAutoIncrementIdGenerator(),
   });
-  const storeExtensionManager = new StoreExtensionManager(whiteboardStoreExtensions);
-  workspace.storeExtensions = storeExtensionManager.get('store');
+  workspace.storeExtensions = whiteboardStoreExtensionManager.get('store');
   workspace.start();
   workspace.meta.initialize();
 

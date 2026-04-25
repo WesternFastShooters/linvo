@@ -62,6 +62,8 @@ import { SlashMenuViewExtension } from '@blocksuite/affine-widget-slash-menu/vie
 import { ToolbarViewExtension } from '@blocksuite/affine-widget-toolbar/view';
 import { ViewportOverlayViewExtension } from '@blocksuite/affine-widget-viewport-overlay/view';
 
+import { MermaidViewExtension } from './mermaid/view';
+
 const whiteboardStoreExtensions = [
   FoundationStoreExtension,
   AttachmentStoreExtension,
@@ -128,6 +130,7 @@ const whiteboardViewExtensions = [
   EdgelessSelectedRectViewExtension,
   EdgelessDraggingAreaViewExtension,
   EdgelessToolbarViewExtension,
+  MermaidViewExtension,
 ];
 
 export const whiteboardStoreExtensionManager = new StoreExtensionManager(

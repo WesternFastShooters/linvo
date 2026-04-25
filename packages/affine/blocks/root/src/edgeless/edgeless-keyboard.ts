@@ -561,6 +561,7 @@ export class EdgelessPageKeyboardManager extends PageKeyboardManager {
           const selection = service.selection;
           const elements = selection.selectedElements;
           const onlyOne = elements.length === 1;
+          const singleMindMapNode = isSingleMindMapNode(elements);
 
           if (onlyOne) {
             const element = elements[0];
@@ -592,14 +593,18 @@ export class EdgelessPageKeyboardManager extends PageKeyboardManager {
               return;
             }
 
-            if (element instanceof ShapeElementModel && !selection.editing) {
+            if (
+              element instanceof ShapeElementModel &&
+              !singleMindMapNode &&
+              !selection.editing
+            ) {
               ctx.get('keyboardState').event.preventDefault();
               mountShapeTextEditor(element, rootComponent);
               return;
             }
           }
 
-          if (!isSingleMindMapNode(elements)) {
+          if (!singleMindMapNode) {
             return;
           }
 
@@ -629,10 +634,12 @@ export class EdgelessPageKeyboardManager extends PageKeyboardManager {
           const { service } = rootComponent;
           const selection = service.selection;
           const elements = selection.selectedElements;
+          const singleMindMapNode = isSingleMindMapNode(elements);
 
           if (
             elements.length === 1 &&
             elements[0] instanceof ShapeElementModel &&
+            !singleMindMapNode &&
             !selection.editing
           ) {
             const shapeElement = elements[0];
@@ -689,7 +696,7 @@ export class EdgelessPageKeyboardManager extends PageKeyboardManager {
             return;
           }
 
-          if (!isSingleMindMapNode(elements)) {
+          if (!singleMindMapNode) {
             return;
           }
 

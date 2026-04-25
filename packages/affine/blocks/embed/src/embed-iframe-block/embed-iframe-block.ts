@@ -15,6 +15,7 @@ import {
 import { matchModels } from '@blocksuite/affine-shared/utils';
 import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
 import { BlockSelection } from '@blocksuite/std';
+import { GfxControllerIdentifier } from '@blocksuite/std/gfx';
 import { flip, offset, shift } from '@floating-ui/dom';
 import {
   computed,
@@ -38,6 +39,9 @@ import {
   LINK_CREATE_POPUP_OFFSET,
   LOADING_CARD_DEFAULT_HEIGHT,
 } from './consts.js';
+import {
+  getSurfaceWebPreviewLeaseVersion,
+} from './surface-web-preview-state.js';
 import { embedIframeBlockStyles } from './style.js';
 import type { EmbedIframeStatusCardOptions } from './types.js';
 import { safeGetIframeSrc } from './utils.js';
@@ -65,6 +69,8 @@ export class EmbedIframeBlockComponent extends CaptionedBlockComponent<EmbedIfra
 
   readonly isDraggingOnHost$ = signal(false);
   readonly isResizing$ = signal(false);
+  readonly isZoomingOnCanvas$ = signal(false);
+  readonly hasSurfacePreviewLease$ = signal(false);
   // show overlay to prevent the iframe from capturing pointer events
   // when the block is dragging, resizing, or not selected
   readonly showOverlay$ = computed(
@@ -74,6 +80,40 @@ export class EmbedIframeBlockComponent extends CaptionedBlockComponent<EmbedIfra
         this.isResizing$.value ||
         !this.selected$.value)
   );
+
+  readonly shouldPauseSurfacePreview$ = computed(() => {
+    if (!this.inSurface || !this.iframeOptions?.protectSurfacePerformance) {
+      return false;
+    }
+
+    return (
+      this.isDraggingOnHost$.value ||
+      this.isResizing$.value ||
+      this.isZoomingOnCanvas$.value
+    );
+  });
+
+  readonly surfacePreviewReason$ = computed(() => {
+    if (this.isZoomingOnCanvas$.value) {
+      return 'Zooming';
+    }
+    if (this.isDraggingOnHost$.value || this.isResizing$.value) {
+      return 'Editing';
+    }
+    return 'Protected';
+  });
+
+  readonly shouldRenderLiveIframe$ = computed(() => {
+    if (!this.isSuccess$.value) {
+      return false;
+    }
+
+    if (!this.inSurface || !this.iframeOptions?.protectSurfacePerformance) {
+      return true;
+    }
+
+    return !this.shouldPauseSurfacePreview$.value;
+  });
 
   // since different providers have different border radius
   // we need to update the selected border radius when the iframe is loaded
@@ -103,6 +143,18 @@ export class EmbedIframeBlockComponent extends CaptionedBlockComponent<EmbedIfra
 
   get inSurface() {
     return matchModels(this.model.parent, [SurfaceBlockModel]);
+  }
+
+  private get _surfaceTransformState() {
+    if (!('transformState$' in this)) {
+      return 'active';
+    }
+
+    return (
+      this as typeof this & {
+        transformState$: ReadonlySignal<'idle' | 'active'>;
+      }
+    ).transformState$.value;
   }
 
   get _horizontalCardHeight(): number {
@@ -295,6 +347,7 @@ export class EmbedIframeBlockComponent extends CaptionedBlockComponent<EmbedIfra
       widthPercent,
       heightInNote,
       style,
+      sandbox,
       allow,
       referrerpolicy,
       scrolling,
@@ -313,6 +366,7 @@ export class EmbedIframeBlockComponent extends CaptionedBlockComponent<EmbedIfra
         frameborder="0"
         credentialless
         src=${ifDefined(iframeUrl)}
+        sandbox=${ifDefined(sandbox)}
         allow=${ifDefined(allow)}
         referrerpolicy=${ifDefined(referrerpolicy)}
         scrolling=${ifDefined(scrolling)}
@@ -344,6 +398,15 @@ export class EmbedIframeBlockComponent extends CaptionedBlockComponent<EmbedIfra
         .inSurface=${this.inSurface}
         .options=${this._statusCardOptions}
       ></embed-iframe-error-card>`;
+    }
+
+    if (!this.shouldRenderLiveIframe$.value) {
+      return html`<embed-iframe-suspended-card
+        .description=${this.model.props.description ?? ''}
+        .reason=${this.surfacePreviewReason$.value}
+        .title=${this.model.props.title ?? ''}
+        .url=${this.model.props.url}
+      ></embed-iframe-suspended-card>`;
     }
 
     return this._renderIframe();
@@ -380,6 +443,11 @@ export class EmbedIframeBlockComponent extends CaptionedBlockComponent<EmbedIfra
       // update iframe options, to ensure the iframe is rendered with the correct options
       this._updateIframeOptions(this.model.props.url);
       this.status$.value = 'success';
+      if (!this.model.props.title || !this.model.props.description) {
+        this.store.withoutTransact(() => {
+          this.refreshData().catch(console.error);
+        });
+      }
     }
 
     // refresh data when original url changes
@@ -388,6 +456,28 @@ export class EmbedIframeBlockComponent extends CaptionedBlockComponent<EmbedIfra
         if (key === 'url') {
           this.refreshData().catch(console.error);
         }
+      })
+    );
+
+    const gfx = this.inSurface
+      ? this.std.getOptional(GfxControllerIdentifier)
+      : null;
+    if (gfx) {
+      this.disposables.add(
+        gfx.viewport.zooming$.subscribe(isZooming => {
+          this.isZoomingOnCanvas$.value = isZooming;
+        })
+      );
+    }
+
+    this.disposables.add(
+      effect(() => {
+        const leaseVersion = getSurfaceWebPreviewLeaseVersion();
+        void leaseVersion;
+        this.hasSurfacePreviewLease$.value =
+          this.inSurface &&
+          this.isSuccess$.value &&
+          !this.shouldPauseSurfacePreview$.value;
       })
     );
 
@@ -413,6 +503,7 @@ export class EmbedIframeBlockComponent extends CaptionedBlockComponent<EmbedIfra
     super.disconnectedCallback();
     this._linkInputAbortController?.abort();
     this._linkInputAbortController = null;
+    this.hasSurfacePreviewLease$.value = false;
   }
 
   override renderBlock() {

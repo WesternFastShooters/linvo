@@ -68,7 +68,11 @@ const genericConfig = {
     allowFullscreen: true,
     style: 'border: none; border-radius: 8px;',
     allow: 'clipboard-read; clipboard-write; picture-in-picture;',
+    sandbox:
+      'allow-scripts allow-same-origin allow-forms allow-popups allow-downloads',
     referrerpolicy: 'no-referrer-when-downgrade',
+    protectSurfacePerformance: true,
+    maxActiveInSurface: 2,
   },
 };
 

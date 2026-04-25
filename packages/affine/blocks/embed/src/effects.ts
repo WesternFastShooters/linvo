@@ -10,6 +10,7 @@ import { EmbedIframeIdleCard } from './embed-iframe-block/components/embed-ifram
 import { EmbedIframeLinkEditPopup } from './embed-iframe-block/components/embed-iframe-link-edit-popup';
 import { EmbedIframeLinkInputPopup } from './embed-iframe-block/components/embed-iframe-link-input-popup';
 import { EmbedIframeLoadingCard } from './embed-iframe-block/components/embed-iframe-loading-card';
+import { EmbedIframeSuspendedCard } from './embed-iframe-block/components/embed-iframe-suspended-card';
 import { EmbedEdgelessIframeBlockComponent } from './embed-iframe-block/embed-edgeless-iframe-block';
 import { EmbedIframeBlockComponent } from './embed-iframe-block/embed-iframe-block';
 import { EmbedLoomBlockComponent } from './embed-loom-block';
@@ -68,6 +69,10 @@ export function effects() {
   customElements.define('embed-iframe-error-card', EmbedIframeErrorCard);
   customElements.define('embed-iframe-idle-card', EmbedIframeIdleCard);
   customElements.define(
+    'embed-iframe-suspended-card',
+    EmbedIframeSuspendedCard
+  );
+  customElements.define(
     'embed-iframe-link-edit-popup',
     EmbedIframeLinkEditPopup
   );
@@ -91,6 +96,7 @@ declare global {
     'embed-iframe-loading-card': EmbedIframeLoadingCard;
     'embed-iframe-error-card': EmbedIframeErrorCard;
     'embed-iframe-idle-card': EmbedIframeIdleCard;
+    'embed-iframe-suspended-card': EmbedIframeSuspendedCard;
     'embed-iframe-link-edit-popup': EmbedIframeLinkEditPopup;
   }
 }

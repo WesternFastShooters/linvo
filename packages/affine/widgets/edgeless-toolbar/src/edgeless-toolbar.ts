@@ -577,6 +577,11 @@ export class EdgelessToolbarWidget extends WidgetComponent<RootBlockModel> {
           .toolbarContainer=${this.toolbarContainer ?? null}
         ></edgeless-mindmap-tool-button>
       </div>
+      <div class="toolbar-tool-slot wide">
+        <edgeless-mermaid-button
+          .edgeless=${block}
+        ></edgeless-mermaid-button>
+      </div>
       <div class="toolbar-tool-slot">
         <edgeless-tool-icon-button
           .tooltip=${'File'}

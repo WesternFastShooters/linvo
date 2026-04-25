@@ -8,6 +8,7 @@ import { effects } from './effects';
 import { BrushElementRendererExtension } from './element-renderer';
 import { EraserTool } from './eraser-tool';
 import { HighlighterTool } from './highlighter-tool';
+import { MagicBrushTool } from './magic-brush-tool';
 import {
   brushToolbarExtension,
   highlighterToolbarExtension,
@@ -28,6 +29,7 @@ export class BrushViewExtension extends ViewExtensionProvider {
     context.register(BrushTool);
     context.register(EraserTool);
     context.register(HighlighterTool);
+    context.register(MagicBrushTool);
 
     context.register(BrushElementRendererExtension);
 

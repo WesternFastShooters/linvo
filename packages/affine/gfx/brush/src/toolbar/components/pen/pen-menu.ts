@@ -22,6 +22,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 import { BrushTool } from '../../../brush-tool';
 import { HighlighterTool } from '../../../highlighter-tool';
+import { MagicBrushTool } from '../../../magic-brush-tool';
 import { penInfoMap } from './consts';
 import type { Pen, PenMap } from './types';
 
@@ -76,6 +77,14 @@ export class EdgelessPenMenu extends EdgelessToolbarToolMixin(
       align-items: center;
     }
 
+    .magic-brush-content {
+      color: var(--affine-text-secondary-color);
+      font-size: 12px;
+      line-height: 18px;
+      padding: 0 6px 0 2px;
+      white-space: nowrap;
+    }
+
     menu-divider {
       display: flex;
       align-self: center;
@@ -92,8 +101,10 @@ export class EdgelessPenMenu extends EdgelessToolbarToolMixin(
     this.pen$.value = tool;
     if (tool === 'brush') {
       this.setEdgelessTool(BrushTool);
-    } else {
+    } else if (tool === 'highlighter') {
       this.setEdgelessTool(HighlighterTool);
+    } else {
+      this.setEdgelessTool(MagicBrushTool);
     }
   };
 
@@ -110,16 +121,24 @@ export class EdgelessPenMenu extends EdgelessToolbarToolMixin(
     this.onChange({ lineWidth: e.detail });
   };
 
-  override type = [BrushTool, HighlighterTool];
+  override type = [BrushTool, HighlighterTool, MagicBrushTool];
 
   override render() {
     const {
       _theme$: { value: theme },
       colors$: {
-        value: { brush: brushColor, highlighter: highlighterColor },
+        value: {
+          brush: brushColor,
+          highlighter: highlighterColor,
+          magicBrush: magicBrushColor,
+        },
       },
       penIconMap$: {
-        value: { brush: brushIcon, highlighter: highlighterIcon },
+        value: {
+          brush: brushIcon,
+          highlighter: highlighterIcon,
+          magicBrush: magicBrushIcon,
+        },
       },
       penInfo$: {
         value: { type, color, lineWidth },
@@ -169,28 +188,51 @@ export class EdgelessPenMenu extends EdgelessToolbarToolMixin(
               ${highlighterIcon}
             </div>
           </edgeless-tool-icon-button>
-          <menu-divider .vertical=${true}></menu-divider>
-        </div>
-        <div class="menu-content">
-          <edgeless-line-width-panel
-            .selectedSize=${lineWidth}
-            .lineWidths=${lineWidths}
-            @select=${this._onPickLineWidth}
+
+          <edgeless-tool-icon-button
+            class="edgeless-magic-brush-button"
+            .tooltip=${html`<affine-tooltip-content-with-shortcut
+              data-tip="${penInfoMap.magicBrush.tip}"
+              data-shortcut="${penInfoMap.magicBrush.shortcut}"
+            ></affine-tooltip-content-with-shortcut>`}
+            .tooltipOffset=${20}
+            .hover=${false}
+            @click=${() => this._onPickPen('magicBrush')}
           >
-          </edgeless-line-width-panel>
+            <div
+              class="pen-wrapper"
+              style=${styleMap({ color: magicBrushColor })}
+              ?data-active="${type === 'magicBrush'}"
+            >
+              ${magicBrushIcon}
+            </div>
+          </edgeless-tool-icon-button>
           <menu-divider .vertical=${true}></menu-divider>
-          <edgeless-color-panel
-            class="one-way"
-            @select=${this._onPickColor}
-            .value=${color}
-            .theme=${theme}
-            .palettes=${DefaultTheme.StrokeColorShortPalettes}
-            .shouldKeepColor=${true}
-            .hasTransparent=${!this.edgeless.store
-              .get(FeatureFlagService)
-              .getFlag('enable_color_picker')}
-          ></edgeless-color-panel>
         </div>
+        ${type === 'magicBrush'
+          ? html`<div class="magic-brush-content">
+              Draw and pause for 500ms to auto-convert the trail into a shape.
+            </div>`
+          : html`<div class="menu-content">
+              <edgeless-line-width-panel
+                .selectedSize=${lineWidth}
+                .lineWidths=${lineWidths}
+                @select=${this._onPickLineWidth}
+              >
+              </edgeless-line-width-panel>
+              <menu-divider .vertical=${true}></menu-divider>
+              <edgeless-color-panel
+                class="one-way"
+                @select=${this._onPickColor}
+                .value=${color}
+                .theme=${theme}
+                .palettes=${DefaultTheme.StrokeColorShortPalettes}
+                .shouldKeepColor=${true}
+                .hasTransparent=${!this.edgeless.store
+                  .get(FeatureFlagService)
+                  .getFlag('enable_color_picker')}
+              ></edgeless-color-panel>
+            </div>`}
       </edgeless-slide-menu>
     `;
   }

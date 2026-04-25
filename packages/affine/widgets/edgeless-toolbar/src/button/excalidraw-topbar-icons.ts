@@ -69,6 +69,43 @@ export const ExcalidrawHighlighterIcon = () => html`
   </svg>
 `;
 
+export const ExcalidrawMagicBrushIcon = () => html`
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M12.9 3.9L16.1 7.1C16.6 7.6 16.6 8.4 16.1 8.9L10.4 14.6C10.1 14.9 9.72 15.07 9.31 15.09L5.2 15.3L5.41 11.19C5.43 10.78 5.6 10.4 5.9 10.1L11.1 4.9C11.6 4.4 12.4 4.4 12.9 3.9Z"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M10.7 5.3L14.7 9.3"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linecap="round"
+    />
+    <path
+      d="M4.25 16.5H11"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linecap="round"
+    />
+    <path
+      d="M4.8 4.1L5.35 5.45L6.7 6L5.35 6.55L4.8 7.9L4.25 6.55L2.9 6L4.25 5.45L4.8 4.1Z"
+      fill="currentColor"
+    />
+    <path
+      d="M16.45 1.85L16.83 2.77L17.75 3.15L16.83 3.53L16.45 4.45L16.07 3.53L15.15 3.15L16.07 2.77L16.45 1.85Z"
+      fill="currentColor"
+    />
+  </svg>
+`;
+
 export const ExcalidrawCurveIcon = () => html`
   <svg
     width="20"

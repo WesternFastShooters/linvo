@@ -15,6 +15,11 @@ import { when } from 'lit/directives/when.js';
 
 import { BrushTool } from '../../../brush-tool';
 import { HighlighterTool } from '../../../highlighter-tool';
+import {
+  MAGIC_BRUSH_TRAIL_COLOR,
+  MAGIC_BRUSH_TRAIL_WIDTH,
+} from '../../../magic-brush-consts';
+import { MagicBrushTool } from '../../../magic-brush-tool';
 import { penIconMap, penInfoMap } from './consts';
 import type { Pen } from './types';
 
@@ -46,6 +51,7 @@ export class EdgelessPenToolButton extends EdgelessToolbarToolMixin(
       highlighter: keepColor(
         this.themeProvider.generateColorProperty(highlighter, undefined, theme)
       ),
+      magicBrush: MAGIC_BRUSH_TRAIL_COLOR,
     };
   });
 
@@ -60,6 +66,7 @@ export class EdgelessPenToolButton extends EdgelessToolbarToolMixin(
     return {
       brush,
       highlighter,
+      magicBrush: MAGIC_BRUSH_TRAIL_WIDTH,
     };
   });
 
@@ -93,7 +100,7 @@ export class EdgelessPenToolButton extends EdgelessToolbarToolMixin(
 
   override enableActiveBackground = true;
 
-  override type = [BrushTool, HighlighterTool];
+  override type = [BrushTool, HighlighterTool, MagicBrushTool];
 
   override firstUpdated() {
     this.disposables.add(
@@ -120,8 +127,10 @@ export class EdgelessPenToolButton extends EdgelessToolbarToolMixin(
     const setPenByType = (pen: Pen) => {
       if (pen === 'brush') {
         this.setEdgelessTool(BrushTool);
-      } else {
+      } else if (pen === 'highlighter') {
         this.setEdgelessTool(HighlighterTool);
+      } else {
+        this.setEdgelessTool(MagicBrushTool);
       }
     };
     if (!this.active) {

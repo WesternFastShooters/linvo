@@ -17,6 +17,7 @@ import {
   BrushTool,
   EraserTool,
   HighlighterTool,
+  MagicBrushTool,
 } from '@blocksuite/affine-gfx-brush';
 import {
   ConnectorPathGenerator,
@@ -321,6 +322,9 @@ export class EdgelessPageKeyboardManager extends PageKeyboardManager {
         },
         'Shift-p': () => {
           this._setEdgelessTool(HighlighterTool);
+        },
+        'Alt-p': () => {
+          this._setEdgelessTool(MagicBrushTool);
         },
         e: () => {
           this._setEdgelessTool(EraserTool);

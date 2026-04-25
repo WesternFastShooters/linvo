@@ -8,12 +8,12 @@ import { EmbedIframeTooltip } from './tooltip';
 export const embedIframeSlashMenuConfig: SlashMenuConfig = {
   items: [
     {
-      name: 'Embed',
-      description: 'For Google Drive, and more.',
+      name: 'Web Preview',
+      description: 'Preview a web page on the whiteboard.',
       icon: EmbedIcon(),
       tooltip: {
         figure: EmbedIframeTooltip,
-        caption: 'Embed',
+        caption: 'Web Preview',
       },
       group: '4_Content & Media@5',
       when: ({ model }) => {

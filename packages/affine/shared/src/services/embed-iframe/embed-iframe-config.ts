@@ -22,11 +22,14 @@ export type IframeOptions = {
   heightInNote: number; // the default height of embed iframe in note, in pixels
   widthPercent: number; // the width percentage of embed iframe relative to parent container width, normalized to 0-100
   style?: string;
+  sandbox?: string;
   referrerpolicy?: string;
   scrolling?: boolean;
   allow?: string;
   allowFullscreen?: boolean;
   containerBorderRadius?: number;
+  protectSurfacePerformance?: boolean;
+  maxActiveInSurface?: number;
 };
 
 /**

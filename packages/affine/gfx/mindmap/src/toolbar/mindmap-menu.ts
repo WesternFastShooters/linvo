@@ -24,33 +24,12 @@ import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 
 import { getMindMaps, type ToolbarMindmapItem } from './assets.js';
-import { mediaRender, textRender } from './basket-elements.js';
-import { importMindMapIcon, mindmapMenuMediaIcon, textIcon } from './icons.js';
+import { importMindMapIcon } from './icons.js';
 import { MindMapPlaceholder } from './mindmap-importing-placeholder.js';
-
-type TextItem = {
-  type: 'text';
-  icon: TemplateResult;
-  render: typeof textRender;
-};
-
-type MediaItem = {
-  type: 'media';
-  icon: TemplateResult;
-  render: typeof mediaRender;
-};
 
 type ImportItem = {
   type: 'import';
   icon: TemplateResult;
-};
-
-const textItem: TextItem = { type: 'text', icon: textIcon, render: textRender };
-
-const mediaItem: MediaItem = {
-  type: 'media',
-  icon: mindmapMenuMediaIcon,
-  render: mediaRender,
 };
 
 export class EdgelessMindmapMenu extends EdgelessToolbarToolMixin(
@@ -68,22 +47,10 @@ export class EdgelessMindmapMenu extends EdgelessToolbarToolMixin(
       padding: 8px 0px;
       box-sizing: border-box;
     }
-    .thin-divider {
-      width: 1px;
-      transform: scaleX(0.5);
-      height: 48px;
-      background: var(--affine-border-color);
-    }
-    .text-item,
-    .media-item {
-      width: 60px;
-    }
     .mindmap-item {
       width: 64px;
     }
 
-    .text-item,
-    .media-item,
     .mindmap-item {
       border-radius: 4px;
       height: 48px;
@@ -92,8 +59,6 @@ export class EdgelessMindmapMenu extends EdgelessToolbarToolMixin(
       align-items: center;
       justify-content: center;
     }
-    .text-item > button,
-    .media-item > button,
     .mindmap-item > button {
       position: absolute;
       border-radius: inherit;
@@ -102,14 +67,10 @@ export class EdgelessMindmapMenu extends EdgelessToolbarToolMixin(
       cursor: grab;
       padding: 0;
     }
-    .text-item:hover,
-    .media-item:hover,
     .mindmap-item[data-is-active='true'],
     .mindmap-item:hover {
       background: var(--affine-hover-color);
     }
-    .text-item > button.next,
-    .media-item > button.next,
     .mindmap-item > button.next {
       transition: transform 0.3s ease-in-out;
     }
@@ -122,7 +83,7 @@ export class EdgelessMindmapMenu extends EdgelessToolbarToolMixin(
   });
 
   draggableController!: EdgelessDraggableElementController<
-    ToolbarMindmapItem | TextItem | ImportItem | MediaItem
+    ToolbarMindmapItem | ImportItem
   >;
 
   override type = EmptyTool;
@@ -239,11 +200,6 @@ export class EdgelessMindmapMenu extends EdgelessToolbarToolMixin(
                   elements: [id],
                   editing: false,
                 });
-              } else if (
-                element.data.type === 'text' ||
-                element.data.type === 'media'
-              ) {
-                this.setEdgelessTool(DefaultTool);
               }
             })
             .catch(console.error);
@@ -271,81 +227,12 @@ export class EdgelessMindmapMenu extends EdgelessToolbarToolMixin(
   override render() {
     const { cancelled, draggingElement, dragOut } =
       this.draggableController?.states || {};
-
-    const isDraggingMedia = draggingElement?.data?.type === 'media';
-    const isDraggingText = draggingElement?.data?.type === 'text';
-    const showNextText = dragOut && !cancelled;
     return html`<edgeless-slide-menu .height=${'64px'}>
       <div class="text-and-mindmap">
-        <div class="media-item">
-          ${isDraggingMedia
-            ? html`<button
-                class="next"
-                style="transform: translateY(${showNextText ? 0 : 64}px)"
-              >
-                ${mediaItem.icon}
-              </button>`
-            : nothing}
-          <button
-            style="opacity: ${isDraggingMedia ? 0 : 1}"
-            @mousedown=${(e: MouseEvent) =>
-              this.draggableController.onMouseDown(e, {
-                preview: mediaItem.icon,
-                data: mediaItem,
-              })}
-            @touchstart=${(e: TouchEvent) =>
-              this.draggableController.onTouchStart(e, {
-                preview: mediaItem.icon,
-                data: mediaItem,
-              })}
-          >
-            ${mediaItem.icon}
-          </button>
-          <affine-tooltip tip-position="top" .offset=${12}>
-            <affine-tooltip-content-with-shortcut
-              data-tip="${'Add media'}"
-            ></affine-tooltip-content-with-shortcut>
-          </affine-tooltip>
-        </div>
-        <div class="thin-divider"></div>
-        <div class="text-item">
-          ${isDraggingText
-            ? html`<button
-                class="next"
-                style="transform: translateY(${showNextText ? 0 : 64}px)"
-              >
-                ${textItem.icon}
-              </button>`
-            : nothing}
-          <button
-            style="opacity: ${isDraggingText ? 0 : 1}"
-            @mousedown=${(e: MouseEvent) =>
-              this.draggableController.onMouseDown(e, {
-                preview: textItem.icon,
-                data: textItem,
-              })}
-            @touchstart=${(e: TouchEvent) =>
-              this.draggableController.onTouchStart(e, {
-                preview: textItem.icon,
-                data: textItem,
-              })}
-          >
-            ${textItem.icon}
-          </button>
-          <affine-tooltip tip-position="top" .offset=${12}>
-            <affine-tooltip-content-with-shortcut
-              data-tip="${'Edgeless Text'}"
-              data-shortcup="${'T'}"
-            ></affine-tooltip-content-with-shortcut>
-          </affine-tooltip>
-        </div>
-        <div class="thin-divider"></div>
         <!-- mind map -->
         ${repeat(this.mindMaps, mindMap => {
-          const isDraggingMindMap = draggingElement?.data?.type !== 'text';
           const draggingEle = draggingElement?.data as ToolbarMindmapItem;
-          const isBeingDragged =
-            isDraggingMindMap && draggingEle?.style === mindMap.style;
+          const isBeingDragged = draggingEle?.style === mindMap.style;
           const showNext = dragOut && !cancelled;
           const isActive = this._style$.value === mindMap.style;
           return html`

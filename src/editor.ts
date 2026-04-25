@@ -22,6 +22,29 @@ import {
   mockEditorSetting,
 } from './mock-services';
 
+function installEditorZoomGuards(editor: TestAffineEditorContainer) {
+  const eventOptions: AddEventListenerOptions = {
+    capture: true,
+    passive: false,
+  };
+
+  const preventBrowserZoom = (event: WheelEvent) => {
+    if (!event.ctrlKey && !event.metaKey) return;
+
+    // Let edgeless consume the wheel event while blocking browser page zoom.
+    event.preventDefault();
+  };
+
+  const preventGestureZoom = (event: Event) => {
+    event.preventDefault();
+  };
+
+  editor.addEventListener('wheel', preventBrowserZoom, eventOptions);
+  editor.addEventListener('gesturestart', preventGestureZoom, eventOptions);
+  editor.addEventListener('gesturechange', preventGestureZoom, eventOptions);
+  editor.addEventListener('gestureend', preventGestureZoom, eventOptions);
+}
+
 function getCommonExtensions(
   editor: TestAffineEditorContainer
 ): ExtensionType[] {
@@ -61,6 +84,8 @@ export function createEditor(doc: Store, _workspace: Workspace) {
 
 export async function configureEditor(editor: TestAffineEditorContainer) {
   await editor.updateComplete;
+
+  installEditorZoomGuards(editor);
 
   const editPropsStore = editor.std.get(EditPropsStore);
   const themeService = editor.std.get(ThemeProvider);

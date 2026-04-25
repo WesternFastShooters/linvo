@@ -1,19 +1,17 @@
 import {
-  EdgelessBrushDarkIcon,
-  EdgelessBrushLightIcon,
-  EdgelessHighlighterDarkIcon,
-  EdgelessHighlighterLightIcon,
-} from './icons';
+  ExcalidrawHighlighterIcon,
+  ExcalidrawPenIcon,
+} from '@blocksuite/affine-widget-edgeless-toolbar';
 import type { Pen } from './types';
 
 export const penIconMap = {
   dark: {
-    brush: EdgelessBrushDarkIcon,
-    highlighter: EdgelessHighlighterDarkIcon,
+    brush: ExcalidrawPenIcon(),
+    highlighter: ExcalidrawHighlighterIcon(),
   },
   light: {
-    brush: EdgelessBrushLightIcon,
-    highlighter: EdgelessHighlighterLightIcon,
+    brush: ExcalidrawPenIcon(),
+    highlighter: ExcalidrawHighlighterIcon(),
   },
 };
 

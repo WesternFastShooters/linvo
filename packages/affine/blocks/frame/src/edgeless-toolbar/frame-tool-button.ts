@@ -1,5 +1,8 @@
-import { QuickToolMixin } from '@blocksuite/affine-widget-edgeless-toolbar';
-import { FrameIcon } from '@blocksuite/icons/lit';
+import {
+  ExcalidrawChevronDownIcon,
+  ExcalidrawFrameIcon,
+  QuickToolMixin,
+} from '@blocksuite/affine-widget-edgeless-toolbar';
 import { css, html, LitElement } from 'lit';
 
 import { FrameTool } from '../frame-tool';
@@ -31,18 +34,19 @@ export class EdgelessFrameToolButton extends QuickToolMixin(LitElement) {
               data-tip="${'Frame'}"
               data-shortcut="${'F'}"
             ></affine-tooltip-content-with-shortcut>`}
-        .tooltipOffset=${17}
-        .iconSize=${'24px'}
+        .tipPosition=${'bottom'}
+        .tooltipOffset=${10}
+        .iconSize=${'20px'}
         .active=${type === 'frame'}
-        .iconContainerPadding=${6}
+        .activeMode=${'background'}
+        .iconContainerPadding=${[8, 10]}
         @click=${() => {
           // don't update tool before toggling menu
           this._toggleFrameMenu();
           this.setEdgelessTool(FrameTool);
         }}
       >
-        ${FrameIcon()}
-        <toolbar-arrow-up-icon></toolbar-arrow-up-icon>
+        ${ExcalidrawFrameIcon()} ${ExcalidrawChevronDownIcon()}
       </edgeless-tool-icon-button>
     `;
   }

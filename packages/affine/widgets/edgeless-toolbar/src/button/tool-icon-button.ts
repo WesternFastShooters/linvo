@@ -11,22 +11,26 @@ export class EdgelessToolIconButton extends LitElement {
       position: relative;
       display: flex;
       align-items: center;
+      gap: 4px;
       padding: var(--icon-container-padding);
       color: var(--affine-icon-color);
-      border-radius: 4px;
+      border-radius: 10px;
       cursor: pointer;
       white-space: nowrap;
       box-sizing: border-box;
       width: var(--icon-container-width, unset);
       justify-content: var(--justify, unset);
+      transition: background-color 0.18s ease, color 0.18s ease,
+        transform 0.18s ease;
     }
 
     .icon-container.active-mode-color[active] {
-      color: var(--affine-primary-color);
+      color: #5b57d8;
     }
 
     .icon-container.active-mode-background[active] {
-      background: var(--affine-hover-color);
+      background: rgba(91, 87, 216, 0.14);
+      color: #5b57d8;
     }
 
     .icon-container[disabled] {
@@ -44,6 +48,14 @@ export class EdgelessToolIconButton extends LitElement {
       flex-shrink: 0;
       width: var(--icon-size, unset);
       height: var(--icon-size, unset);
+    }
+
+    ::slotted(.topbar-chevron) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 1px;
+      color: inherit;
     }
 
     ::slotted(.label) {

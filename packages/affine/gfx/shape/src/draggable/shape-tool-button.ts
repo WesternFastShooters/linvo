@@ -1,5 +1,9 @@
 import { type ShapeName, ShapeType } from '@blocksuite/affine-model';
-import { EdgelessToolbarToolMixin } from '@blocksuite/affine-widget-edgeless-toolbar';
+import {
+  EdgelessToolbarToolMixin,
+  ExcalidrawChevronDownIcon,
+  ExcalidrawShapeIcon,
+} from '@blocksuite/affine-widget-edgeless-toolbar';
 import { SignalWatcher } from '@blocksuite/global/lit';
 import { css, html, LitElement } from 'lit';
 
@@ -11,14 +15,7 @@ export class EdgelessShapeToolButton extends EdgelessToolbarToolMixin(
 ) {
   static override styles = css`
     :host {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-    edgeless-toolbar-button,
-    .shapes {
-      width: 100%;
-      height: 64px;
+      display: flex;
     }
   `;
 
@@ -61,11 +58,37 @@ export class EdgelessShapeToolButton extends EdgelessToolbarToolMixin(
     }
   }
 
+  override firstUpdated() {
+    this.disposables.add(
+      this.edgeless.bindHotKey(
+        {
+          s: ctx => {
+            // `page.keyboard.press('Shift+s')` in playwright will also trigger this 's' key event
+            if (ctx.get('keyboardState').raw.shiftKey) return;
+
+            const gfx = this.gfx;
+            if (gfx.viewport.locked || gfx.selection.editing) return;
+
+            let shapeName = gfx.tool.get(ShapeTool).activatedOption.shapeName;
+            if (gfx.tool.currentToolName$.peek() === ShapeTool.toolName) {
+              shapeName = gfx.tool.get(ShapeTool).cycleShapeName('next');
+            }
+
+            this.setEdgelessTool(this.type, {
+              shapeName,
+            });
+          },
+        },
+        { global: true }
+      )
+    );
+  }
+
   override render() {
     const { active } = this;
 
     return html`
-      <edgeless-toolbar-button
+      <edgeless-tool-icon-button
         class="edgeless-shape-button"
         .tooltip=${this.popper
           ? ''
@@ -73,18 +96,16 @@ export class EdgelessShapeToolButton extends EdgelessToolbarToolMixin(
               data-tip="${'Shape'}"
               data-shortcut="${'S'}"
             ></affine-tooltip-content-with-shortcut>`}
-        .tooltipOffset=${5}
+        .tipPosition=${'bottom'}
+        .tooltipOffset=${10}
         .active=${active}
+        .activeMode=${'background'}
+        .iconContainerPadding=${[8, 10]}
+        .iconSize=${'20px'}
+        @click=${this._handleWrapperClick}
       >
-        <edgeless-toolbar-shape-draggable
-          .edgeless=${this.edgeless}
-          .toolbarContainer=${this.toolbarContainer}
-          class="shapes"
-          @click=${this._handleWrapperClick}
-          .onShapeClick=${this._handleShapeClick}
-        >
-        </edgeless-toolbar-shape-draggable>
-      </edgeless-toolbar-button>
+        ${ExcalidrawShapeIcon()} ${ExcalidrawChevronDownIcon()}
+      </edgeless-tool-icon-button>
     `;
   }
 }

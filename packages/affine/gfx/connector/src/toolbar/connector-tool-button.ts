@@ -1,22 +1,15 @@
 import { ConnectorMode, getConnectorModeName } from '@blocksuite/affine-model';
 import { EditPropsStore } from '@blocksuite/affine-shared/services';
-import { QuickToolMixin } from '@blocksuite/affine-widget-edgeless-toolbar';
-import { SignalWatcher } from '@blocksuite/global/lit';
 import {
-  ConnectorCIcon,
-  ConnectorEIcon,
-  ConnectorLIcon,
-} from '@blocksuite/icons/lit';
+  ExcalidrawChevronDownIcon,
+  ExcalidrawCurveIcon,
+  QuickToolMixin,
+} from '@blocksuite/affine-widget-edgeless-toolbar';
+import { SignalWatcher } from '@blocksuite/global/lit';
 import { computed } from '@preact/signals-core';
 import { css, html, LitElement } from 'lit';
 
 import { ConnectorTool } from '../connector-tool';
-
-const IcomMap = {
-  [ConnectorMode.Straight]: ConnectorLIcon(),
-  [ConnectorMode.Orthogonal]: ConnectorEIcon(),
-  [ConnectorMode.Curve]: ConnectorCIcon(),
-};
 
 export class EdgelessConnectorToolButton extends QuickToolMixin(
   SignalWatcher(LitElement)
@@ -59,10 +52,12 @@ export class EdgelessConnectorToolButton extends QuickToolMixin(
               data-tip="${getConnectorModeName(mode)}"
               data-shortcut="${'C'}"
             ></affine-tooltip-content-with-shortcut>`}
-        .tooltipOffset=${17}
+        .tipPosition=${'bottom'}
+        .tooltipOffset=${10}
         .active=${active}
-        .iconContainerPadding=${6}
-        .iconSize=${'24px'}
+        .activeMode=${'background'}
+        .iconContainerPadding=${[8, 10]}
+        .iconSize=${'20px'}
         @click=${() => {
           // don't update tool before toggling menu
           this._toggleMenu();
@@ -71,8 +66,7 @@ export class EdgelessConnectorToolButton extends QuickToolMixin(
           });
         }}
       >
-        ${IcomMap[mode]}
-        <toolbar-arrow-up-icon></toolbar-arrow-up-icon>
+        ${ExcalidrawCurveIcon()} ${ExcalidrawChevronDownIcon()}
       </edgeless-tool-icon-button>
     `;
   }

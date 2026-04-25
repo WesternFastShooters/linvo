@@ -3,11 +3,14 @@ import {
   EditPropsStore,
   ThemeProvider,
 } from '@blocksuite/affine-shared/services';
-import { EdgelessToolbarToolMixin } from '@blocksuite/affine-widget-edgeless-toolbar';
+import {
+  EdgelessToolbarToolMixin,
+  ExcalidrawChevronDownIcon,
+  ExcalidrawPenIcon,
+} from '@blocksuite/affine-widget-edgeless-toolbar';
 import { SignalWatcher } from '@blocksuite/global/lit';
 import { computed, signal } from '@preact/signals-core';
 import { css, html, LitElement, nothing } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
 import { when } from 'lit/directives/when.js';
 
 import { BrushTool } from '../../../brush-tool';
@@ -21,28 +24,6 @@ export class EdgelessPenToolButton extends EdgelessToolbarToolMixin(
   static override styles = css`
     :host {
       display: flex;
-      height: 100%;
-      overflow-y: hidden;
-    }
-    .edgeless-pen-button {
-      height: 100%;
-    }
-    .pen-wrapper {
-      width: 35px;
-      height: 64px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-    .pen-wrapper svg {
-      transition-property: color, transform;
-      transition-duration: 300ms;
-      transition-timing-function: ease-in-out;
-      transform: translateY(8px);
-    }
-    .edgeless-pen-button:hover .pen-wrapper svg,
-    .pen-wrapper.active svg {
-      transform: translateY(0);
     }
   `;
 
@@ -166,14 +147,13 @@ export class EdgelessPenToolButton extends EdgelessToolbarToolMixin(
     const {
       active,
       penInfo$: {
-        value: { type, color, icon, tip, shortcut },
+        value: { tip, shortcut },
       },
     } = this;
 
     return html`
-      <edgeless-toolbar-button
+      <edgeless-tool-icon-button
         class="edgeless-pen-button"
-        data-drawing-tool="${type}"
         .tooltip=${when(
           this.popper,
           () => nothing,
@@ -183,13 +163,16 @@ export class EdgelessPenToolButton extends EdgelessToolbarToolMixin(
               data-shortcut="${shortcut}"
             ></affine-tooltip-content-with-shortcut>`
         )}
-        .tooltipOffset=${4}
+        .tipPosition=${'bottom'}
+        .tooltipOffset=${10}
         .active=${active}
-        .withHover=${true}
+        .activeMode=${'background'}
+        .iconContainerPadding=${[8, 10]}
+        .iconSize=${'20px'}
         @click=${() => this._togglePenMenu()}
       >
-        <div style=${styleMap({ color })} class="pen-wrapper">${icon}</div>
-      </edgeless-toolbar-button>
+        ${ExcalidrawPenIcon()} ${ExcalidrawChevronDownIcon()}
+      </edgeless-tool-icon-button>
     `;
   }
 }

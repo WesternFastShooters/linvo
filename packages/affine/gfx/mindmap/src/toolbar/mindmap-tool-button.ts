@@ -16,6 +16,8 @@ import {
 import {
   EdgelessDraggableElementController,
   EdgelessToolbarToolMixin,
+  ExcalidrawChevronDownIcon,
+  ExcalidrawMindmapIcon,
 } from '@blocksuite/affine-widget-edgeless-toolbar';
 import type { Bound } from '@blocksuite/global/gfx';
 import { SignalWatcher } from '@blocksuite/global/lit';
@@ -50,97 +52,7 @@ export class EdgelessMindmapToolButton extends EdgelessToolbarToolMixin(
 ) {
   static override styles = css`
     :host {
-      width: 100%;
-      height: 100%;
       display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .partial-clip {
-      flex-shrink: 0;
-      box-sizing: border-box;
-      width: calc(100% + 20px);
-      pointer-events: none;
-      padding: 0 10px;
-      overflow: hidden;
-    }
-    .basket-wrapper {
-      pointer-events: auto;
-      height: 64px;
-      width: 96px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      position: relative;
-    }
-    .basket,
-    .basket-tool-item {
-      transition: transform 0.3s ease-in-out;
-      position: absolute;
-    }
-
-    .basket {
-      bottom: 0;
-      height: 17px;
-      width: 76px;
-    }
-    .basket > div,
-    .basket > svg {
-      position: absolute;
-    }
-    .glass {
-      width: 76px;
-      height: 17px;
-      border-radius: 2px;
-      mask: url(#mindmap-basket-body-mask);
-    }
-    .glass.enabled {
-      backdrop-filter: blur(2px);
-    }
-    @-moz-document url-prefix() {
-      .glass.enabled {
-        backdrop-filter: none;
-      }
-    }
-
-    .basket {
-      z-index: 3;
-    }
-    .basket-tool-item {
-      cursor: grab;
-    }
-    .basket-tool-item svg {
-      display: block;
-    }
-    .basket-tool-item {
-      transform: translate(var(--default-x, 0), var(--default-y, 0))
-        rotate(var(--default-r, 0)) scale(var(--default-s, 1));
-      z-index: var(--default-z, 0);
-    }
-
-    .basket-tool-item.next {
-      transform: translate(var(--next-x, 0), var(--next-y, 0))
-        rotate(var(--next-r, 0)) scale(var(--next-s, 1));
-      z-index: var(--next-z, 0);
-    }
-
-    /* active & hover */
-    .basket-wrapper:hover .basket,
-    .basket-wrapper.active .basket {
-      z-index: 0;
-    }
-    .basket-wrapper:hover .basket-tool-item.current,
-    .basket-wrapper.active .basket-tool-item.current {
-      transform: translate(var(--active-x, 0), var(--active-y, 0))
-        rotate(var(--active-r, 0)) scale(var(--active-s, 1));
-      z-index: var(--active-z, 0);
-    }
-
-    .basket-tool-item.next.coming,
-    .basket-wrapper:hover .basket-tool-item.current:hover {
-      transform: translate(var(--hover-x, 0), var(--hover-y, 0))
-        rotate(var(--hover-r, 0)) scale(var(--hover-s, 1));
-      z-index: var(--hover-z, 0);
     }
   `;
 
@@ -338,111 +250,24 @@ export class EdgelessMindmapToolButton extends EdgelessToolbarToolMixin(
 
   override render() {
     const { popper } = this;
-    const appTheme = this.edgeless.std.get(ThemeProvider).app$.value;
-    const basketIcon = appTheme === 'light' ? basketIconLight : basketIconDark;
-    const glassBg =
-      appTheme === 'light' ? 'rgba(255,255,255,0.5)' : 'rgba(74, 74, 74, 0.6)';
-
-    const { cancelled, dragOut, draggingElement } =
-      this.draggableController?.states || {};
-
+    const { draggingElement } = this.draggableController?.states || {};
     const active = popper || draggingElement;
 
-    return html`<edgeless-toolbar-button
-      class="edgeless-mindmap-button"
-      ?withHover=${true}
-      .tooltip=${popper ? '' : 'Others'}
-      .tooltipOffset=${4}
-      @click=${this._toggleMenu}
-      style="width: 100%; height: 100%; display: inline-block"
-    >
-      <div class="partial-clip">
-        <div class="basket-wrapper ${active ? 'active' : ''}">
-          ${repeat(
-            this.draggableTools,
-            t => t.name,
-            tool => {
-              const isBeingDragged = draggingElement?.data.name === tool.name;
-              const variables = toolConfig2StyleObj(tool.config);
-
-              const nextStyle = styleMap({
-                ...variables,
-              });
-              const currentStyle = styleMap({
-                ...variables,
-                opacity: isBeingDragged ? 0 : 1,
-                pointerEvents: draggingElement ? 'none' : 'auto',
-              });
-
-              return html`${isBeingDragged
-                  ? html`<div
-                      class=${classMap({
-                        'basket-tool-item': true,
-                        next: true,
-                        coming: !!dragOut && !cancelled,
-                      })}
-                      style=${nextStyle}
-                    >
-                      ${tool.icon}
-                    </div>`
-                  : nothing}
-
-                <div
-                  style=${currentStyle}
-                  @mousedown=${(e: MouseEvent) =>
-                    this.draggableController.onMouseDown(e, {
-                      data: tool,
-                      preview: tool.icon,
-                      standardWidth: tool.standardWidth,
-                    })}
-                  @touchstart=${(e: TouchEvent) =>
-                    this.draggableController.onTouchStart(e, {
-                      data: tool,
-                      preview: tool.icon,
-                      standardWidth: tool.standardWidth,
-                    })}
-                  class="basket-tool-item current ${tool.name}"
-                >
-                  ${tool.icon}
-                </div>`;
-            }
-          )}
-
-          <div class="basket">
-            <div
-              class="glass ${this.enableBlur ? 'enabled' : ''}"
-              style="background: ${glassBg}"
-            ></div>
-            ${basketIcon}
-          </div>
-        </div>
-      </div>
-
-      <svg width="0" height="0" style="opacity: 0; pointer-events: none">
-        <defs>
-          <mask id="mindmap-basket-body-mask">
-            <rect
-              x="2"
-              width="71.8"
-              y="2"
-              height="15"
-              rx="1.5"
-              ry="1.5"
-              fill="white"
-            />
-            <rect
-              width="32"
-              height="6"
-              x="22"
-              y="5.9"
-              fill="black"
-              rx="3"
-              ry="3"
-            />
-          </mask>
-        </defs>
-      </svg>
-    </edgeless-toolbar-button>`;
+    return html`
+      <edgeless-tool-icon-button
+        class="edgeless-mindmap-button"
+        .tooltip=${popper ? '' : 'Mindmap'}
+        .tipPosition=${'bottom'}
+        .tooltipOffset=${10}
+        .active=${!!active}
+        .activeMode=${'background'}
+        .iconContainerPadding=${[8, 10]}
+        .iconSize=${'20px'}
+        @click=${this._toggleMenu}
+      >
+        ${ExcalidrawMindmapIcon()} ${ExcalidrawChevronDownIcon()}
+      </edgeless-tool-icon-button>
+    `;
   }
 
   override updated(_changedProperties: Map<PropertyKey, unknown>) {

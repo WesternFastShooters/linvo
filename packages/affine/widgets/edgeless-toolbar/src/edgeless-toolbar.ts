@@ -1,4 +1,5 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
+import { addAttachments } from '@blocksuite/affine-block-attachment';
 import {
   DefaultTool,
   EdgelessLegacySlotIdentifier,
@@ -15,10 +16,15 @@ import {
 import { ColorScheme, type RootBlockModel } from '@blocksuite/affine-model';
 import {
   EditPropsStore,
+  TelemetryProvider,
   ThemeProvider,
 } from '@blocksuite/affine-shared/services';
-import { stopPropagation } from '@blocksuite/affine-shared/utils';
 import {
+  openSingleFileWith,
+  stopPropagation,
+} from '@blocksuite/affine-shared/utils';
+import {
+  AttachmentIcon,
   ArrowLeftSmallIcon,
   ArrowRightSmallIcon,
   MoreHorizontalIcon,
@@ -67,9 +73,9 @@ export class EdgelessToolbarWidget extends WidgetComponent<RootBlockModel> {
       font-family: ${unsafeCSS(baseTheme.fontSansFamily)};
       position: absolute;
       z-index: 1;
-      left: calc(50%);
-      transform: translateX(-50%);
-      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 20px;
       -webkit-user-select: none;
       user-select: none;
       width: 100%;
@@ -85,19 +91,18 @@ export class EdgelessToolbarWidget extends WidgetComponent<RootBlockModel> {
 
     .edgeless-toolbar-toggle-control {
       pointer-events: auto;
-      padding-bottom: 16px;
       width: fit-content;
-      max-width: calc(100% - ${unsafeCSS(SAFE_AREA_WIDTH)}px * 2);
-      min-width: 264px;
+      max-width: calc(100% - 32px);
+      min-width: auto;
     }
     .edgeless-toolbar-toggle-control[data-enable='true'] {
-      transition: 0.23s ease;
-      padding-top: 100px;
-      transform: translateY(100px);
+      transition: none;
+      padding-top: 0;
+      transform: none;
     }
     .edgeless-toolbar-toggle-control[data-enable='true']:hover {
       padding-top: 0;
-      transform: translateY(0);
+      transform: none;
     }
 
     .edgeless-toolbar-smooth-corner {
@@ -109,8 +114,9 @@ export class EdgelessToolbarWidget extends WidgetComponent<RootBlockModel> {
       position: relative;
       display: flex;
       align-items: center;
-      padding: 0 ${unsafeCSS(TOOLBAR_PADDING_X)}px;
-      height: ${unsafeCSS(TOOLBAR_HEIGHT)}px;
+      gap: 2px;
+      padding: 5px 6px;
+      height: 44px;
     }
     :host([disabled]) .edgeless-toolbar-container {
       pointer-events: none;
@@ -221,6 +227,17 @@ export class EdgelessToolbarWidget extends WidgetComponent<RootBlockModel> {
     }
     .transform-button:hover svg {
       transform: scale(1.15);
+    }
+    .toolbar-tool-slot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+    .toolbar-tool-slot.wide {
+      min-width: 40px;
     }
   `;
 
@@ -508,75 +525,77 @@ export class EdgelessToolbarWidget extends WidgetComponent<RootBlockModel> {
     );
   }
 
+  private readonly _addAttachment = async () => {
+    const file = await openSingleFileWith();
+    if (!file) return;
+
+    await addAttachments(this.std, [file]);
+    this.gfx.tool.setTool(DefaultTool);
+    this.std.getOptional(TelemetryProvider)?.track('CanvasElementAdded', {
+      control: 'toolbar:general',
+      page: 'whiteboard editor',
+      module: 'toolbar',
+      segment: 'toolbar',
+      type: 'attachment',
+    });
+  };
+
   private _renderContent() {
+    const block = this.block;
+    if (!block) {
+      return nothing;
+    }
+
     return html`
-      <div class="quick-tools">
-        ${this._quickTools
-          .slice(0, this._visibleQuickToolSize)
-          .map(
-            tool => html`<div class="quick-tool-item">${tool.content}</div>`
-          )}
+      <div class="toolbar-tool-slot">
+        <edgeless-default-tool-button
+          .edgeless=${block}
+        ></edgeless-default-tool-button>
       </div>
-      <div class="quick-tool-more">
-        <icon-button
-          ?disabled=${!this._denseQuickTools}
-          .size=${20}
-          class="quick-tool-more-button"
-          @click=${this._openMoreQuickToolsMenu}
-          ?active=${this._quickTools
-            .slice(this._visibleQuickToolSize)
-            .some(tool => tool.type === this.edgelessTool)}
+      <div class="toolbar-tool-slot wide">
+        <edgeless-pen-tool-button .edgeless=${block}></edgeless-pen-tool-button>
+      </div>
+      <div class="toolbar-tool-slot wide">
+        <edgeless-connector-tool-button
+          .edgeless=${block}
+        ></edgeless-connector-tool-button>
+      </div>
+      <div class="toolbar-tool-slot">
+        <edgeless-eraser-tool-button
+          .edgeless=${block}
+        ></edgeless-eraser-tool-button>
+      </div>
+      <div class="toolbar-tool-slot wide">
+        <edgeless-shape-tool-button
+          .edgeless=${block}
+          .toolbarContainer=${this.toolbarContainer ?? null}
+        ></edgeless-shape-tool-button>
+      </div>
+      <div class="toolbar-tool-slot wide">
+        <edgeless-mindmap-tool-button
+          .edgeless=${block}
+          .toolbarContainer=${this.toolbarContainer ?? null}
+        ></edgeless-mindmap-tool-button>
+      </div>
+      <div class="toolbar-tool-slot">
+        <edgeless-tool-icon-button
+          .tooltip=${'File'}
+          .tipPosition=${'bottom'}
+          .tooltipOffset=${10}
+          .activeMode=${'background'}
+          .iconContainerPadding=${[8, 10]}
+          .iconSize=${'20px'}
+          @click=${() => {
+            this._addAttachment().catch(console.error);
+          }}
         >
-          ${MoreHorizontalIcon({ width: '20px', height: '20px' })}
-          <affine-tooltip tip-position="top" .offset=${25}>
-            More Tools
-          </affine-tooltip>
-        </icon-button>
+          ${AttachmentIcon()}
+        </edgeless-tool-icon-button>
       </div>
-      <div class="full-divider"></div>
-      <div class="senior-nav-button-wrapper prev">
-        <icon-button
-          .size=${20}
-          class="senior-nav-button"
-          ?disabled=${this._seniorScrollPrevDisabled}
-          @click=${this._onSeniorNavPrev}
-        >
-          ${ArrowLeftSmallIcon({ width: '20px', height: '20px' })}
-          ${cache(
-            this._seniorPrevTooltip
-              ? html` <affine-tooltip tip-position="top" .offset=${4}>
-                  ${this._seniorPrevTooltip}
-                </affine-tooltip>`
-              : nothing
-          )}
-        </icon-button>
-      </div>
-      <div class="senior-tools">
-        ${this._seniorTools
-          .slice(
-            this.scrollSeniorToolIndex,
-            this.scrollSeniorToolIndex + this.scrollSeniorToolSize
-          )
-          .map(
-            tool => html`<div class="senior-tool-item">${tool.content}</div>`
-          )}
-      </div>
-      <div class="senior-nav-button-wrapper next">
-        <icon-button
-          .size=${20}
-          class="senior-nav-button"
-          ?disabled=${this._seniorScrollNextDisabled}
-          @click=${this._onSeniorNavNext}
-        >
-          ${ArrowRightSmallIcon({ width: '20px', height: '20px' })}
-          ${cache(
-            this._seniorNextTooltip
-              ? html` <affine-tooltip tip-position="top" .offset=${4}>
-                  ${this._seniorNextTooltip}
-                </affine-tooltip>`
-              : nothing
-          )}
-        </icon-button>
+      <div class="toolbar-tool-slot wide">
+        <edgeless-frame-tool-button
+          .edgeless=${block}
+        ></edgeless-frame-tool-button>
       </div>
     `;
   }

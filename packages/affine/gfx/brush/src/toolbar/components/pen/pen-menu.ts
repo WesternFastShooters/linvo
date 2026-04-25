@@ -35,37 +35,41 @@ export class EdgelessPenMenu extends EdgelessToolbarToolMixin(
       z-index: -1;
     }
 
-    .pens {
-      display: flex;
-      height: 100%;
-      padding: 0 4px;
-      align-items: flex-end;
-
-      edgeless-tool-icon-button {
+      .pens {
         display: flex;
-        align-self: flex-start;
-      }
+        height: 100%;
+        padding: 0 4px;
+        align-items: center;
 
-      .pen-wrapper {
-        display: flex;
-        min-width: 38px;
-        height: 64px;
-        align-items: flex-end;
-        justify-content: center;
-        position: relative;
-        transform: translateY(-2px);
-        transition-property: color, transform;
-        transition-duration: 300ms;
-        transition-timing-function: ease-in-out;
-        cursor: pointer;
-      }
+        edgeless-tool-icon-button {
+          display: flex;
+        }
 
-      .pen-wrapper:hover,
-      .pen-wrapper:active,
-      .pen-wrapper[data-active] {
-        transform: translateY(-22px);
+        .pen-wrapper {
+          display: flex;
+          min-width: 32px;
+          height: 32px;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          border-radius: 10px;
+          transition-property: color, transform;
+          transition-duration: 180ms;
+          transition-timing-function: ease;
+          cursor: pointer;
+        }
+
+        .pen-wrapper:hover,
+        .pen-wrapper:active,
+        .pen-wrapper[data-active] {
+          transform: scale(1.06);
+        }
+
+        .pen-wrapper svg {
+          width: 20px;
+          height: 20px;
+        }
       }
-    }
 
     .menu-content {
       display: flex;

@@ -1,8 +1,5 @@
 import { BlockSuiteError } from '@blocksuite/global/exceptions';
 
-// more than 100% due to the shadow
-const leaveToPercent = `calc(100% + 10px)`;
-
 export interface MenuPopper<T extends HTMLElement> {
   element: T;
   dispose: () => void;
@@ -13,10 +10,12 @@ export interface MenuPopper<T extends HTMLElement> {
 const popMap = new WeakMap<HTMLElement, Map<string, MenuPopper<HTMLElement>>>();
 
 function animateEnter(el: HTMLElement) {
+  el.style.opacity = '1';
   el.style.transform = 'translateY(0)';
 }
 function animateLeave(el: HTMLElement) {
-  el.style.transform = `translateY(${leaveToPercent})`;
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(-8px)';
 }
 
 export function createPopper<T extends keyof HTMLElementTagNameMap>(
@@ -56,29 +55,30 @@ export function createPopper<T extends keyof HTMLElementTagNameMap>(
   reference.shadowRoot.append(clipWrapper);
 
   // apply enter transition
-  menu.style.transition = `all ${duration}ms ease`;
+  menu.style.transition = `opacity ${duration}ms ease, transform ${duration}ms ease`;
   animateLeave(menu);
   requestAnimationFrame(() => animateEnter(menu));
 
   Object.assign(clipWrapper.style, {
-    height: '100px',
+    height: 'auto',
     pointerEvents: 'none',
     position: 'absolute',
-    overflow: 'hidden',
-    width: '100%',
-    maxWidth: '100%',
+    overflow: 'visible',
+    width: 'max-content',
+    maxWidth: 'max-content',
     boxSizing: 'border-box',
-    left: '0px',
-    bottom: '100%',
+    left: '50%',
+    top: 'calc(100% + 8px)',
+    transform: 'translateX(-50%)',
     display: 'flex',
-    alignItems: 'end',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    zIndex: '10',
   });
 
   Object.assign(menu.style, {
-    width: '100%',
-    marginLeft: '30px',
-    maxWidth: 'calc(100% - 60px)',
-    bottom: '0%',
+    width: 'max-content',
+    maxWidth: 'min(480px, calc(100vw - 32px))',
     pointerEvents: 'auto',
   });
   const remove = () => {

@@ -40,6 +40,10 @@ export const createShapeDraggingOverlay = <T>(
 ): OverlayLayer => {
   const { edgelessRect, parentToMount, element: originalElement } = info;
   const elementStyle = getComputedStyle(originalElement);
+  const {
+    standardWidth: previewWidth,
+    standardHeight: previewHeight,
+  } = info.elementInfo;
   const mask = document.createElement('div');
   addClass(mask, 'mask');
   Object.assign(mask.style, {
@@ -59,11 +63,16 @@ export const createShapeDraggingOverlay = <T>(
   addClass(element, 'element');
   const transitionWrapper = document.createElement('div');
   addClass(transitionWrapper, 'transition-wrapper');
+  const transitionWidth = originalElement.getBoundingClientRect().width;
+  const transitionHeight =
+    previewWidth && previewHeight
+      ? (transitionWidth * previewHeight) / previewWidth
+      : originalElement.getBoundingClientRect().height;
   Object.assign(transitionWrapper.style, {
     transition: 'all 0.18s ease',
     transform: 'scale(var(--scale, 1)) rotate(var(--rotate, 0deg))',
-    width: elementStyle.width,
-    height: elementStyle.height,
+    width: transitionWidth ? `${transitionWidth}px` : elementStyle.width,
+    height: transitionHeight ? `${transitionHeight}px` : elementStyle.height,
   });
   transitionWrapper.style.setProperty('--rotate', '0deg');
   transitionWrapper.style.setProperty('--scale', '1');

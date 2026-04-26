@@ -1,1 +1,2 @@
-export * from './draggable-element.controller.js';
+export * from './draggable-element.controller';
+export * from './types';

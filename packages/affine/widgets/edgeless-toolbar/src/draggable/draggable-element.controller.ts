@@ -305,9 +305,12 @@ export class EdgelessDraggableElementController<T>
 
     const standardWidth =
       this.info.elementInfo.standardWidth ?? this.options.standardWidth ?? 100;
+    const scaleWithZoom = this.options.scaleDragPreviewWithZoom ?? true;
 
     const { elementRectOriginal } = this.info;
-    const scale = (standardWidth * zoom) / elementRectOriginal.width;
+    const scale =
+      (standardWidth * (scaleWithZoom ? zoom : 1)) /
+      elementRectOriginal.width;
 
     const clickToDragScale = this.options.clickToDragScale ?? 1.2;
 

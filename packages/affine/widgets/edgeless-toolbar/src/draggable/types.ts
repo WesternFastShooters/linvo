@@ -34,6 +34,11 @@ export interface EdgelessDraggableElementOptions<T> {
    * @default 100
    */
   standardWidth?: number;
+  /**
+   * The height of the element when placed to canvas.
+   * Used together with `standardWidth` to preserve non-square previews.
+   */
+  standardHeight?: number;
 
   /**
    * the threshold of mousedown and mouseup duration in ms
@@ -52,6 +57,13 @@ export interface EdgelessDraggableElementOptions<T> {
    * @default 1.2
    */
   clickToDragScale?: number;
+
+  /**
+   * Whether the drag preview should scale with the canvas zoom after leaving
+   * the toolbar scope.
+   * @default true
+   */
+  scaleDragPreviewWithZoom?: boolean;
 
   /**
    * To verify if the move is valid
@@ -90,6 +102,10 @@ export type ElementInfo<T> = {
    * Override the value in {@link EdgelessDraggableElementOptions.standardWidth}
    */
   standardWidth?: number;
+  /**
+   * Override the value in {@link EdgelessDraggableElementOptions.standardHeight}
+   */
+  standardHeight?: number;
 };
 
 export const defaultIsValidMove = (offset: { x: number; y: number }) => {

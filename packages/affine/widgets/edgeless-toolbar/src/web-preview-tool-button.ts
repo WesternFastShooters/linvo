@@ -3,7 +3,7 @@ import { createLitPortal } from '@blocksuite/affine-components/portal';
 import { SignalWatcher } from '@blocksuite/global/lit';
 import type { Bound } from '@blocksuite/global/gfx';
 import { css, html, LitElement } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { query } from 'lit/decorators.js';
 
 import { ExcalidrawWebPreviewIcon } from './button/excalidraw-topbar-icons';
 import {
@@ -12,124 +12,97 @@ import {
 } from './draggable';
 import { EdgelessToolbarToolMixin } from './mixins';
 import {
-  EdgelessWebPreviewUrlModal,
   type WebPreviewSubmitPayload,
 } from './web-preview-url-modal';
 
-const WEB_PREVIEW_WIDTH = 1200;
-const WEB_PREVIEW_HEIGHT = 720;
-const GHOST_PREVIEW_SIZE = 200;
+const GHOST_PREVIEW_WIDTH = 280;
+const GHOST_PREVIEW_HEIGHT = 180;
 
-const createGhostPreviewCard = (url: string) => {
-  const host = new URL(url).host;
-
+const createGhostPreviewCard = (_url: string) => {
   return html`
-    <div
-      style="
-        box-sizing: border-box;
-        width: 200px;
-        height: 200px;
-        display: flex;
-        flex-direction: column;
-        border-radius: 16px;
-        overflow: hidden;
-        background: white;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        box-shadow:
-          0 24px 48px rgba(15, 23, 42, 0.18),
-          0 8px 18px rgba(15, 23, 42, 0.1);
-        color: #111827;
-        user-select: none;
-      "
+    <svg
+      width="${GHOST_PREVIEW_WIDTH}"
+      height="${GHOST_PREVIEW_HEIGHT}"
+      viewBox="0 0 280 180"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <div
-        style="
-          height: 76px;
-          background:
-            radial-gradient(circle at top left, rgba(37, 99, 235, 0.14), transparent 52%),
-            linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
-          border-bottom: 1px solid rgba(15, 23, 42, 0.06);
-          position: relative;
-        "
-      >
-        <div
-          style="
-            position: absolute;
-            inset: 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(37, 99, 235, 0.16);
-            background: rgba(255, 255, 255, 0.72);
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            gap: 8px;
-          "
+      <defs>
+        <filter
+          id="ghost-shadow"
+          x="-20"
+          y="-10"
+          width="320"
+          height="220"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
         >
-          <span style="display:flex; gap:5px;">
-            <span style="width:8px; height:8px; border-radius:999px; background:#f87171;"></span>
-            <span style="width:8px; height:8px; border-radius:999px; background:#fbbf24;"></span>
-            <span style="width:8px; height:8px; border-radius:999px; background:#34d399;"></span>
-          </span>
-          <span
-            style="
-              flex: 1;
-              font-size: 11px;
-              line-height: 16px;
-              color: #64748b;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            "
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="12" />
+          <feGaussianBlur stdDeviation="12" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow"
+            result="shape"
+          />
+        </filter>
+      </defs>
+
+      <g filter="url(#ghost-shadow)" opacity="0.8">
+        <rect
+          x="2"
+          y="2"
+          width="276"
+          height="176"
+          rx="8"
+          fill="white"
+          fill-opacity="0.8"
+        />
+        <rect
+          x="2"
+          y="2"
+          width="276"
+          height="176"
+          rx="8"
+          stroke="#1890FF"
+          stroke-width="2"
+        />
+
+        <g transform="translate(14, 14)">
+          <rect width="200" height="10" rx="2" fill="#F0F0F0" />
+          <rect y="18" width="150" height="10" rx="2" fill="#F0F0F0" />
+          <rect y="36" width="252" height="116" rx="4" fill="#F9F9F9" />
+          <text
+            x="126"
+            y="105"
+            text-anchor="middle"
+            font-family="Arial"
+            font-size="24"
+            fill="#000"
+            fill-opacity="0.2"
           >
-            ${host}
-          </span>
-        </div>
-      </div>
-      <div
-        style="
-          flex: 1;
-          padding: 14px;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        "
-      >
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #0f172a;
-          "
-        >
-          <span style="display:flex; width:18px; height:18px;">
-            ${ExcalidrawWebPreviewIcon()}
-          </span>
-          <span
-            style="
-              font-size: 15px;
-              line-height: 22px;
-              font-weight: 600;
-            "
-          >
-            Web Preview
-          </span>
-        </div>
-        <div
-          style="
-            font-size: 12px;
-            line-height: 18px;
-            color: #475569;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-          "
-        >
-          ${url}
-        </div>
-      </div>
-    </div>
+            🔗
+          </text>
+        </g>
+      </g>
+    </svg>
   `;
 };
 
@@ -201,7 +174,8 @@ export class EdgelessWebPreviewToolButton extends EdgelessToolbarToolMixin(
         url: payload.url,
       },
       preview: createGhostPreviewCard(payload.url),
-      standardWidth: GHOST_PREVIEW_SIZE,
+      standardWidth: GHOST_PREVIEW_WIDTH,
+      standardHeight: GHOST_PREVIEW_HEIGHT,
     };
 
     if (!this.draggableController || !this.buttonElement) {
@@ -227,10 +201,7 @@ export class EdgelessWebPreviewToolButton extends EdgelessToolbarToolMixin(
     await block?.updateComplete?.catch(console.error);
   }
 
-  private readonly _createWebPreviewBlock = async (
-    bound: Bound,
-    url: string
-  ) => {
+  private readonly _createWebPreviewBlock = async (bound: Bound, url: string) => {
     const title = new URL(url).host;
     const blockId = this.crud.addBlock(
       'affine:embed-iframe',
@@ -259,8 +230,10 @@ export class EdgelessWebPreviewToolButton extends EdgelessToolbarToolMixin(
     this.draggableController = new EdgelessDraggableElementController(this, {
       edgeless: this.edgeless,
       scopeElement: this.toolbarContainer,
-      standardWidth: GHOST_PREVIEW_SIZE,
+      standardWidth: GHOST_PREVIEW_WIDTH,
+      standardHeight: GHOST_PREVIEW_HEIGHT,
       clickToDrag: true,
+      scaleDragPreviewWithZoom: false,
       onDrop: (element, bound) => {
         this._createWebPreviewBlock(
           bound,
@@ -326,7 +299,4 @@ export class EdgelessWebPreviewToolButton extends EdgelessToolbarToolMixin(
 
   @query('edgeless-tool-icon-button')
   accessor buttonElement!: HTMLElement;
-
-  @property({ attribute: false })
-  accessor toolbarContainer: HTMLElement | null = null;
 }

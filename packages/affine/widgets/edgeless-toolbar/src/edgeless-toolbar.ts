@@ -1,5 +1,4 @@
 /* oxlint-disable @typescript-eslint/no-non-null-assertion */
-import { addAttachments } from '@blocksuite/affine-block-attachment';
 import {
   DefaultTool,
   EdgelessLegacySlotIdentifier,
@@ -16,15 +15,10 @@ import {
 import { ColorScheme, type RootBlockModel } from '@blocksuite/affine-model';
 import {
   EditPropsStore,
-  TelemetryProvider,
   ThemeProvider,
 } from '@blocksuite/affine-shared/services';
+import { stopPropagation } from '@blocksuite/affine-shared/utils';
 import {
-  openSingleFileWith,
-  stopPropagation,
-} from '@blocksuite/affine-shared/utils';
-import {
-  AttachmentIcon,
   ArrowLeftSmallIcon,
   ArrowRightSmallIcon,
   MoreHorizontalIcon,
@@ -525,21 +519,6 @@ export class EdgelessToolbarWidget extends WidgetComponent<RootBlockModel> {
     );
   }
 
-  private readonly _addAttachment = async () => {
-    const file = await openSingleFileWith();
-    if (!file) return;
-
-    await addAttachments(this.std, [file]);
-    this.gfx.tool.setTool(DefaultTool);
-    this.std.getOptional(TelemetryProvider)?.track('CanvasElementAdded', {
-      control: 'toolbar:general',
-      page: 'whiteboard editor',
-      module: 'toolbar',
-      segment: 'toolbar',
-      type: 'attachment',
-    });
-  };
-
   private _renderContent() {
     const block = this.block;
     if (!block) {
@@ -589,19 +568,10 @@ export class EdgelessToolbarWidget extends WidgetComponent<RootBlockModel> {
         ></edgeless-mermaid-button>
       </div>
       <div class="toolbar-tool-slot">
-        <edgeless-tool-icon-button
-          .tooltip=${'File'}
-          .tipPosition=${'bottom'}
-          .tooltipOffset=${10}
-          .activeMode=${'background'}
-          .iconContainerPadding=${[8, 10]}
-          .iconSize=${'20px'}
-          @click=${() => {
-            this._addAttachment().catch(console.error);
-          }}
-        >
-          ${AttachmentIcon()}
-        </edgeless-tool-icon-button>
+        <edgeless-file-tool-button
+          .edgeless=${block}
+          .toolbarContainer=${this.toolbarContainer ?? null}
+        ></edgeless-file-tool-button>
       </div>
       <div class="toolbar-tool-slot wide">
         <edgeless-frame-tool-button

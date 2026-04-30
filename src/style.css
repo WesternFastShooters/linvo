@@ -1,0 +1,77 @@
+@import '@theme/style.css';
+@import '@theme/fonts.css';
+@import 'katex/dist/katex.min.css';
+
+:root {
+  color: #111827;
+  background:
+    radial-gradient(circle at top, rgba(14, 165, 233, 0.14), transparent 30%),
+    linear-gradient(180deg, #f8fbff 0%, #eef4ff 100%);
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+#app {
+  height: 100vh;
+}
+
+.shell {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+
+.shell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.shell-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.shell-title h1,
+.shell-title p {
+  margin: 0;
+}
+
+.shell-title h1 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.shell-title p {
+  font-size: 12px;
+  color: #475569;
+}
+
+.shell-note {
+  font-size: 12px;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.editor-shell {
+  min-height: 0;
+}
+
+.editor-shell linvo-editor-container {
+  display: block;
+  height: 100%;
+}

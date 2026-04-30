@@ -1,7 +1,7 @@
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { SignalWatcher } from '@blocksuite/global/lit';
-import type { BaseTextAttributes, DeltaInsert } from '@blocksuite/store';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { SignalWatcher } from '@linvo/global/lit';
+import type { BaseTextAttributes, DeltaInsert } from '@linvo/store';
 import { effect, signal } from '@preact/signals-core';
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -63,11 +63,11 @@ export class VElement<
     const isEmbed = inlineEditor.isEmbed(this.delta);
     if (isEmbed) {
       if (this.delta.insert.length !== 1) {
-        throw new BlockSuiteError(
+        throw new LinvoError(
           ErrorCode.InlineEditorError,
           `The length of embed node should only be 1.
           This seems to be an internal issue with inline editor.
-          Please go to https://github.com/toeverything/blocksuite/issues
+          Please go to https://github.com/toeverything/linvo/issues
           to report it.`
         );
       }

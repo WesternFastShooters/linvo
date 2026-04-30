@@ -2,7 +2,7 @@ import {
   EdgelessTemplatePanel,
   type Template,
   type TemplateManager,
-} from '@blocksuite/affine/gfx/template';
+} from '@linvo/linvo/gfx/template';
 import { beforeEach, expect, test } from 'vitest';
 
 import { setupEditor } from '../utils/setup.js';

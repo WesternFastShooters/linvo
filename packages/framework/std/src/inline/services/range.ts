@@ -1,4 +1,4 @@
-import type { BaseTextAttributes } from '@blocksuite/store';
+import type { BaseTextAttributes } from '@linvo/store';
 import { effect } from '@preact/signals-core';
 import * as Y from 'yjs';
 

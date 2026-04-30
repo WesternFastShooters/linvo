@@ -1,6 +1,6 @@
 ## Context
 
-当前仓库是一个基于 BlockSuite/AFFiNE primitives 构建的 edgeless 白板。它已经具备：
+当前仓库是一个基于底层画布 primitives 构建的 edgeless 白板。它已经具备：
 
 - 通过 edgeless toolbar quick/senior tools 扩展顶部工具栏；
 - 使用 shape、connector 等原生画板元素；
@@ -195,7 +195,7 @@ type MermaidInsertPlan =
 
 v1 不要求重新打开一个已插入对象并恢复出 Mermaid 源码。spec 不应默认假设图片插入结果或 native group 可以无损逆向恢复成 Mermaid。
 
-但设计上也不应封死后续能力，例如未来增加专门的 `affine:mermaid` block 或额外 metadata 承载层。
+但设计上也不应封死后续能力，例如未来增加专门的 `linvo:mermaid` block 或额外 metadata 承载层。
 
 ## Risks / Trade-offs
 

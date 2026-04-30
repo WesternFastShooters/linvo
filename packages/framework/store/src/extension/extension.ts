@@ -1,4 +1,4 @@
-import type { Container } from '@blocksuite/global/di';
+import type { Container } from '@linvo/global/di';
 
 /**
  * # Understanding Extensions
@@ -33,7 +33,7 @@ import type { Container } from '@blocksuite/global/di';
  * ## Step 2: Create a service identifier
  *
  * ```ts
- * import { createIdentifier } from '@blocksuite/global/di';
+ * import { createIdentifier } from '@linvo/global/di';
  *
  * const FruitProcessorProvider = createIdentifier<FruitProcessor>('fruit-processor-provider');
  * ```
@@ -81,7 +81,7 @@ import type { Container } from '@blocksuite/global/di';
  * ## Step 6: Use the extensions
  *
  * ```ts
- * import { Container } from '@blocksuite/global/di';
+ * import { Container } from '@linvo/global/di';
  *
  * class FruitProcessingSystem {
  *   provider: ServiceProvider;
@@ -116,7 +116,7 @@ import type { Container } from '@blocksuite/global/di';
  * system.processFruit({ type: 'banana' }); // Output: Peeling banana
  * ```
  *
- * Note: We deliberately used a non-block specific example here. In BlockSuite, the extension
+ * Note: We deliberately used a non-block specific example here. In this editor framework, the extension
  * pattern can be applied to any entity that can be configured by third parties, not just blocks.
  * This includes different tools in the whiteboard, different column types in database blocks,
  * and many other extensible components. The pattern remains the same regardless of what you're extending.

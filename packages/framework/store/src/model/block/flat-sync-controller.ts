@@ -1,4 +1,4 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 import * as Y from 'yjs';
 
 import { ReactiveFlatYMap } from '../../reactive/flat-native-y/index.js';
@@ -40,7 +40,7 @@ export class FlatSyncController {
   private _createModel(props: Set<string>) {
     const schema = this.schema.flavourSchemaMap.get(this.flavour);
     if (!schema) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ModelCRUDError,
         `schema for flavour: ${this.flavour} not found`
       );
@@ -114,19 +114,19 @@ export class FlatSyncController {
     });
 
     if (!id) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ModelCRUDError,
         'block id is not found when creating model'
       );
     }
     if (!flavour) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ModelCRUDError,
         'block flavour is not found when creating model'
       );
     }
     if (!yChildren) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ModelCRUDError,
         'block children is not found when creating model'
       );
@@ -134,7 +134,7 @@ export class FlatSyncController {
 
     const schema = this.schema.flavourSchemaMap.get(flavour);
     if (!schema) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ModelCRUDError,
         `schema for flavour: ${flavour} not found`
       );

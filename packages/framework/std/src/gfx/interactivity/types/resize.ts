@@ -1,4 +1,4 @@
-import type { IBound, IPoint, IVec } from '@blocksuite/global/gfx';
+import type { IBound, IPoint, IVec } from '@linvo/global/gfx';
 
 import type { GfxModel } from '../../model/model';
 import type { ResizeHandle } from '../resize/manager';

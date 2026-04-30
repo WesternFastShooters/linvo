@@ -1,9 +1,9 @@
-import { createIdentifier, type ServiceProvider } from '@blocksuite/global/di';
+import { createIdentifier, type ServiceProvider } from '@linvo/global/di';
 import type {
   BaseAdapter,
   ExtensionType,
   Transformer,
-} from '@blocksuite/store';
+} from '@linvo/store';
 
 type AdapterConstructor = new (
   job: Transformer,

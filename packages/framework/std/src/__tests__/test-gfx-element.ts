@@ -1,4 +1,4 @@
-import type { SerializedXYWH } from '@blocksuite/global/gfx';
+import type { SerializedXYWH } from '@linvo/global/gfx';
 
 import {
   convert,

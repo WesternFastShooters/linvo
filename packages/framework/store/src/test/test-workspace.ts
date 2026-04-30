@@ -1,5 +1,5 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { NoopLogger } from '@blocksuite/global/utils';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { NoopLogger } from '@linvo/global/utils';
 import {
   AwarenessEngine,
   type AwarenessSource,
@@ -9,7 +9,7 @@ import {
   type DocSource,
   MemoryBlobSource,
   NoopDocSource,
-} from '@blocksuite/sync';
+} from '@linvo/sync';
 import { Subject } from 'rxjs';
 import { Awareness } from 'y-protocols/awareness.js';
 import * as Y from 'yjs';
@@ -153,7 +153,7 @@ export class TestWorkspace implements Workspace {
   createDoc(docId?: string): Doc {
     const id = docId ?? this.idGenerator();
     if (this._hasDoc(id)) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.DocCollectionError,
         'doc already exists'
       );
@@ -195,7 +195,7 @@ export class TestWorkspace implements Workspace {
   removeDoc(docId: string) {
     const docMeta = this.meta.getDocMeta(docId);
     if (!docMeta) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.DocCollectionError,
         `doc meta not found: ${docId}`
       );

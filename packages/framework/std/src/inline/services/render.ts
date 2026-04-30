@@ -1,5 +1,5 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import type { BaseTextAttributes } from '@blocksuite/store';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import type { BaseTextAttributes } from '@linvo/store';
 import { html, render } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
 import * as Y from 'yjs';
@@ -19,7 +19,7 @@ export class RenderService<TextAttributes extends BaseTextAttributes> {
     const yText = this.editor.yText;
 
     if (yText.toString().includes('\r')) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.InlineEditorError,
         'yText must not contain "\\r" because it will break the range synchronization'
       );

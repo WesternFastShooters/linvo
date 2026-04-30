@@ -1,5 +1,5 @@
-import type { EdgelessRootBlockComponent } from '@blocksuite/affine/blocks/root';
-import type { ToolOptions } from '@blocksuite/std/gfx';
+import type { EdgelessRootBlockComponent } from '@linvo/linvo/blocks/root';
+import type { ToolOptions } from '@linvo/std/gfx';
 import { computed, signal } from '@preact/signals-core';
 
 import { buildMermaidInsertPlan } from './plan';

@@ -16,7 +16,7 @@ import {
   type Edge,
   extractClosestEdge,
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
-import type { ServiceIdentifier } from '@blocksuite/global/di';
+import type { ServiceIdentifier } from '@linvo/global/di';
 
 import { LifeCycleWatcherIdentifier } from '../../identifier.js';
 import { LifeCycleWatcher } from '../lifecycle-watcher.js';
@@ -36,14 +36,14 @@ export type DragEntity = { type: string };
 
 export type DragFrom = { at: string };
 
-export type DragFromBlockSuite = {
-  at: 'blocksuite-editor';
+export type DragFromLinvo = {
+  at: 'linvo-editor';
   docId: string;
 };
 
 export type DragPayload<
   E extends DragEntity = DragEntity,
-  F extends DragFrom = DragFromBlockSuite,
+  F extends DragFrom = DragFromLinvo,
 > = {
   bsEntity?: E;
   from?: F;
@@ -219,7 +219,7 @@ export class DndController extends LifeCycleWatcher {
   >(
     args: DraggableOption<
       PayloadEntity,
-      DragFromBlockSuite,
+      DragFromLinvo,
       DropPayload<DropData>
     >
   ) {
@@ -305,7 +305,7 @@ export class DndController extends LifeCycleWatcher {
         return {
           bsEntity,
           from: {
-            at: 'blocksuite-editor',
+            at: 'linvo-editor',
             docId: this.std.store.doc.id,
           },
         };
@@ -324,7 +324,7 @@ export class DndController extends LifeCycleWatcher {
   dropTarget<
     PayloadEntity extends DragEntity = DragEntity,
     DropData extends {} = {},
-    PayloadFrom extends DragFrom = DragFromBlockSuite,
+    PayloadFrom extends DragFrom = DragFromLinvo,
   >(args: DropTargetOption<PayloadEntity, PayloadFrom, DropPayload<DropData>>) {
     const {
       element,
@@ -359,14 +359,14 @@ export class DndController extends LifeCycleWatcher {
   monitor<
     PayloadEntity extends DragEntity = DragEntity,
     DropData extends {} = {},
-    PayloadFrom extends DragFrom = DragFromBlockSuite,
+    PayloadFrom extends DragFrom = DragFromLinvo,
   >(args: MonitorOption<PayloadEntity, PayloadFrom, DropPayload<DropData>>) {
     return monitorForElements(args as OriginalMonitorOption);
   }
 
   autoScroll<
     PayloadEntity extends DragEntity = DragEntity,
-    PayloadFrom extends DragFrom = DragFromBlockSuite,
+    PayloadFrom extends DragFrom = DragFromLinvo,
   >(options: AutoScroll<PayloadEntity, PayloadFrom>) {
     return autoScrollForElements(options as OriginalAutoScrollOption);
   }

@@ -1,6 +1,6 @@
-import type { EdgelessRootBlockComponent } from '@blocksuite/affine/blocks/root';
-import type { ConnectorElementModel, ShapeElementModel } from '@blocksuite/affine/model';
-import { MagicBrushTool } from '@blocksuite/affine/gfx/brush';
+import type { EdgelessRootBlockComponent } from '@linvo/linvo/blocks/root';
+import type { ConnectorElementModel, ShapeElementModel } from '@linvo/linvo/model';
+import { MagicBrushTool } from '@linvo/linvo/gfx/brush';
 import { beforeEach, describe, expect, test } from 'vitest';
 
 import {

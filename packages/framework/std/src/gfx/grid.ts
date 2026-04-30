@@ -1,11 +1,11 @@
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import type { IBound } from '@blocksuite/global/gfx';
+import { DisposableGroup } from '@linvo/global/disposable';
+import type { IBound } from '@linvo/global/gfx';
 import {
   Bound,
   getBoundWithRotation,
   intersects,
-} from '@blocksuite/global/gfx';
-import type { BlockModel } from '@blocksuite/store';
+} from '@linvo/global/gfx';
+import type { BlockModel } from '@linvo/store';
 
 import { compare } from '../utils/layer.js';
 import { GfxExtension } from './extension.js';

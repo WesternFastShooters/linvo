@@ -1,6 +1,6 @@
 {
-  "name": "@blocksuite/sync",
-  "description": "BlockSuite data synchronization engine abstraction and implementation.",
+  "name": "@linvo/sync",
+  "description": "Linvo data synchronization engine abstraction and implementation.",
   "type": "module",
   "scripts": {
     "build": "tsc"
@@ -10,7 +10,7 @@
   "author": "toeverything",
   "license": "MIT",
   "dependencies": {
-    "@blocksuite/global": "workspace:*",
+    "@linvo/global": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "idb": "^8.0.0",
     "idb-keyval": "^6.2.1",

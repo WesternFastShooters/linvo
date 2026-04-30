@@ -1,20 +1,20 @@
-import { addImages } from '@blocksuite/affine/blocks/image';
+import { addImages } from '@linvo/linvo/blocks/image';
 import {
   DefaultTool,
   EdgelessCRUDIdentifier,
   type SurfaceBlockComponent,
   ToolOverlay,
-} from '@blocksuite/affine/blocks/surface';
-import { createGroupCommand } from '@blocksuite/affine/gfx/group';
-import type { ConnectorElementModel } from '@blocksuite/affine/model';
-import { ShapeType } from '@blocksuite/affine/model';
+} from '@linvo/linvo/blocks/surface';
+import { createGroupCommand } from '@linvo/linvo/gfx/group';
+import type { ConnectorElementModel } from '@linvo/linvo/model';
+import { ShapeType } from '@linvo/linvo/model';
 import {
   EditPropsStore,
   ThemeProvider,
-} from '@blocksuite/affine/shared/services';
-import { Bound } from '@blocksuite/global/gfx';
-import type { PointerEventState } from '@blocksuite/std';
-import { BaseTool } from '@blocksuite/std/gfx';
+} from '@linvo/linvo/shared/services';
+import { Bound } from '@linvo/global/gfx';
+import type { PointerEventState } from '@linvo/std';
+import { BaseTool } from '@linvo/std/gfx';
 import * as Y from 'yjs';
 
 import type { MermaidInsertController } from './controller';
@@ -78,10 +78,10 @@ class MermaidGhostOverlay extends ToolOverlay {
     } else {
       ctx.fillStyle = this.gfx.std
         .get(ThemeProvider)
-        .getCssVariableColor('--affine-hover-color');
+        .getCssVariableColor('--linvo-hover-color');
       ctx.strokeStyle = this.gfx.std
         .get(ThemeProvider)
-        .getCssVariableColor('--affine-primary-color');
+        .getCssVariableColor('--linvo-primary-color');
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.roundRect(

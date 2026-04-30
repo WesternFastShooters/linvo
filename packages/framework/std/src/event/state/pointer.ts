@@ -76,7 +76,7 @@ export class MultiPointerEventState extends UIEventState {
 }
 
 declare global {
-  interface BlockSuiteUIEventState {
+  interface LinvoUIEventState {
     pointerState: PointerEventState;
     multiPointerState: MultiPointerEventState;
   }

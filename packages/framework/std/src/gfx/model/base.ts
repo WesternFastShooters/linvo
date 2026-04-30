@@ -5,7 +5,7 @@ import type {
   PointLocation,
   SerializedXYWH,
   XYWH,
-} from '@blocksuite/global/gfx';
+} from '@linvo/global/gfx';
 
 import type { EditorHost } from '../../view/element/lit-host.js';
 import type { GfxGroupModel, GfxModel } from './model.js';

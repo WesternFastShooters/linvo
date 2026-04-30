@@ -1,6 +1,6 @@
-import { shapeMethods } from '@blocksuite/affine/model';
+import { shapeMethods } from '@linvo/linvo/model';
 
-import { RoughSVG } from '../../packages/affine/blocks/surface/src/utils/rough/svg.js';
+import { RoughSVG } from '../../packages/linvo/blocks/surface/src/utils/rough/svg.js';
 
 import type {
   MermaidInsertPlan,

@@ -1,0 +1,52 @@
+{
+  "name": "@linvo/linvo-block-code",
+  "description": "Code block for Linvo.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "sideEffects": false,
+  "keywords": [],
+  "author": "toeverything",
+  "license": "MIT",
+  "dependencies": {
+    "@floating-ui/dom": "^1.6.13",
+    "@linvo/global": "workspace:*",
+    "@linvo/icons": "workspace:*",
+    "@linvo/linvo-components": "workspace:*",
+    "@linvo/linvo-ext-loader": "workspace:*",
+    "@linvo/linvo-gfx-turbo-renderer": "workspace:*",
+    "@linvo/linvo-inline-comment": "workspace:*",
+    "@linvo/linvo-inline-latex": "workspace:*",
+    "@linvo/linvo-inline-link": "workspace:*",
+    "@linvo/linvo-inline-preset": "workspace:*",
+    "@linvo/linvo-model": "workspace:*",
+    "@linvo/linvo-rich-text": "workspace:*",
+    "@linvo/linvo-shared": "workspace:*",
+    "@linvo/linvo-widget-slash-menu": "workspace:*",
+    "@linvo/std": "workspace:*",
+    "@linvo/store": "workspace:*",
+    "@linvo/theme": "workspace:*",
+    "@lit/context": "^1.1.2",
+    "@preact/signals-core": "^1.8.0",
+    "@types/mdast": "^4.0.4",
+    "lit": "^3.2.0",
+    "minimatch": "^10.0.1",
+    "rxjs": "^7.8.1",
+    "shiki": "^3.0.0",
+    "zod": "^3.23.8"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./turbo-painter": "./src/turbo/code-painter.worker.ts",
+    "./view": "./src/view.ts",
+    "./store": "./src/store.ts"
+  },
+  "files": [
+    "src",
+    "dist",
+    "!src/__tests__",
+    "!dist/__tests__"
+  ],
+  "version": "0.22.4"
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@linvo/linvo-gfx-turbo-renderer",
+  "description": "Turbo renderer for viewport in Linvo.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "sideEffects": false,
+  "keywords": [],
+  "author": "toeverything",
+  "license": "MIT",
+  "dependencies": {
+    "@linvo/global": "workspace:*",
+    "@linvo/std": "workspace:*",
+    "@linvo/store": "workspace:*",
+    "rxjs": "^7.8.1"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./painter": "./src/painter/painter.worker.ts"
+  },
+  "files": [
+    "src",
+    "dist",
+    "!src/__tests__",
+    "!dist/__tests__"
+  ],
+  "version": "0.22.4"
+}

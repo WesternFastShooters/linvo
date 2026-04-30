@@ -1,6 +1,6 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
-import { type BlockModel, type BlockViewType, Store } from '@blocksuite/store';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
+import { type BlockModel, type BlockViewType, Store } from '@linvo/store';
 import { consume, provide } from '@lit/context';
 import { computed } from '@preact/signals-core';
 import { nothing, type TemplateResult } from 'lit';
@@ -111,7 +111,7 @@ export class BlockComponent<
     }
     const model = this.store.getModelById<Model>(this.blockId);
     if (!model) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.MissingViewModelError,
         `Cannot find block model for id ${this.blockId}`
       );

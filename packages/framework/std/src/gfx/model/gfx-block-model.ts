@@ -1,5 +1,5 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import type { IVec, SerializedXYWH, XYWH } from '@blocksuite/global/gfx';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import type { IVec, SerializedXYWH, XYWH } from '@linvo/global/gfx';
 import {
   Bound,
   deserializeXYWH,
@@ -10,9 +10,9 @@ import {
   polygonGetPointTangent,
   polygonNearestPoint,
   rotatePoints,
-} from '@blocksuite/global/gfx';
-import type { Constructor } from '@blocksuite/global/utils';
-import { BlockModel } from '@blocksuite/store';
+} from '@linvo/global/gfx';
+import type { Constructor } from '@linvo/global/utils';
+import { BlockModel } from '@linvo/store';
 
 import {
   isLockedByAncestorImpl,
@@ -176,7 +176,7 @@ export class GfxBlockElementModel<
   }
 
   get surface(): SurfaceBlockModel | null {
-    const result = this.store.getBlocksByFlavour('affine:surface');
+    const result = this.store.getBlocksByFlavour('linvo:surface');
     if (result.length === 0) return null;
     return result[0].model as SurfaceBlockModel;
   }
@@ -299,7 +299,7 @@ export function GfxCompatibleBlockModel<
     }
 
     if (Object.getPrototypeOf(currentClass.prototype) === null) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.GfxBlockElementError,
         'The SuperClass is not a subclass of BlockModel'
       );

@@ -1,14 +1,14 @@
 import type {
   EdgelessRootBlockComponent,
   PageRootBlockComponent,
-} from '@blocksuite/affine/blocks/root';
-import type { SurfaceBlockComponent } from '@blocksuite/affine/blocks/surface';
-import type { Store } from '@blocksuite/store';
+} from '@linvo/linvo/blocks/root';
+import type { SurfaceBlockComponent } from '@linvo/linvo/blocks/surface';
+import type { Store } from '@linvo/store';
 
-import type { TestAffineEditorContainer } from '../../index.js';
+import type { TestLinvoEditorContainer } from '../../index.js';
 
-export function getSurface(doc: Store, editor: TestAffineEditorContainer) {
-  const surfaceModel = doc.getModelsByFlavour('affine:surface');
+export function getSurface(doc: Store, editor: TestLinvoEditorContainer) {
+  const surfaceModel = doc.getModelsByFlavour('linvo:surface');
 
   return editor.host!.view.getBlock(
     surfaceModel[0]!.id
@@ -17,17 +17,17 @@ export function getSurface(doc: Store, editor: TestAffineEditorContainer) {
 
 export function getDocRootBlock(
   doc: Store,
-  editor: TestAffineEditorContainer,
+  editor: TestLinvoEditorContainer,
   mode: 'page'
 ): PageRootBlockComponent;
 export function getDocRootBlock(
   doc: Store,
-  editor: TestAffineEditorContainer,
+  editor: TestLinvoEditorContainer,
   mode: 'edgeless'
 ): EdgelessRootBlockComponent;
 export function getDocRootBlock(
   doc: Store,
-  editor: TestAffineEditorContainer,
+  editor: TestLinvoEditorContainer,
   _?: 'edgeless' | 'page'
 ) {
   return editor.host!.view.getBlock(doc.root!.id) as
@@ -37,7 +37,7 @@ export function getDocRootBlock(
 
 export function addNote(doc: Store, props: Record<string, any> = {}) {
   const noteId = doc.addBlock(
-    'affine:note',
+    'linvo:note',
     {
       xywh: '[0, 0, 800, 100]',
       ...props,
@@ -45,7 +45,7 @@ export function addNote(doc: Store, props: Record<string, any> = {}) {
     doc.root
   );
 
-  doc.addBlock('affine:paragraph', {}, noteId);
+  doc.addBlock('linvo:paragraph', {}, noteId);
 
   return noteId;
 }

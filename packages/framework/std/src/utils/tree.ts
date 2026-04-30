@@ -1,4 +1,4 @@
-import type { Store } from '@blocksuite/store';
+import type { Store } from '@linvo/store';
 
 import {
   type GfxCompatibleInterface,

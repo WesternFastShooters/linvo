@@ -1,5 +1,5 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import type { Constructor } from '@blocksuite/global/utils';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import type { Constructor } from '@linvo/global/utils';
 import type { LitElement } from 'lit';
 
 type ValidatorFunction = (value: unknown) => boolean;
@@ -28,13 +28,13 @@ function validatePropTypes<T extends InstanceType<Constructor>>(
   for (const [propName, validator] of Object.entries(propTypes)) {
     const key = propName as keyof T;
     if (instance[key] === undefined) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.DefaultRuntimeError,
         `Property ${propName} is required to ${instance.constructor.name}.`
       );
     }
     if (validator && !validator(instance[key])) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.DefaultRuntimeError,
         `Property ${propName} is invalid to ${instance.constructor.name}.`
       );

@@ -1,13 +1,13 @@
 import {
   createIdentifier,
   type ServiceIdentifier,
-} from '@blocksuite/global/di';
+} from '@linvo/global/di';
 import {
   type BaseTextAttributes,
   baseTextAttributes,
   type DeltaInsert,
   type ExtensionType,
-} from '@blocksuite/store';
+} from '@linvo/store';
 import { z } from 'zod';
 
 import { StdIdentifier } from '../../identifier.js';
@@ -96,7 +96,7 @@ export type InlineManagerExtensionConfig<
 };
 
 const InlineManagerIdentifier = createIdentifier<unknown>(
-  'AffineInlineManager'
+  'LinvoInlineManager'
 );
 
 export function InlineManagerExtension<

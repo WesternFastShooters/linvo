@@ -1,4 +1,4 @@
-import type { Bound } from '@blocksuite/global/gfx';
+import type { Bound } from '@linvo/global/gfx';
 
 import type { GfxBlockComponent } from '../../../view';
 import type { GfxModel } from '../../model/model';

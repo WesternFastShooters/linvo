@@ -1,7 +1,7 @@
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { assertType, type Constructor } from '@blocksuite/global/utils';
-import type { Boxed } from '@blocksuite/store';
-import { BlockModel, nanoid } from '@blocksuite/store';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { assertType, type Constructor } from '@linvo/global/utils';
+import type { Boxed } from '@linvo/store';
+import { BlockModel, nanoid } from '@linvo/store';
 import { signal } from '@preact/signals-core';
 import { Subject } from 'rxjs';
 import * as Y from 'yjs';
@@ -23,11 +23,11 @@ import type { GfxLocalElementModel } from './local-element-model.js';
 /**
  * Used for text field
  */
-export const SURFACE_TEXT_UNIQ_IDENTIFIER = 'affine:surface:text';
+export const SURFACE_TEXT_UNIQ_IDENTIFIER = 'linvo:surface:text';
 /**
  * Used for field that use Y.Map. E.g. group children field
  */
-export const SURFACE_YMAP_UNIQ_IDENTIFIER = 'affine:surface:ymap';
+export const SURFACE_YMAP_UNIQ_IDENTIFIER = 'linvo:surface:ymap';
 
 export type SurfaceBlockProps = {
   elements: Boxed<Y.Map<Y.Map<unknown>>>;

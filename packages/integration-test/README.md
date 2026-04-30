@@ -1,13 +1,13 @@
-# `@blocksuite/integration-test`
+# `@linvo/integration-test`
 
-Integration test for BlockSuite.
+Integration test for Linvo.
 
 ## Running Tests
 
 You can run all integration tests using:
 
 ```bash
-cd blocksuite/integration-test
+cd linvo/integration-test
 yarn test:unit
 ```
 

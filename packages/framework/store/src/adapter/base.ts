@@ -1,5 +1,5 @@
-import type { ServiceProvider } from '@blocksuite/global/di';
-import { BlockSuiteError } from '@blocksuite/global/exceptions';
+import type { ServiceProvider } from '@linvo/global/di';
+import { LinvoError } from '@linvo/global/exceptions';
 
 import {
   BlockModel,
@@ -54,12 +54,12 @@ export type ToSliceSnapshotPayload<Target> = {
 };
 
 export function wrapFakeNote(snapshot: SliceSnapshot) {
-  if (snapshot.content[0]?.flavour !== 'affine:note') {
+  if (snapshot.content[0]?.flavour !== 'linvo:note') {
     snapshot.content = [
       {
         type: 'block',
         id: '',
-        flavour: 'affine:note',
+        flavour: 'linvo:note',
         props: {},
         children: snapshot.content,
       },
@@ -309,7 +309,7 @@ export class ASTWalker<ONode extends object, TNode extends object | never> {
     this.context.openNode(tNode);
     await this._visit({ node: oNode, parent: null, prop: null, index: null });
     if (this.context.stack.length !== 1) {
-      throw new BlockSuiteError(1, 'There are unclosed nodes');
+      throw new LinvoError(1, 'There are unclosed nodes');
     }
     return this.context.currentNode();
   };

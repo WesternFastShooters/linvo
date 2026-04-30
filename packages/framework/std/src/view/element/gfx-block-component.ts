@@ -1,5 +1,5 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { Bound } from '@blocksuite/global/gfx';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { Bound } from '@linvo/global/gfx';
 import { computed, effect, signal } from '@preact/signals-core';
 import { nothing } from 'lit';
 
@@ -122,7 +122,7 @@ export abstract class GfxBlockComponent<
     const { xywh$ } = this.model;
 
     if (!xywh$) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.GfxBlockElementError,
         `Error on rendering '${this.model.flavour}': Gfx block's model should have 'xywh' property.`
       );
@@ -244,7 +244,7 @@ export function toGfxBlockComponent<
       const { xywh$ } = this.model;
 
       if (!xywh$) {
-        throw new BlockSuiteError(
+        throw new LinvoError(
           ErrorCode.GfxBlockElementError,
           `Error on rendering '${this.model.flavour}': Gfx block's model should have 'xywh' property.`
         );

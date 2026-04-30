@@ -1,14 +1,14 @@
 import {
-  BlockSuiteError,
+  LinvoError,
   ErrorCode,
   handleError,
-} from '@blocksuite/global/exceptions';
-import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
+} from '@linvo/global/exceptions';
+import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
 import {
   type BlockModel,
   Store,
   type StoreSelectionExtension,
-} from '@blocksuite/store';
+} from '@linvo/store';
 import { createContext, provide } from '@lit/context';
 import { css, LitElement, nothing, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -113,7 +113,7 @@ export class EditorHost extends SignalWatcher(
     super.connectedCallback();
 
     if (!this.store.root) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.NoRootModelError,
         'This doc is missing root block. Please initialize the default block structure before connecting the editor to DOM.'
       );

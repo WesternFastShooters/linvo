@@ -1,0 +1,53 @@
+{
+  "name": "@linvo/linvo-block-note",
+  "description": "Note block for Linvo.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "sideEffects": false,
+  "keywords": [],
+  "author": "toeverything",
+  "license": "MIT",
+  "dependencies": {
+    "@linvo/global": "workspace:*",
+    "@linvo/icons": "workspace:*",
+    "@linvo/linvo-block-embed": "workspace:*",
+    "@linvo/linvo-block-surface": "workspace:*",
+    "@linvo/linvo-components": "workspace:*",
+    "@linvo/linvo-ext-loader": "workspace:*",
+    "@linvo/linvo-fragment-doc-title": "workspace:*",
+    "@linvo/linvo-gfx-turbo-renderer": "workspace:*",
+    "@linvo/linvo-inline-preset": "workspace:*",
+    "@linvo/linvo-model": "workspace:*",
+    "@linvo/linvo-rich-text": "workspace:*",
+    "@linvo/linvo-shared": "workspace:*",
+    "@linvo/linvo-widget-slash-menu": "workspace:*",
+    "@linvo/std": "workspace:*",
+    "@linvo/store": "workspace:*",
+    "@linvo/theme": "workspace:*",
+    "@lit/context": "^1.1.2",
+    "@preact/signals-core": "^1.8.0",
+    "@types/lodash-es": "^4.17.12",
+    "@types/mdast": "^4.0.4",
+    "@vanilla-extract/css": "^1.17.0",
+    "lit": "^3.2.0",
+    "lodash-es": "^4.17.21",
+    "minimatch": "^10.0.1",
+    "rxjs": "^7.8.1",
+    "zod": "^3.23.8"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./turbo-painter": "./src/turbo/note-painter.worker.ts",
+    "./store": "./src/store.ts",
+    "./view": "./src/view.ts"
+  },
+  "files": [
+    "src",
+    "dist",
+    "!src/__tests__",
+    "!dist/__tests__"
+  ],
+  "version": "0.22.4"
+}

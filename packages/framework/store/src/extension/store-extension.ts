@@ -1,5 +1,5 @@
-import { type Container, createIdentifier } from '@blocksuite/global/di';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
+import { type Container, createIdentifier } from '@linvo/global/di';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 
 import type { Store } from '../model/store';
 import { StoreIdentifier } from '../model/store/identifier';
@@ -41,7 +41,7 @@ export class StoreExtension extends Extension {
 
   static override setup(di: Container) {
     if (!this.key) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ValueNotExists,
         'Key is not defined in the StoreExtension'
       );

@@ -1,5 +1,5 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { sha } from '@blocksuite/global/utils';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { sha } from '@linvo/global/utils';
 
 /**
  * @internal just for test
@@ -31,7 +31,7 @@ export class MemoryBlobCRUD {
     const value = typeof valueOrKey === 'string' ? _value : valueOrKey;
 
     if (!value) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.TransformerError,
         'value is required'
       );
@@ -143,7 +143,7 @@ const getExt = (type: string) => {
 export function getAssetName(assets: Map<string, Blob>, blobId: string) {
   const blob = assets.get(blobId);
   if (!blob) {
-    throw new BlockSuiteError(
+    throw new LinvoError(
       ErrorCode.TransformerError,
       `blob not found for blobId: ${blobId}`
     );

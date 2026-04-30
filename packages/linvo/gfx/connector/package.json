@@ -1,0 +1,48 @@
+{
+  "name": "@linvo/linvo-gfx-connector",
+  "description": "Gfx connector for Linvo.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "sideEffects": false,
+  "keywords": [],
+  "author": "toeverything",
+  "license": "MIT",
+  "dependencies": {
+    "@linvo/global": "workspace:*",
+    "@linvo/icons": "workspace:*",
+    "@linvo/linvo-block-surface": "workspace:*",
+    "@linvo/linvo-components": "workspace:*",
+    "@linvo/linvo-ext-loader": "workspace:*",
+    "@linvo/linvo-gfx-text": "workspace:*",
+    "@linvo/linvo-model": "workspace:*",
+    "@linvo/linvo-rich-text": "workspace:*",
+    "@linvo/linvo-shared": "workspace:*",
+    "@linvo/linvo-widget-edgeless-toolbar": "workspace:*",
+    "@linvo/std": "workspace:*",
+    "@linvo/store": "workspace:*",
+    "@linvo/theme": "workspace:*",
+    "@lit/context": "^1.1.2",
+    "@preact/signals-core": "^1.8.0",
+    "@types/lodash-es": "^4.17.12",
+    "lit": "^3.2.0",
+    "lodash-es": "^4.17.21",
+    "minimatch": "^10.0.1",
+    "rxjs": "^7.8.1",
+    "yjs": "^13.6.21",
+    "zod": "^3.23.8"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./view": "./src/view.ts",
+    "./store": "./src/store.ts"
+  },
+  "files": [
+    "src",
+    "dist",
+    "!src/__tests__",
+    "!dist/__tests__"
+  ],
+  "version": "0.22.4"
+}

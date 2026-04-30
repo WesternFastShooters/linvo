@@ -1,5 +1,5 @@
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 import { signal } from '@preact/signals-core';
 
 import { LifeCycleWatcher } from '../extension/index.js';
@@ -281,7 +281,7 @@ export class UIEventDispatcher extends LifeCycleWatcher {
         break;
       }
       default: {
-        throw new BlockSuiteError(
+        throw new LinvoError(
           ErrorCode.EventDispatcherError,
           `Unknown event scope source: ${state.sourceType}`
         );

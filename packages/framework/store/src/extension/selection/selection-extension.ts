@@ -1,4 +1,4 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 import { computed, signal } from '@preact/signals-core';
 import { Subject } from 'rxjs';
 
@@ -33,7 +33,7 @@ export class StoreSelectionExtension extends StoreExtension {
   private readonly _jsonToSelection = (json: Record<string, unknown>) => {
     const ctor = this._selectionConstructors[json.type as string];
     if (!ctor) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.SelectionError,
         `Unknown selection type: ${json.type}`
       );

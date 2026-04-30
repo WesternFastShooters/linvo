@@ -1,7 +1,7 @@
-# `@blocksuite/store`
+# `@linvo/store`
 
-BlockSuite data store built for general purpose state management. Used in [AFFiNE](https://affine.pro/).
+Linvo data store built for general purpose state management. Used in [Linvo](https://linvo.pro/).
 
 ## Documentation
 
-Checkout [blocksuite.io](https://blocksuite.io/) for comprehensive documentation.
+Checkout [linvo.io](https://linvo.io/) for comprehensive documentation.

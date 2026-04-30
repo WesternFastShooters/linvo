@@ -1,5 +1,5 @@
-@import '@toeverything/theme/style.css';
-@import '@toeverything/theme/fonts.css';
+@import '@linvo/theme/style.css';
+@import '@linvo/theme/fonts.css';
 @import 'katex/dist/katex.min.css';
 
 :root {
@@ -71,7 +71,7 @@ body {
   min-height: 0;
 }
 
-.editor-shell affine-editor-container {
+.editor-shell linvo-editor-container {
   display: block;
   height: 100%;
 }

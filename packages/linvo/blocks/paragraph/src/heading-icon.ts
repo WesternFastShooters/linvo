@@ -9,7 +9,7 @@ import {
 import type { ParagraphBlockModel } from '@linvo/linvo-model';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
 import { ShadowlessElement } from '@linvo/std';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { css, html, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 

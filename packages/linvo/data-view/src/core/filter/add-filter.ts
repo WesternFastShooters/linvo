@@ -3,7 +3,7 @@ import {
   popMenu,
   type PopupTarget,
 } from '@linvo/linvo-components/context-menu';
-import { AddCursorIcon } from '@linvo/icons/lit';
+import { AddCursorIcon } from '@icons/lit';
 import type { Middleware } from '@floating-ui/dom';
 import type { ReadonlySignal } from '@preact/signals-core';
 

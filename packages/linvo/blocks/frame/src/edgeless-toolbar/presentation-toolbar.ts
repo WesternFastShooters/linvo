@@ -18,11 +18,11 @@ import {
   ExpandFullIcon,
   StartPointArrowIcon,
   StopAiIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import type { BlockComponent } from '@linvo/std';
 import type { ToolOptions } from '@linvo/std/gfx';
 import { effect } from '@preact/signals-core';
-import { cssVar } from '@linvo/theme';
+import { cssVar } from '@theme';
 import { css, html, LitElement, nothing, type PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 

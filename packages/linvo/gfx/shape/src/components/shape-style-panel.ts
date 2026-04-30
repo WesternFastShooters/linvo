@@ -1,5 +1,5 @@
 import { ShapeStyle } from '@linvo/linvo-model';
-import { StyleGeneralIcon, StyleScribbleIcon } from '@linvo/icons/lit';
+import { StyleGeneralIcon, StyleScribbleIcon } from '@icons/lit';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';

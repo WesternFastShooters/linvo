@@ -1,7 +1,7 @@
 import { FeatureFlagService } from '@linvo/linvo-shared/services';
 import { isInsideBlockByFlavour } from '@linvo/linvo-shared/utils';
 import { type SlashMenuConfig } from '@linvo/linvo-widget-slash-menu';
-import { DatabaseTableViewIcon } from '@linvo/icons/lit';
+import { DatabaseTableViewIcon } from '@icons/lit';
 
 import type { DataViewBlockComponent } from '../data-view-block';
 import { ToDoListTooltip } from './tooltips';

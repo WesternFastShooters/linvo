@@ -1,7 +1,7 @@
 import { DefaultTool } from '@linvo/linvo-block-surface';
 import { toggleEmbedCardCreateModal } from '@linvo/linvo-components/embed-card-modal';
 import type { SlashMenuConfig } from '@linvo/linvo-widget-slash-menu';
-import { LoomLogoDuotoneIcon } from '@linvo/icons/lit';
+import { LoomLogoDuotoneIcon } from '@icons/lit';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
 
 import { LoomTooltip } from './tooltips';

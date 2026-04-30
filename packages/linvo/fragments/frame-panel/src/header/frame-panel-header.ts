@@ -10,7 +10,7 @@ import {
 import { createButtonPopper } from '@linvo/linvo-shared/utils';
 import { DisposableGroup } from '@linvo/global/disposable';
 import { WithDisposable } from '@linvo/global/lit';
-import { PresentationIcon, SettingsIcon } from '@linvo/icons/lit';
+import { PresentationIcon, SettingsIcon } from '@icons/lit';
 import type { EditorHost } from '@linvo/std';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
 import { css, html, LitElement, type PropertyValues } from 'lit';

@@ -1,5 +1,5 @@
 import { WithDisposable } from '@linvo/global/lit';
-import { ArrowRightSmallIcon } from '@linvo/icons/lit';
+import { ArrowRightSmallIcon } from '@icons/lit';
 import { consume } from '@lit/context';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';

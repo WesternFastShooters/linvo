@@ -3,8 +3,8 @@ import {
   TelemetryProvider,
 } from '@linvo/linvo-shared/services';
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
-import { CloseIcon } from '@linvo/icons/lit';
-import { baseTheme } from '@linvo/theme';
+import { CloseIcon } from '@icons/lit';
+import { baseTheme } from '@theme';
 import { css, html, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

@@ -1,6 +1,6 @@
 import type { ImageBlockModel } from '@linvo/linvo-model';
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
-import { ImageIcon } from '@linvo/icons/lit';
+import { ImageIcon } from '@icons/lit';
 import { BlockComponent } from '@linvo/std';
 import { css, html } from 'lit';
 

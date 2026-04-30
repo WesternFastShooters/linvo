@@ -1,4 +1,4 @@
-import * as icons from '@linvo/icons/lit';
+import * as icons from '@icons/lit';
 import { html, svg } from 'lit';
 
 import { icon } from './utils.js';

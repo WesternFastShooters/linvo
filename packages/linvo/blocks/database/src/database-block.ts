@@ -40,7 +40,7 @@ import {
   CopyIcon,
   DeleteIcon,
   MoreHorizontalIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { type BlockComponent, BlockSelection } from '@linvo/std';
 import { RANGE_SYNC_EXCLUDE_ATTR } from '@linvo/std/inline';
 import { Slice } from '@linvo/store';

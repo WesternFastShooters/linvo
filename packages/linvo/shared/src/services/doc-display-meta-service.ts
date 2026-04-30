@@ -12,7 +12,7 @@ import {
   LinkedEdgelessIcon,
   LinkedPageIcon,
   PageIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { LifeCycleWatcher, StdIdentifier } from '@linvo/std';
 import type { Store } from '@linvo/store';
 import {

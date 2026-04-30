@@ -1,7 +1,7 @@
 import { DefaultTool } from '@linvo/linvo-block-surface';
 import { menu } from '@linvo/linvo-components/context-menu';
 import type { DenseMenuBuilder } from '@linvo/linvo-widget-edgeless-toolbar';
-import { FrameIcon } from '@linvo/icons/lit';
+import { FrameIcon } from '@icons/lit';
 
 import { EdgelessFrameManagerIdentifier } from '../frame-manager.js';
 import { FrameTool } from '../frame-tool';

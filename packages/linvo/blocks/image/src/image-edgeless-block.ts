@@ -8,7 +8,7 @@ import {
 } from '@linvo/linvo-model';
 import { cssVarV2, unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { formatSize } from '@linvo/linvo-shared/utils';
-import { BrokenImageIcon, ImageIcon } from '@linvo/icons/lit';
+import { BrokenImageIcon, ImageIcon } from '@icons/lit';
 import { GfxBlockComponent } from '@linvo/std';
 import { GfxViewInteractionExtension } from '@linvo/std/gfx';
 import { computed } from '@preact/signals-core';

@@ -1,4 +1,4 @@
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { html } from 'lit';
 
 export const LoadingIcon = ({

@@ -1,4 +1,4 @@
-import { ArrowDownSmallIcon } from '@linvo/icons/lit';
+import { ArrowDownSmallIcon } from '@icons/lit';
 
 export const EditorChevronDown = ArrowDownSmallIcon({
   style: 'display: flex;',

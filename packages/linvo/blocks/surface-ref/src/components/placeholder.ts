@@ -1,7 +1,7 @@
 import { ColorScheme } from '@linvo/linvo-model';
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { DeleteIcon } from '@linvo/icons/lit';
+import { DeleteIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { type GfxModel } from '@linvo/std/gfx';
 import { css, html, nothing } from 'lit';

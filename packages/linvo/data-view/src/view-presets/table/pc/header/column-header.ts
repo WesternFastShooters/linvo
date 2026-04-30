@@ -1,6 +1,6 @@
 import { getScrollContainer } from '@linvo/linvo-shared/utils';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { PlusIcon } from '@linvo/icons/lit';
+import { PlusIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { autoUpdate } from '@floating-ui/dom';
 import { nothing, type TemplateResult } from 'lit';

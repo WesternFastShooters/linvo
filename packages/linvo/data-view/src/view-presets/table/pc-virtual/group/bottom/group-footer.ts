@@ -1,5 +1,5 @@
 import { WithDisposable } from '@linvo/global/lit';
-import { PlusIcon } from '@linvo/icons/lit';
+import { PlusIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { computed } from '@preact/signals-core';
 import { html } from 'lit';

@@ -6,7 +6,7 @@ import {
   stopPropagation,
 } from '@linvo/linvo-shared/utils';
 import { WithDisposable } from '@linvo/global/lit';
-import { DoneIcon } from '@linvo/icons/lit';
+import { DoneIcon } from '@icons/lit';
 import {
   type BlockStdScope,
   ShadowlessElement,

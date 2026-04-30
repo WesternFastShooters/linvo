@@ -1,4 +1,4 @@
-import { ArrowLeftBigIcon } from '@linvo/icons/lit';
+import { ArrowLeftBigIcon } from '@icons/lit';
 import { html } from 'lit';
 
 export const menuTitle = (name: string, onBack: () => void) => {

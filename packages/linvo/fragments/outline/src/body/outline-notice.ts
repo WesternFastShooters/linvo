@@ -1,6 +1,6 @@
 import { NoteDisplayMode } from '@linvo/linvo-model';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { CloseIcon, SortIcon } from '@linvo/icons/lit';
+import { CloseIcon, SortIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { consume } from '@lit/context';
 import { effect, signal } from '@preact/signals-core';

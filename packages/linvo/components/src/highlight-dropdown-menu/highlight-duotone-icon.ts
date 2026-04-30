@@ -1,4 +1,4 @@
-import { HighLightDuotoneIcon } from '@linvo/icons/lit';
+import { HighLightDuotoneIcon } from '@icons/lit';
 import { css, LitElement } from 'lit';
 
 export class HighlightDuotoneIcon extends LitElement {

@@ -6,7 +6,7 @@ import {
   RoundedRectangleIcon,
   SquareIcon,
   TriangleIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import type { TemplateResult } from 'lit';
 
 import {

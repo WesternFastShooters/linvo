@@ -2,7 +2,7 @@ import {
   type LinvoCssVariables,
   combinedDarkCssVariables,
   combinedLightCssVariables,
-} from '@linvo/theme';
+} from '@theme';
 import { unsafeCSS } from 'lit';
 
 const toolbarColorKeys: Array<keyof LinvoCssVariables> = [

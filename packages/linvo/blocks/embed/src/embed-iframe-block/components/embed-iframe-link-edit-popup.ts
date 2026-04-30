@@ -4,7 +4,7 @@ import {
 } from '@linvo/linvo-shared/services';
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { SignalWatcher } from '@linvo/global/lit';
-import { DoneIcon } from '@linvo/icons/lit';
+import { DoneIcon } from '@icons/lit';
 import { css, html } from 'lit';
 
 import { EmbedIframeLinkInputBase } from './embed-iframe-link-input-base';

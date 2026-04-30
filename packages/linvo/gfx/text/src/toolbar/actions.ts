@@ -34,7 +34,7 @@ import {
   TextAlignCenterIcon,
   TextAlignLeftIcon,
   TextAlignRightIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import type { GfxModel } from '@linvo/std/gfx';
 import { signal } from '@preact/signals-core';
 import { html } from 'lit';

@@ -1,7 +1,7 @@
 import { getSelectedModelsCommand } from '@linvo/linvo-shared/commands';
 import { type VirtualKeyboardProviderWithAction } from '@linvo/linvo-shared/services';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { ArrowLeftBigIcon, KeyboardIcon } from '@linvo/icons/lit';
+import { ArrowLeftBigIcon, KeyboardIcon } from '@icons/lit';
 import {
   BlockComponent,
   PropTypes,

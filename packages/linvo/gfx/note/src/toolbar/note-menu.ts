@@ -10,7 +10,7 @@ import {
   openSingleFileWith,
 } from '@linvo/linvo-shared/utils';
 import { EdgelessToolbarToolMixin } from '@linvo/linvo-widget-edgeless-toolbar';
-import { AttachmentIcon, ImageIcon, LinkIcon } from '@linvo/icons/lit';
+import { AttachmentIcon, ImageIcon, LinkIcon } from '@icons/lit';
 import type { ToolOptions } from '@linvo/std/gfx';
 import { effect } from '@preact/signals-core';
 import { css, html, LitElement } from 'lit';

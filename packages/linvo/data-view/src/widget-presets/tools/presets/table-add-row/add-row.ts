@@ -1,6 +1,6 @@
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { IS_MOBILE } from '@linvo/global/env';
-import { PlusIcon } from '@linvo/icons/lit';
+import { PlusIcon } from '@icons/lit';
 import { css, html } from 'lit';
 
 import { WidgetBase } from '../../../../core/widget/widget-base.js';

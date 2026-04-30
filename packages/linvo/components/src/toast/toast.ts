@@ -1,5 +1,5 @@
 import type { EditorHost } from '@linvo/std';
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 import { html } from 'lit';
 
 import { createToastContainer } from './create.js';

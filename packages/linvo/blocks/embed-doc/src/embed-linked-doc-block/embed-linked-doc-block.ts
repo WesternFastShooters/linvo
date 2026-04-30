@@ -33,7 +33,7 @@ import {
   referenceToNode,
 } from '@linvo/linvo-shared/utils';
 import { Bound } from '@linvo/global/gfx';
-import { ResetIcon } from '@linvo/icons/lit';
+import { ResetIcon } from '@icons/lit';
 import { BlockSelection } from '@linvo/std';
 import { Text } from '@linvo/store';
 import { computed } from '@preact/signals-core';

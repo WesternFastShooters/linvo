@@ -1,6 +1,6 @@
 import { getSelectedModelsCommand } from '@linvo/linvo-shared/commands';
 import { type SlashMenuConfig } from '@linvo/linvo-widget-slash-menu';
-import { ImageIcon } from '@linvo/icons/lit';
+import { ImageIcon } from '@icons/lit';
 
 import { insertImagesCommand } from '../commands';
 import { PhotoTooltip } from './tooltips';

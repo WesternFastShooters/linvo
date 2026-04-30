@@ -15,7 +15,7 @@ import {
   type MenuItem,
   renderMenu,
 } from '@linvo/linvo-widget-edgeless-toolbar';
-import { RadiantIcon, RightLayoutIcon, StyleIcon } from '@linvo/icons/lit';
+import { RadiantIcon, RightLayoutIcon, StyleIcon } from '@icons/lit';
 import { BlockFlavourIdentifier } from '@linvo/std';
 
 import {

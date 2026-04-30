@@ -3,7 +3,7 @@ import {
   popFilterableSimpleMenu,
   type PopupTarget,
 } from '@linvo/linvo-components/context-menu';
-import { DeleteIcon, ExpandFullIcon } from '@linvo/icons/lit';
+import { DeleteIcon, ExpandFullIcon } from '@icons/lit';
 
 import type { SingleView } from '../../../core/index.js';
 import type { MobileTableViewUILogic } from './table-view-ui-logic.js';

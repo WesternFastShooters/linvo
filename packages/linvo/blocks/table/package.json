@@ -15,7 +15,6 @@
     "@floating-ui/dom": "^1.6.13",
     "@linvo/data-view": "workspace:*",
     "@linvo/global": "workspace:*",
-    "@linvo/icons": "workspace:*",
     "@linvo/linvo-components": "workspace:*",
     "@linvo/linvo-ext-loader": "workspace:*",
     "@linvo/linvo-inline-preset": "workspace:*",

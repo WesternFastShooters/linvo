@@ -1,7 +1,7 @@
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { WithDisposable } from '@linvo/global/lit';
-import { EmbedIcon } from '@linvo/icons/lit';
-import { baseTheme } from '@linvo/theme';
+import { EmbedIcon } from '@icons/lit';
+import { baseTheme } from '@theme';
 import { css, html, LitElement, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

@@ -1,6 +1,6 @@
 import { openSingleFileWith } from '@linvo/linvo-shared/utils';
 import { type SlashMenuConfig } from '@linvo/linvo-widget-slash-menu';
-import { ExportToPdfIcon, FileIcon } from '@linvo/icons/lit';
+import { ExportToPdfIcon, FileIcon } from '@icons/lit';
 
 import { addSiblingAttachmentBlocks } from '../utils';
 import { AttachmentTooltip, PDFTooltip } from './tooltips';

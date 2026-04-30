@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 
 import { LEFT_TOOL_BAR_WIDTH } from '../consts.js';
 

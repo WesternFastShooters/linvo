@@ -12,7 +12,7 @@ import {
   type LinvoCssVariables,
   combinedDarkCssVariables,
   combinedLightCssVariables,
-} from '@linvo/theme';
+} from '@theme';
 
 import { isInsideEdgelessEditor } from '../utils/dom';
 

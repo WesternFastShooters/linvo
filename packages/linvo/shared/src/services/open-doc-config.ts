@@ -1,5 +1,5 @@
 import { createIdentifier } from '@linvo/global/di';
-import { CenterPeekIcon, ExpandFullIcon } from '@linvo/icons/lit';
+import { CenterPeekIcon, ExpandFullIcon } from '@icons/lit';
 import { type ExtensionType } from '@linvo/store';
 import type { TemplateResult } from 'lit';
 

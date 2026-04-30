@@ -2,7 +2,7 @@ import {
   EdgelessToolbarToolMixin,
   QuickToolMixin,
 } from '@linvo/linvo-widget-edgeless-toolbar';
-import { PresentationIcon } from '@linvo/icons/lit';
+import { PresentationIcon } from '@icons/lit';
 import { css, html, LitElement } from 'lit';
 
 import { PresentTool } from '../present-tool';

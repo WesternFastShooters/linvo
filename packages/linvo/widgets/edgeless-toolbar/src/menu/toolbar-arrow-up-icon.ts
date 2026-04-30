@@ -1,4 +1,4 @@
-import { ArrowUpSmallIcon } from '@linvo/icons/lit';
+import { ArrowUpSmallIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { css, html } from 'lit';
 

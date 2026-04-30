@@ -4,7 +4,7 @@ import {
   popupTargetFromElement,
 } from '@linvo/linvo-components/context-menu';
 import type { InsertToPosition } from '@linvo/linvo-shared/utils';
-import { AddCursorIcon } from '@linvo/icons/lit';
+import { AddCursorIcon } from '@icons/lit';
 import { signal } from '@preact/signals-core';
 import type { TemplateResult } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';

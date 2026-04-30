@@ -15,7 +15,7 @@ import { getRectByBlockComponent } from '@linvo/linvo-shared/utils';
 import type { EdgelessSelectedRectWidget } from '@linvo/linvo-widget-edgeless-selected-rect';
 import { DisposableGroup } from '@linvo/global/disposable';
 import { deserializeXYWH, Point, serializeXYWH } from '@linvo/global/gfx';
-import { ScissorsIcon } from '@linvo/icons/lit';
+import { ScissorsIcon } from '@icons/lit';
 import { WidgetComponent, WidgetViewExtension } from '@linvo/std';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
 import { css, html, nothing, type PropertyValues } from 'lit';

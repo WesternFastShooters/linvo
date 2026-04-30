@@ -10,7 +10,7 @@ import {
 } from '@linvo/linvo-shared/utils';
 import { BaseCellRenderer } from '@linvo/data-view';
 import { IS_MAC } from '@linvo/global/env';
-import { LinkedPageIcon } from '@linvo/icons/lit';
+import { LinkedPageIcon } from '@icons/lit';
 import type { BlockSnapshot, DeltaInsert, Text } from '@linvo/store';
 import { computed, signal } from '@preact/signals-core';
 import { property } from 'lit/decorators.js';

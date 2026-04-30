@@ -1,5 +1,5 @@
-import { baseTheme } from '@linvo/theme';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { baseTheme } from '@theme';
+import { cssVarV2 } from '@theme/v2';
 import {
   css,
   html,

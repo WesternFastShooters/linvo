@@ -13,7 +13,7 @@ import {
   getTopElements,
   GfxViewInteractionExtension,
 } from '@linvo/std/gfx';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';

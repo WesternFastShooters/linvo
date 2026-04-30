@@ -7,7 +7,7 @@ import {
   matchModels,
 } from '@linvo/linvo-shared/utils';
 import { type SlashMenuConfig } from '@linvo/linvo-widget-slash-menu';
-import { FontIcon } from '@linvo/icons/lit';
+import { FontIcon } from '@icons/lit';
 
 import { calloutTooltip } from './tooltips';
 

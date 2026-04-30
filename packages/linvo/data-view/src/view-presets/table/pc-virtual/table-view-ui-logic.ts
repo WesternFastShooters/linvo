@@ -4,9 +4,9 @@ import {
   popupTargetFromElement,
 } from '@linvo/linvo-components/context-menu';
 import type { InsertToPosition } from '@linvo/linvo-shared/utils';
-import { AddCursorIcon } from '@linvo/icons/lit';
+import { AddCursorIcon } from '@icons/lit';
 import { computed, signal } from '@preact/signals-core';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import type { TemplateResult } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { html } from 'lit/static-html.js';

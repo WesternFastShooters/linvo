@@ -5,7 +5,7 @@ import { WithDisposable } from '@linvo/global/lit';
 import { type BlockComponent, ShadowlessElement } from '@linvo/std';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
 import { RANGE_SYNC_EXCLUDE_ATTR } from '@linvo/std/inline';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { css, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';

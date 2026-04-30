@@ -4,7 +4,7 @@ import {
   popupTargetFromElement,
 } from '@linvo/linvo-components/context-menu';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { PlusIcon } from '@linvo/icons/lit';
+import { PlusIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { css } from '@emotion/css';
 import { nothing } from 'lit';

@@ -5,7 +5,7 @@ import {
   isTopLevelBlock,
   requestThrottledConnectedFrame,
 } from '@linvo/linvo-shared/utils';
-import { MultiCursorDuotoneIcon } from '@linvo/icons/lit';
+import { MultiCursorDuotoneIcon } from '@icons/lit';
 import { WidgetComponent } from '@linvo/std';
 import { GfxControllerIdentifier, type GfxModel } from '@linvo/std/gfx';
 import type { UserInfo } from '@linvo/store';

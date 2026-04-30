@@ -10,7 +10,7 @@ import { fontXSStyle, panelBaseStyle } from '@linvo/linvo-shared/styles';
 import type { LinvoTextAttributes } from '@linvo/linvo-shared/types';
 import { stopPropagation } from '@linvo/linvo-shared/utils';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { DoneIcon, ResetIcon } from '@linvo/icons/lit';
+import { DoneIcon, ResetIcon } from '@icons/lit';
 import { type BlockStdScope, ShadowlessElement } from '@linvo/std';
 import type { InlineEditor, InlineRange } from '@linvo/std/inline';
 import { computePosition, inline, offset, shift } from '@floating-ui/dom';

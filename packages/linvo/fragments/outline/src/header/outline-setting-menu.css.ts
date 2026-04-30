@@ -1,4 +1,4 @@
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { style } from '@vanilla-extract/css';
 
 export const host = style({});

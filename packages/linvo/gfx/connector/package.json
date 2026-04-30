@@ -11,7 +11,6 @@
   "license": "MIT",
   "dependencies": {
     "@linvo/global": "workspace:*",
-    "@linvo/icons": "workspace:*",
     "@linvo/linvo-block-surface": "workspace:*",
     "@linvo/linvo-components": "workspace:*",
     "@linvo/linvo-ext-loader": "workspace:*",
@@ -22,7 +21,6 @@
     "@linvo/linvo-widget-edgeless-toolbar": "workspace:*",
     "@linvo/std": "workspace:*",
     "@linvo/store": "workspace:*",
-    "@linvo/theme": "workspace:*",
     "@lit/context": "^1.1.2",
     "@preact/signals-core": "^1.8.0",
     "@types/lodash-es": "^4.17.12",

@@ -8,7 +8,7 @@ import {
   type SlashMenuItem,
 } from '@linvo/linvo-widget-slash-menu';
 import { Bound } from '@linvo/global/gfx';
-import { FrameIcon, GroupingIcon, MindmapIcon } from '@linvo/icons/lit';
+import { FrameIcon, GroupingIcon, MindmapIcon } from '@icons/lit';
 import { BlockSelection } from '@linvo/std';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
 

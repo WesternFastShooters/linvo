@@ -18,7 +18,7 @@ import {
   ArrowLeftSmallIcon,
   ArrowRightSmallIcon,
   InvisibleIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { WidgetComponent, WidgetViewExtension } from '@linvo/std';
 import {
   type GfxController,

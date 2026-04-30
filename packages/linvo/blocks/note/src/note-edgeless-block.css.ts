@@ -1,5 +1,5 @@
 import { EDGELESS_BLOCK_CHILD_PADDING } from '@linvo/linvo-shared/consts';
-import { cssVar } from '@linvo/theme';
+import { cssVar } from '@theme';
 import { style } from '@vanilla-extract/css';
 
 export const ACTIVE_NOTE_EXTRA_PADDING = 20;

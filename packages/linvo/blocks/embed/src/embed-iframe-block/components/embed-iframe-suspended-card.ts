@@ -1,6 +1,6 @@
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
-import { EmbedIcon, OpenInNewIcon } from '@linvo/icons/lit';
-import { baseTheme } from '@linvo/theme';
+import { EmbedIcon, OpenInNewIcon } from '@icons/lit';
+import { baseTheme } from '@theme';
 import { css, html, LitElement, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 

@@ -2,7 +2,7 @@ import { RENDER_CARD_THROTTLE_MS } from '@linvo/linvo-block-embed';
 import { LoadingIcon } from '@linvo/linvo-components/icons';
 import { ThemeProvider } from '@linvo/linvo-shared/services';
 import { WithDisposable } from '@linvo/global/lit';
-import { ResetIcon } from '@linvo/icons/lit';
+import { ResetIcon } from '@icons/lit';
 import {
   BlockSelection,
   isGfxBlockComponent,

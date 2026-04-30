@@ -6,7 +6,7 @@ import {
   type PopupTarget,
 } from '@linvo/linvo-components/context-menu';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { DeleteIcon } from '@linvo/icons/lit';
+import { DeleteIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { computed } from '@preact/signals-core';
 import { css, html, unsafeCSS } from 'lit';

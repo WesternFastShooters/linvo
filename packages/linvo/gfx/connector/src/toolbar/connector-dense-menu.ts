@@ -6,7 +6,7 @@ import {
   ConnectorCIcon,
   ConnectorEIcon,
   ConnectorLIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 
 import { ConnectorTool } from '../connector-tool';
 

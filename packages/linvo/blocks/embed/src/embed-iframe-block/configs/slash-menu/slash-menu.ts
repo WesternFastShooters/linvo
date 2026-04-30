@@ -1,6 +1,6 @@
 import { getSelectedModelsCommand } from '@linvo/linvo-shared/commands';
 import type { SlashMenuConfig } from '@linvo/linvo-widget-slash-menu';
-import { EmbedIcon } from '@linvo/icons/lit';
+import { EmbedIcon } from '@icons/lit';
 
 import { insertEmptyEmbedIframeCommand } from '../../commands/insert-empty-embed-iframe';
 import { EmbedIframeTooltip } from './tooltip';

@@ -1,6 +1,6 @@
 import { LoadingIcon } from '@linvo/linvo-components/icons';
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
-import { EmbedIcon } from '@linvo/icons/lit';
+import { EmbedIcon } from '@icons/lit';
 import { type BlockStdScope } from '@linvo/std';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';

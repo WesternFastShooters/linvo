@@ -1,8 +1,8 @@
 import { popupTargetFromElement } from '@linvo/linvo-components/context-menu';
 import { IS_MOBILE } from '@linvo/global/env';
-import { FilterIcon } from '@linvo/icons/lit';
+import { FilterIcon } from '@icons/lit';
 import { computed } from '@preact/signals-core';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { css, html, nothing } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 

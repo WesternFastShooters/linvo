@@ -2,7 +2,7 @@ import { EdgelessLegacySlotIdentifier } from '@linvo/linvo-block-surface';
 import { EditPropsStore } from '@linvo/linvo-shared/services';
 import { createButtonPopper } from '@linvo/linvo-shared/utils';
 import { WithDisposable } from '@linvo/global/lit';
-import { SettingsIcon } from '@linvo/icons/lit';
+import { SettingsIcon } from '@icons/lit';
 import type { BlockComponent } from '@linvo/std';
 import { css, html, LitElement, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';

@@ -5,7 +5,7 @@ import { unsafeCSSVar } from '@linvo/linvo-shared/theme';
 import type { LinvoTextAttributes } from '@linvo/linvo-shared/types';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
 import { noop } from '@linvo/global/utils';
-import { DoneIcon } from '@linvo/icons/lit';
+import { DoneIcon } from '@icons/lit';
 import { type BlockStdScope, ShadowlessElement } from '@linvo/std';
 import { InlineManagerExtension } from '@linvo/std/inline';
 import { effect, type Signal, signal } from '@preact/signals-core';

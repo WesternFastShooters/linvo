@@ -14,7 +14,7 @@ import {
   CustomizedHeightIcon,
   InsertIntoPageIcon,
   ScissorsIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockFlavourIdentifier } from '@linvo/std';
 import type { ExtensionType } from '@linvo/store';
 import { computed } from '@preact/signals-core';

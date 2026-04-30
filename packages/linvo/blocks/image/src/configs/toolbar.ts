@@ -12,7 +12,7 @@ import {
   DeleteIcon,
   DownloadIcon,
   DuplicateIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockFlavourIdentifier } from '@linvo/std';
 import type { ExtensionType } from '@linvo/store';
 

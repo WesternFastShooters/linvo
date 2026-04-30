@@ -6,7 +6,7 @@ import {
   type SlashMenuConfig,
   SlashMenuConfigIdentifier,
 } from '@linvo/linvo-widget-slash-menu';
-import { LinkedPageIcon, PlusIcon } from '@linvo/icons/lit';
+import { LinkedPageIcon, PlusIcon } from '@icons/lit';
 import { type ExtensionType } from '@linvo/store';
 
 import { LinkDocTooltip, NewDocTooltip } from './tooltips';

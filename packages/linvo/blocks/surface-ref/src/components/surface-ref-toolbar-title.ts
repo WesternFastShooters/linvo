@@ -10,7 +10,7 @@ import {
   FrameIcon,
   GroupIcon,
   MindmapIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import type { GfxModel } from '@linvo/std/gfx';
 import { css, html, type TemplateResult } from 'lit';

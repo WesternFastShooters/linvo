@@ -1,5 +1,5 @@
-import '@linvo/theme/style.css';
-import '@linvo/theme/fonts.css';
+import '@theme/style.css';
+import '@theme/fonts.css';
 
 import type { DocMode } from '@linvo/linvo/model';
 import { LinvoSchemas } from '@linvo/linvo/schemas';

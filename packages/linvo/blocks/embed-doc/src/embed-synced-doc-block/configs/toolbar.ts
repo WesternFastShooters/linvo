@@ -37,7 +37,7 @@ import {
   ExpandFullIcon,
   InsertIntoPageIcon,
   OpenInNewIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockFlavourIdentifier, isGfxBlockComponent } from '@linvo/std';
 import {
   type BlockModel,

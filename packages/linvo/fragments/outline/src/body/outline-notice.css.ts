@@ -1,5 +1,5 @@
-import { cssVar } from '@linvo/theme';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVar } from '@theme';
+import { cssVarV2 } from '@theme/v2';
 import { style } from '@vanilla-extract/css';
 
 export const outlineNotice = style({

@@ -9,7 +9,7 @@ import {
   ExpandFullIcon,
   MoveLeftIcon,
   MoveRightIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { html } from 'lit';
 
 import { groupTraitKey } from '../../../core/group-by/trait.js';

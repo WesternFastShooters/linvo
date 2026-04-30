@@ -35,7 +35,7 @@ import {
   DeleteIcon,
   DuplicateIcon,
   ResetIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockFlavourIdentifier, BlockSelection } from '@linvo/std';
 import { type ExtensionType, Slice, Text } from '@linvo/store';
 import { computed, signal } from '@preact/signals-core';

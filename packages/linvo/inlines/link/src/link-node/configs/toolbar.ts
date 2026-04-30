@@ -12,7 +12,7 @@ import {
   DeleteIcon,
   EditIcon,
   UnlinkIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockSelection } from '@linvo/std';
 import { signal } from '@preact/signals-core';
 import { html } from 'lit-html';

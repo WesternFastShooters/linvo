@@ -1,5 +1,5 @@
-@import '@linvo/theme/style.css';
-@import '@linvo/theme/fonts.css';
+@import '@theme/style.css';
+@import '@theme/fonts.css';
 @import 'katex/dist/katex.min.css';
 
 :root {

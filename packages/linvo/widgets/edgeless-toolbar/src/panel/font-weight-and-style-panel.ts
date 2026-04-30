@@ -5,7 +5,7 @@ import {
   FontStyle,
   FontWeight,
 } from '@linvo/linvo-model';
-import { DoneIcon } from '@linvo/icons/lit';
+import { DoneIcon } from '@icons/lit';
 import { css, html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';

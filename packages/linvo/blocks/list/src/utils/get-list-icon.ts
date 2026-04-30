@@ -8,7 +8,7 @@ import {
   CheckBoxUnIcon,
   ToggleDownIcon,
   ToggleRightIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { html } from 'lit';
 
 import { getNumberPrefix } from './get-number-prefix.js';

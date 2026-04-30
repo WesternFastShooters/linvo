@@ -1,4 +1,4 @@
-import * as icons from '@linvo/icons/lit';
+import * as icons from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { css, html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';

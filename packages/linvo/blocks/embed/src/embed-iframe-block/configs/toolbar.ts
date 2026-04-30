@@ -26,7 +26,7 @@ import {
   LinkedPageIcon,
   OpenInNewIcon,
   ResetIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockFlavourIdentifier, BlockSelection } from '@linvo/std';
 import {
   type ExtensionType,

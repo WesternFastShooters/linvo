@@ -1,6 +1,6 @@
 import { createButtonPopper } from '@linvo/linvo-shared/utils';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { SettingsIcon, SortIcon } from '@linvo/icons/lit';
+import { SettingsIcon, SortIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { consume } from '@lit/context';
 import { signal } from '@preact/signals-core';

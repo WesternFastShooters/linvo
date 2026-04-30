@@ -27,7 +27,7 @@ import {
   InsertLeftIcon,
   InsertRightIcon,
   PasteIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import type { Text } from '@linvo/store';
 import { computed, effect, signal } from '@preact/signals-core';

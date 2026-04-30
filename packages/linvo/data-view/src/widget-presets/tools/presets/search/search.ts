@@ -1,7 +1,7 @@
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { IS_MOBILE } from '@linvo/global/env';
-import { CloseIcon, SearchIcon } from '@linvo/icons/lit';
-import { baseTheme } from '@linvo/theme';
+import { CloseIcon, SearchIcon } from '@icons/lit';
+import { baseTheme } from '@theme';
 import { css, html, unsafeCSS } from 'lit';
 import { query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

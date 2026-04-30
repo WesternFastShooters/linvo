@@ -13,7 +13,7 @@ import {
 } from '@linvo/linvo-shared/services';
 import type { ColorEvent } from '@linvo/linvo-shared/utils';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { StyleGeneralIcon, StyleScribbleIcon } from '@linvo/icons/lit';
+import { StyleGeneralIcon, StyleScribbleIcon } from '@icons/lit';
 import type { BlockComponent } from '@linvo/std';
 import {
   GfxControllerIdentifier,

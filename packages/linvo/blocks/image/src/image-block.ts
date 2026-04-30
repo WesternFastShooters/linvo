@@ -11,10 +11,10 @@ import {
 } from '@linvo/linvo-shared/services';
 import { formatSize } from '@linvo/linvo-shared/utils';
 import { IS_MOBILE } from '@linvo/global/env';
-import { BrokenImageIcon, ImageIcon } from '@linvo/icons/lit';
+import { BrokenImageIcon, ImageIcon } from '@icons/lit';
 import { BlockSelection } from '@linvo/std';
 import { computed } from '@preact/signals-core';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { html } from 'lit';
 import { query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';

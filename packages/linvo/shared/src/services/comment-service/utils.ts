@@ -1,4 +1,4 @@
-import { CommentIcon } from '@linvo/icons/lit';
+import { CommentIcon } from '@icons/lit';
 import { BlockSelection } from '@linvo/std';
 import type { BlockModel, Store } from '@linvo/store';
 

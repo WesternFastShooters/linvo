@@ -31,7 +31,7 @@ import {
   LockIcon,
   ReleaseFromGroupIcon,
   UnlockIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import type { GfxModel } from '@linvo/std/gfx';
 import { html } from 'lit';
 

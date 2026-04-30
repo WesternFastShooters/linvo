@@ -11,7 +11,7 @@ import {
   CloseIcon,
   DeleteIcon,
   PlusIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { computed } from '@preact/signals-core';
 import { css, html } from 'lit';

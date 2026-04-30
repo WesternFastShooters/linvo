@@ -1,4 +1,4 @@
-import { MoreHorizontalIcon, PlusIcon } from '@linvo/icons/lit';
+import { MoreHorizontalIcon, PlusIcon } from '@icons/lit';
 import clsx from 'clsx';
 import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';

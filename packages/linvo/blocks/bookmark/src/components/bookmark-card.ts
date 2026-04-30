@@ -4,7 +4,7 @@ import { ImageProxyService } from '@linvo/linvo-shared/adapters';
 import { ThemeProvider } from '@linvo/linvo-shared/services';
 import { getHostName } from '@linvo/linvo-shared/utils';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { OpenInNewIcon } from '@linvo/icons/lit';
+import { OpenInNewIcon } from '@icons/lit';
 import { isGfxBlockComponent, ShadowlessElement } from '@linvo/std';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';

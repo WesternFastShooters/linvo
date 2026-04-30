@@ -14,7 +14,7 @@ import {
   TodayIcon,
   TomorrowIcon,
   YesterdayIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { type DeltaInsert, Slice, Text } from '@linvo/store';
 
 import { slashMenuToolTips } from './tooltips';

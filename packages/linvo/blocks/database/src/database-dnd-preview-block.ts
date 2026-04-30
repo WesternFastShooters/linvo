@@ -1,6 +1,6 @@
 import type { DatabaseBlockModel } from '@linvo/linvo-model';
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
-import { DatabaseListViewIcon } from '@linvo/icons/lit';
+import { DatabaseListViewIcon } from '@icons/lit';
 import { BlockComponent } from '@linvo/std';
 import { css, html } from 'lit';
 

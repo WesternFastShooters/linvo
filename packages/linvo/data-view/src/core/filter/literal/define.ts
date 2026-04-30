@@ -1,6 +1,6 @@
 import { menu } from '@linvo/linvo-components/context-menu';
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
-import { CheckBoxCheckSolidIcon, CheckBoxUnIcon } from '@linvo/icons/lit';
+import { CheckBoxCheckSolidIcon, CheckBoxUnIcon } from '@icons/lit';
 import { html } from 'lit';
 
 import { t } from '../../logical/type-presets.js';

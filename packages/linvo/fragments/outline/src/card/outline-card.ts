@@ -1,12 +1,12 @@
 import { type NoteBlockModel, NoteDisplayMode } from '@linvo/linvo-model';
 import { createButtonPopper } from '@linvo/linvo-shared/utils';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { ArrowDownSmallIcon, InvisibleIcon } from '@linvo/icons/lit';
+import { ArrowDownSmallIcon, InvisibleIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import type { BlockModel } from '@linvo/store';
 import { consume, ContextProvider } from '@lit/context';
 import { signal } from '@preact/signals-core';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

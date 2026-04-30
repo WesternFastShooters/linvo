@@ -5,7 +5,7 @@ import {
 import { VirtualKeyboardProvider } from '@linvo/linvo-shared/services';
 import { getViewportElement } from '@linvo/linvo-shared/utils';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { MoreHorizontalIcon } from '@linvo/icons/lit';
+import { MoreHorizontalIcon } from '@icons/lit';
 import { PropTypes, requiredProperties } from '@linvo/std';
 import { signal } from '@preact/signals-core';
 import { html, LitElement, nothing } from 'lit';

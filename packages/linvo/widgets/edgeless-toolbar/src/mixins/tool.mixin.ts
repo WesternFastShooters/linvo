@@ -15,7 +15,7 @@ import {
 } from '@linvo/std/gfx';
 import { consume } from '@lit/context';
 import { effect } from '@preact/signals-core';
-import { cssVar } from '@linvo/theme';
+import { cssVar } from '@theme';
 import type { LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 

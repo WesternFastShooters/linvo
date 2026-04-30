@@ -1,8 +1,8 @@
 import { popupTargetFromElement } from '@linvo/linvo-components/context-menu';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { CenterPeekIcon, MoreHorizontalIcon } from '@linvo/icons/lit';
+import { CenterPeekIcon, MoreHorizontalIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { css, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';

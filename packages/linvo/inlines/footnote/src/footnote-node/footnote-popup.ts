@@ -13,7 +13,7 @@ import { unsafeCSSVar, unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
 import type { BlockStdScope } from '@linvo/std';
 import { computed, signal } from '@preact/signals-core';
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 import { css, html, LitElement, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 

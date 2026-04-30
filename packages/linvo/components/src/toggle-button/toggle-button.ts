@@ -1,6 +1,6 @@
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { WithDisposable } from '@linvo/global/lit';
-import { ToggleDownIcon, ToggleRightIcon } from '@linvo/icons/lit';
+import { ToggleDownIcon, ToggleRightIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { css, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';

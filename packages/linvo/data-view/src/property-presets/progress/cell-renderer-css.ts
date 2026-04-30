@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 
 export const progressCellStyle = css({
   display: 'block',

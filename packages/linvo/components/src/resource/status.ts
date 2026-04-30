@@ -8,7 +8,7 @@ import {
   stopPropagation,
 } from '@linvo/linvo-shared/utils';
 import { WithDisposable } from '@linvo/global/lit';
-import { InformationIcon } from '@linvo/icons/lit';
+import { InformationIcon } from '@icons/lit';
 import { PropTypes, requiredProperties } from '@linvo/std';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';

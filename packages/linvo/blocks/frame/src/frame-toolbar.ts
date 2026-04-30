@@ -31,7 +31,7 @@ import {
   EditIcon,
   InsertIntoPageIcon,
   UngroupIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { type BlockComponent, BlockFlavourIdentifier } from '@linvo/std';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
 import type { ExtensionType } from '@linvo/store';

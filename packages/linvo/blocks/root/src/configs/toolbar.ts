@@ -53,7 +53,7 @@ import {
   DeleteIcon,
   DuplicateIcon,
   LinkedPageIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import {
   type BlockComponent,
   BlockSelection,

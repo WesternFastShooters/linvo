@@ -5,8 +5,8 @@ import {
   Heading4Icon,
   Heading5Icon,
   Heading6Icon,
-} from '@linvo/icons/lit';
-import { cssVarV2 } from '@linvo/theme/v2';
+} from '@icons/lit';
+import { cssVarV2 } from '@theme/v2';
 import { html } from 'lit';
 
 export function HeadingIcon(i: 1 | 2 | 3 | 4 | 5 | 6) {

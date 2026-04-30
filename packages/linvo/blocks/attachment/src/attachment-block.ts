@@ -32,7 +32,7 @@ import {
   ResetIcon,
   UpgradeIcon,
   WarningIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockSelection } from '@linvo/std';
 import { nanoid, Slice } from '@linvo/store';
 import { batch, computed, signal } from '@preact/signals-core';

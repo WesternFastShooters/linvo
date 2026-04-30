@@ -1,6 +1,6 @@
 import { cssVarV2 } from '@linvo/linvo-shared/theme';
 import { css } from '@emotion/css';
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 
 export const linkCellStyle = css({
   width: '100%',

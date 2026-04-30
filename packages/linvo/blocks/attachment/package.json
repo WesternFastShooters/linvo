@@ -12,7 +12,6 @@
   "dependencies": {
     "@floating-ui/dom": "^1.6.13",
     "@linvo/global": "workspace:*",
-    "@linvo/icons": "workspace:*",
     "@linvo/linvo-block-surface": "workspace:*",
     "@linvo/linvo-components": "workspace:*",
     "@linvo/linvo-ext-loader": "workspace:*",
@@ -21,7 +20,6 @@
     "@linvo/linvo-widget-slash-menu": "workspace:*",
     "@linvo/std": "workspace:*",
     "@linvo/store": "workspace:*",
-    "@linvo/theme": "workspace:*",
     "@lit/context": "^1.1.2",
     "@preact/signals-core": "^1.8.0",
     "file-type": "^21.0.0",

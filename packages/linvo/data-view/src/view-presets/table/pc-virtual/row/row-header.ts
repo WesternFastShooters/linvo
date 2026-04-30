@@ -1,5 +1,5 @@
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { CheckBoxCheckSolidIcon, CheckBoxUnIcon } from '@linvo/icons/lit';
+import { CheckBoxCheckSolidIcon, CheckBoxUnIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { computed, effect } from '@preact/signals-core';
 import clsx from 'clsx';

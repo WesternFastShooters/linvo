@@ -15,7 +15,7 @@ import {
   ConnectorCIcon,
   ConnectorEIcon,
   ConnectorLIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { computed } from '@preact/signals-core';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';

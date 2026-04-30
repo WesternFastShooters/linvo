@@ -10,7 +10,7 @@ import {
   cloneReferenceInfoWithoutAliases,
   isInsideBlockByFlavour,
 } from '@linvo/linvo-shared/utils';
-import { DeleteIcon } from '@linvo/icons/lit';
+import { DeleteIcon } from '@icons/lit';
 import { BlockSelection } from '@linvo/std';
 import { signal } from '@preact/signals-core';
 import { html } from 'lit-html';

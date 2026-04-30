@@ -4,7 +4,7 @@ import {
   popupTargetFromElement,
 } from '@linvo/linvo-components/context-menu';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { AddCursorIcon } from '@linvo/icons/lit';
+import { AddCursorIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { css, nothing } from 'lit';
 import { property } from 'lit/decorators.js';

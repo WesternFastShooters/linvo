@@ -34,7 +34,7 @@ import {
   DuplicateIcon,
   ExpandFullIcon,
   OpenInNewIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockFlavourIdentifier, isGfxBlockComponent } from '@linvo/std';
 import { type ExtensionType, Slice } from '@linvo/store';
 import { computed, signal } from '@preact/signals-core';

@@ -6,10 +6,10 @@ import {
 } from '@linvo/linvo-shared/services';
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { WithDisposable } from '@linvo/global/lit';
-import { EditIcon, InformationIcon, ResetIcon } from '@linvo/icons/lit';
+import { EditIcon, InformationIcon, ResetIcon } from '@icons/lit';
 import type { BlockStdScope } from '@linvo/std';
 import { flip, offset } from '@floating-ui/dom';
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 import { css, html, LitElement, nothing, unsafeCSS } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

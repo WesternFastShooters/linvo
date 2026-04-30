@@ -11,7 +11,7 @@ import {
   NumberedListIcon,
   QuoteIcon,
   TextIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import type { BlockModel } from '@linvo/store';
 import type { TemplateResult } from 'lit';
 const icons: Record<string, TemplateResult> = {

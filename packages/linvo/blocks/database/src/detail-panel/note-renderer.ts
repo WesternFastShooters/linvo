@@ -14,7 +14,7 @@ import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
 import { type EditorHost, ShadowlessElement } from '@linvo/std';
 import type { BaseTextAttributes } from '@linvo/store';
 import { computed } from '@preact/signals-core';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { css, html, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 

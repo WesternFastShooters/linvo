@@ -1,4 +1,4 @@
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 import { css, unsafeCSS } from 'lit';
 
 export const styles = css`

@@ -7,7 +7,7 @@ import { renderGroups } from '@linvo/linvo-components/toolbar';
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { WithDisposable } from '@linvo/global/lit';
 import { noop } from '@linvo/global/utils';
-import { MoreVerticalIcon } from '@linvo/icons/lit';
+import { MoreVerticalIcon } from '@icons/lit';
 import { flip, offset } from '@floating-ui/dom';
 import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';

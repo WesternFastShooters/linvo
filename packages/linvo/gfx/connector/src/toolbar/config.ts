@@ -53,7 +53,7 @@ import {
   StartPointDiamondIcon,
   StartPointIcon,
   StartPointTriangleIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockFlavourIdentifier } from '@linvo/std';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';

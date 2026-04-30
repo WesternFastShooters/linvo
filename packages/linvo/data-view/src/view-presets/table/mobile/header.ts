@@ -1,6 +1,6 @@
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { PlusIcon } from '@linvo/icons/lit';
+import { PlusIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { css, type TemplateResult } from 'lit';
 import { property, query } from 'lit/decorators.js';

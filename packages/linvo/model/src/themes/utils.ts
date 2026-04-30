@@ -2,7 +2,7 @@ import {
   type LinvoThemeKeyV2,
   darkThemeV2,
   lightThemeV2,
-} from '@linvo/theme/v2';
+} from '@theme/v2';
 
 import type { Color } from './color';
 import type { Palette } from './types';

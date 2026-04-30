@@ -16,7 +16,7 @@ import {
   referenceToNode,
 } from '@linvo/linvo-shared/utils';
 import { WithDisposable } from '@linvo/global/lit';
-import { LinkedPageIcon } from '@linvo/icons/lit';
+import { LinkedPageIcon } from '@icons/lit';
 import type { BlockComponent, BlockStdScope } from '@linvo/std';
 import { BLOCK_ID_ATTR, ShadowlessElement } from '@linvo/std';
 import {

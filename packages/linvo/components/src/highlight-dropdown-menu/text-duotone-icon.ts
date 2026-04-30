@@ -1,4 +1,4 @@
-import { TextBackgroundDuotoneIcon } from '@linvo/icons/lit';
+import { TextBackgroundDuotoneIcon } from '@icons/lit';
 import { css, LitElement } from 'lit';
 
 export class TextDuotoneIcon extends LitElement {

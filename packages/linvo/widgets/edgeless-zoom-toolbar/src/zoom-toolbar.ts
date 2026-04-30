@@ -1,7 +1,7 @@
 import { EdgelessLegacySlotIdentifier } from '@linvo/linvo-block-surface';
 import { stopPropagation } from '@linvo/linvo-shared/utils';
 import { WithDisposable } from '@linvo/global/lit';
-import { MinusIcon, PlusIcon, ViewBarIcon } from '@linvo/icons/lit';
+import { MinusIcon, PlusIcon, ViewBarIcon } from '@icons/lit';
 import type { BlockStdScope } from '@linvo/std';
 import {
   GfxControllerIdentifier,
@@ -10,7 +10,7 @@ import {
   ZOOM_STEP,
 } from '@linvo/std/gfx';
 import { effect } from '@preact/signals-core';
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 import { css, html, LitElement, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import clamp from 'lodash-es/clamp';

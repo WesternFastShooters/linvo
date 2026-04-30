@@ -1,6 +1,6 @@
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
 import { IS_MOBILE } from '@linvo/global/env';
-import { MoreHorizontalIcon, PlusIcon } from '@linvo/icons/lit';
+import { MoreHorizontalIcon, PlusIcon } from '@icons/lit';
 import { nothing } from 'lit';
 import { html } from 'lit/static-html.js';
 

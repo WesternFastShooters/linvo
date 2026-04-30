@@ -4,7 +4,7 @@ import {
   computePosition,
   type ComputePositionReturn,
 } from '@floating-ui/dom';
-import { cssVar } from '@linvo/theme';
+import { cssVar } from '@theme';
 import { render } from 'lit';
 import { Subject } from 'rxjs';
 

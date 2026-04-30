@@ -11,7 +11,7 @@ import {
   type ToolbarPlacement,
 } from '@linvo/linvo-shared/services';
 import { nextTick } from '@linvo/global/utils';
-import { MoreVerticalIcon } from '@linvo/icons/lit';
+import { MoreVerticalIcon } from '@icons/lit';
 import type {
   AutoUpdateOptions,
   ComputePositionConfig,

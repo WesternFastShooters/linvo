@@ -16,7 +16,7 @@ import {
 } from '@linvo/std';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
 import { consume } from '@lit/context';
-import { themeToVar } from '@linvo/theme/v2';
+import { themeToVar } from '@theme/v2';
 import { LitElement } from 'lit';
 import { property, state } from 'lit/decorators.js';
 

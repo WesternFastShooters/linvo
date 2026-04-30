@@ -11,7 +11,7 @@ import {
   ArrowDownSmallIcon,
   ArrowRightSmallIcon,
   DeleteIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { computed, type ReadonlySignal } from '@preact/signals-core';
 import { css, html } from 'lit';

@@ -23,7 +23,7 @@ import {
   DistributeHorizontalIcon,
   DistributeVerticalIcon,
   ResizeTidyUpIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import type { GfxModel } from '@linvo/std/gfx';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';

@@ -1,6 +1,6 @@
 import { EditorChevronDown } from '@linvo/linvo-components/toolbar';
 import { LineWidth, type StrokeStyle } from '@linvo/linvo-model';
-import { LineStyleIcon } from '@linvo/icons/lit';
+import { LineStyleIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';

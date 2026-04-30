@@ -18,7 +18,7 @@ import {
   EditIcon,
   InsertIntoPageIcon,
   UngroupIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockFlavourIdentifier } from '@linvo/std';
 
 import { ungroupCommand } from '../command';

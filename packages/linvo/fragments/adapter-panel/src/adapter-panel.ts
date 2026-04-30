@@ -10,7 +10,7 @@ import {
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
 import { provide } from '@lit/context';
 import { effect, signal } from '@preact/signals-core';
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 import { css, html, LitElement, type PropertyValues, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 

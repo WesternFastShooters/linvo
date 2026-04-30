@@ -1,5 +1,5 @@
 import { createModal } from '@linvo/linvo-components/context-menu';
-import { CloseIcon } from '@linvo/icons/lit';
+import { CloseIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { css, html, type TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';

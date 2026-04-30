@@ -6,7 +6,7 @@ import {
   ArrowLeftSmallIcon,
   CloseIcon,
   SearchIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { RANGE_SYNC_EXCLUDE_ATTR } from '@linvo/std/inline';
 import {

@@ -1,6 +1,6 @@
 import { PAGE_HEADER_HEIGHT } from '@linvo/linvo-shared/consts';
 import { WithDisposable } from '@linvo/global/lit';
-import { DoneIcon, SearchIcon } from '@linvo/icons/lit';
+import { DoneIcon, SearchIcon } from '@icons/lit';
 import { autoPlacement, offset, type Placement, size } from '@floating-ui/dom';
 import { html, LitElement, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';

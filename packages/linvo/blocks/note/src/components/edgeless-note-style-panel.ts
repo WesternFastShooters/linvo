@@ -21,7 +21,7 @@ import {
   stopPropagation,
 } from '@linvo/linvo-shared/utils';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { ArrowLeftSmallIcon, PaletteIcon } from '@linvo/icons/lit';
+import { ArrowLeftSmallIcon, PaletteIcon } from '@icons/lit';
 import { BlockStdScope, PropTypes, requiredProperties } from '@linvo/std';
 import { css, html, LitElement } from 'lit';
 import { property, query, state } from 'lit/decorators.js';

@@ -9,7 +9,7 @@ import {
   FrameIcon,
   GroupIcon,
   MindmapIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { type GfxModel } from '@linvo/std/gfx';
 import { html, type TemplateResult } from 'lit';
 

@@ -1,4 +1,4 @@
-import { cssVar } from '@linvo/theme';
+import { cssVar } from '@theme';
 import { style } from '@vanilla-extract/css';
 
 import {

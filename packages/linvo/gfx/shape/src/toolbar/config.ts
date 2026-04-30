@@ -35,7 +35,7 @@ import {
   renderMenu,
 } from '@linvo/linvo-widget-edgeless-toolbar';
 import { Bound } from '@linvo/global/gfx';
-import { AddTextIcon, ShapeIcon } from '@linvo/icons/lit';
+import { AddTextIcon, ShapeIcon } from '@icons/lit';
 import { BlockFlavourIdentifier } from '@linvo/std';
 import { html } from 'lit';
 import isEqual from 'lodash-es/isEqual';

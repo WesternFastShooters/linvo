@@ -52,7 +52,7 @@ import {
   Vec,
 } from '@linvo/global/gfx';
 import { WithDisposable } from '@linvo/global/lit';
-import { FrameIcon, PageIcon } from '@linvo/icons/lit';
+import { FrameIcon, PageIcon } from '@icons/lit';
 import {
   type BlockComponent,
   type BlockStdScope,
@@ -60,7 +60,7 @@ import {
 } from '@linvo/std';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
 import { consume } from '@lit/context';
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 import { css, html, LitElement, nothing, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';

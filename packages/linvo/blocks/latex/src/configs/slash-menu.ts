@@ -4,7 +4,7 @@ import {
   getTextSelectionCommand,
 } from '@linvo/linvo-shared/commands';
 import { type SlashMenuConfig } from '@linvo/linvo-widget-slash-menu';
-import { TeXIcon } from '@linvo/icons/lit';
+import { TeXIcon } from '@icons/lit';
 
 import { insertLatexBlockCommand } from '../commands';
 import { LatexTooltip } from './tooltips';

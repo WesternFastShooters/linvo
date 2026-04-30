@@ -2,7 +2,7 @@ import { EdgelessLegacySlotIdentifier } from '@linvo/linvo-block-surface';
 import { createLitPortal } from '@linvo/linvo-components/portal';
 import { stopPropagation } from '@linvo/linvo-shared/utils';
 import { WithDisposable } from '@linvo/global/lit';
-import { MoreHorizontalIcon } from '@linvo/icons/lit';
+import { MoreHorizontalIcon } from '@icons/lit';
 import type { BlockStdScope } from '@linvo/std';
 import { offset } from '@floating-ui/dom';
 import { css, html, LitElement, nothing } from 'lit';

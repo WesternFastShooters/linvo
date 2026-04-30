@@ -2,7 +2,7 @@ import { NoteDisplayMode } from '@linvo/linvo-model';
 import { DocModeProvider } from '@linvo/linvo-shared/services';
 import { scrollbarStyle } from '@linvo/linvo-shared/styles';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { TocIcon } from '@linvo/icons/lit';
+import { TocIcon } from '@icons/lit';
 import {
   type EditorHost,
   PropTypes,

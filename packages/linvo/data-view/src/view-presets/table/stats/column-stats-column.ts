@@ -5,7 +5,7 @@ import {
   popupTargetFromElement,
 } from '@linvo/linvo-components/context-menu';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
-import { ArrowDownSmallIcon } from '@linvo/icons/lit';
+import { ArrowDownSmallIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { Text } from '@linvo/store';
 import { autoPlacement, offset } from '@floating-ui/dom';

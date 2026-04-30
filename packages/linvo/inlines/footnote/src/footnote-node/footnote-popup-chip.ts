@@ -1,5 +1,5 @@
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 import {
   css,
   html,

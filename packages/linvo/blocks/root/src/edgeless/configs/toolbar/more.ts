@@ -46,7 +46,7 @@ import {
   GroupIcon,
   LinkedPageIcon,
   ResetIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import type { BlockComponent } from '@linvo/std';
 import { GfxBlockElementModel, type GfxModel } from '@linvo/std/gfx';
 

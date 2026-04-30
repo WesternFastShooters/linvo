@@ -10,7 +10,7 @@ import type { MenuItemGroup } from '@linvo/linvo-components/toolbar';
 import { CommentProviderIdentifier } from '@linvo/linvo-shared/services';
 import { isInsidePageEditor } from '@linvo/linvo-shared/utils';
 import { noop, sleep } from '@linvo/global/utils';
-import { CommentIcon, NumberedListIcon } from '@linvo/icons/lit';
+import { CommentIcon, NumberedListIcon } from '@icons/lit';
 import { BlockSelection } from '@linvo/std';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';

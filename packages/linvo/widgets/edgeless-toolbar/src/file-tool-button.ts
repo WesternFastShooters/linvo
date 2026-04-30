@@ -3,7 +3,7 @@ import { DefaultTool } from '@linvo/linvo-block-surface';
 import { EMBED_CARD_HEIGHT, EMBED_CARD_WIDTH } from '@linvo/linvo-shared/consts';
 import { TelemetryProvider } from '@linvo/linvo-shared/services';
 import { openSingleFileWith } from '@linvo/linvo-shared/utils';
-import { AttachmentIcon } from '@linvo/icons/lit';
+import { AttachmentIcon } from '@icons/lit';
 import { SignalWatcher } from '@linvo/global/lit';
 import type { Bound } from '@linvo/global/gfx';
 import { css, html, LitElement } from 'lit';

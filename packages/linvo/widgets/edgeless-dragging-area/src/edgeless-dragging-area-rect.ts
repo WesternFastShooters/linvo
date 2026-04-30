@@ -5,7 +5,7 @@ import {
 import type { RootBlockModel } from '@linvo/linvo-model';
 import { WidgetComponent, WidgetViewExtension } from '@linvo/std';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { css, html, nothing, unsafeCSS } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { literal, unsafeStatic } from 'lit/static-html.js';

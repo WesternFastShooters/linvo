@@ -3,7 +3,7 @@ import {
   type MenuPopper,
   QuickToolMixin,
 } from '@linvo/linvo-widget-edgeless-toolbar';
-import { PageIcon } from '@linvo/icons/lit';
+import { PageIcon } from '@icons/lit';
 import { effect } from '@preact/signals-core';
 import { css, html, LitElement } from 'lit';
 import { state } from 'lit/decorators.js';

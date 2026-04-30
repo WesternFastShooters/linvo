@@ -34,7 +34,7 @@ import {
   uniMap,
 } from '@linvo/data-view';
 import { widgetPresets } from '@linvo/data-view/widget-presets';
-import { MoreHorizontalIcon } from '@linvo/icons/lit';
+import { MoreHorizontalIcon } from '@icons/lit';
 import { type BlockComponent } from '@linvo/std';
 import { RANGE_SYNC_EXCLUDE_ATTR } from '@linvo/std/inline';
 import { Slice } from '@linvo/store';

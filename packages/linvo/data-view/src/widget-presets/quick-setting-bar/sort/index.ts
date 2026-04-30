@@ -1,5 +1,5 @@
 import { popupTargetFromElement } from '@linvo/linvo-components/context-menu';
-import { SortIcon } from '@linvo/icons/lit';
+import { SortIcon } from '@icons/lit';
 import { html } from 'lit';
 
 import { sortTraitKey } from '../../../core/sort/manager.js';

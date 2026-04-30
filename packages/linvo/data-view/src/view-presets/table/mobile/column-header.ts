@@ -14,7 +14,7 @@ import {
   MoveLeftIcon,
   MoveRightIcon,
   ViewIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { css } from 'lit';
 import { property } from 'lit/decorators.js';

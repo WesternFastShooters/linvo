@@ -1,6 +1,6 @@
 import { LineWidth, StrokeStyle } from '@linvo/linvo-model';
 import { WithDisposable } from '@linvo/global/lit';
-import { BanIcon, DashLineIcon, StraightLineIcon } from '@linvo/icons/lit';
+import { BanIcon, DashLineIcon, StraightLineIcon } from '@icons/lit';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

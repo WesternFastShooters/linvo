@@ -2,7 +2,7 @@ import { getSelectedModelsCommand } from '@linvo/linvo-shared/commands';
 import { TelemetryProvider } from '@linvo/linvo-shared/services';
 import { isInsideBlockByFlavour } from '@linvo/linvo-shared/utils';
 import type { SlashMenuConfig } from '@linvo/linvo-widget-slash-menu';
-import { TableIcon } from '@linvo/icons/lit';
+import { TableIcon } from '@icons/lit';
 
 import { insertTableBlockCommand } from '../commands';
 import { tableTooltip } from './tooltips';

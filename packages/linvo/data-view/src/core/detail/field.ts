@@ -9,7 +9,7 @@ import {
   DuplicateIcon,
   MoveLeftIcon,
   MoveRightIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import { computed, signal } from '@preact/signals-core';
 import { css } from 'lit';

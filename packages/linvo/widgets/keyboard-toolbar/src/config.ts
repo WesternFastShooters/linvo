@@ -95,7 +95,7 @@ import {
   UndoIcon,
   YesterdayIcon,
   YoutubeDuotoneIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import {
   type BlockComponent,
   type BlockStdScope,
@@ -103,7 +103,7 @@ import {
 } from '@linvo/std';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
 import { computed } from '@preact/signals-core';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import type { TemplateResult } from 'lit';
 
 import {

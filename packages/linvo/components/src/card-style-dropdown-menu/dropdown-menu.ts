@@ -4,7 +4,7 @@ import {
   ToolbarContext,
 } from '@linvo/linvo-shared/services';
 import { SignalWatcher } from '@linvo/global/lit';
-import { PaletteIcon } from '@linvo/icons/lit';
+import { PaletteIcon } from '@icons/lit';
 import { PropTypes, requiredProperties } from '@linvo/std';
 import {
   computed,

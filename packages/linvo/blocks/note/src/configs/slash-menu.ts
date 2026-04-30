@@ -14,7 +14,7 @@ import {
   SlashMenuConfigExtension,
   type SlashMenuItem,
 } from '@linvo/linvo-widget-slash-menu';
-import { HeadingsIcon } from '@linvo/icons/lit';
+import { HeadingsIcon } from '@icons/lit';
 import { BlockSelection } from '@linvo/std';
 
 import { updateBlockType } from '../commands';

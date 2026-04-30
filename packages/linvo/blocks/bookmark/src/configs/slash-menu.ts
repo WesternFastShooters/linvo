@@ -5,7 +5,7 @@ import {
   type SlashMenuConfig,
   SlashMenuConfigIdentifier,
 } from '@linvo/linvo-widget-slash-menu';
-import { LinkIcon } from '@linvo/icons/lit';
+import { LinkIcon } from '@icons/lit';
 import { GfxControllerIdentifier } from '@linvo/std/gfx';
 import type { ExtensionType } from '@linvo/store';
 

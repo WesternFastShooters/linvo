@@ -5,11 +5,11 @@ import {
   type LinvoCssVariables,
   type LinvoTheme,
   cssVar,
-} from '@linvo/theme';
-export { cssVar } from '@linvo/theme';
-import { type LinvoThemeKeyV2, cssVarV2 } from '@linvo/theme/v2';
+} from '@theme';
+export { cssVar } from '@theme';
+import { type LinvoThemeKeyV2, cssVarV2 } from '@theme/v2';
 import { unsafeCSS } from 'lit';
-export { cssVarV2 } from '@linvo/theme/v2';
+export { cssVarV2 } from '@theme/v2';
 export const ColorVariables = [
   '--linvo-brand-color',
   '--linvo-primary-color',

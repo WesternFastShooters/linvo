@@ -40,7 +40,7 @@ import {
   FileIconXmlIcon,
   FileIconZipIcon,
   ImageIcon,
-} from '@linvo/icons/rc';
+} from '@icons/rc';
 
 export function getAttachmentFileIconRC(filetype: string) {
   switch (filetype) {

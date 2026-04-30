@@ -5,7 +5,7 @@ import {
   ImageIcon,
   PageIcon,
   ShapeIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';

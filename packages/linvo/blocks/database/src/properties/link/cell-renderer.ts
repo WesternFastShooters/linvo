@@ -10,7 +10,7 @@ import {
   createFromBaseCellRenderer,
   createIcon,
 } from '@linvo/data-view';
-import { EditIcon } from '@linvo/icons/lit';
+import { EditIcon } from '@icons/lit';
 import { computed } from '@preact/signals-core';
 import { html, nothing, type PropertyValues } from 'lit';
 import { createRef, ref } from 'lit/directives/ref.js';

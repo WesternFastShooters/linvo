@@ -4,6 +4,7 @@
     "useDefineForClassFields": false,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "baseUrl": ".",
     "resolveJsonModule": true,
     "strict": true,
     "verbatimModuleSyntax": true,
@@ -14,7 +15,27 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "types": [
       "vite/client"
-    ]
+    ],
+    "paths": {
+      "@theme": [
+        "./resources/theme/dist/index.d.ts"
+      ],
+      "@theme/style.css": [
+        "./resources/theme/dist/style.css"
+      ],
+      "@theme/fonts.css": [
+        "./resources/theme/fonts/fonts.css"
+      ],
+      "@theme/v2": [
+        "./resources/theme/dist/v2/index.d.ts"
+      ],
+      "@icons/lit": [
+        "./resources/icons/dist/lit.d.ts"
+      ],
+      "@icons/rc": [
+        "./resources/icons/dist/rc.d.ts"
+      ]
+    }
   },
   "include": [
     "src",

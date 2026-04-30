@@ -27,7 +27,7 @@ import {
   EditIcon,
   ReplaceIcon,
   ResetIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockFlavourIdentifier } from '@linvo/std';
 import type { ExtensionType } from '@linvo/store';
 import { flip, offset } from '@floating-ui/dom';

@@ -1,7 +1,7 @@
 import { NoteDisplayMode } from '@linvo/linvo-model';
 import { stopPropagation } from '@linvo/linvo-shared/utils';
 import { WithDisposable } from '@linvo/global/lit';
-import { EdgelessIcon, PageIcon } from '@linvo/icons/lit';
+import { EdgelessIcon, PageIcon } from '@icons/lit';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';

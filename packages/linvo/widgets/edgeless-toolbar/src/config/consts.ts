@@ -1,4 +1,4 @@
-import { StyleGeneralIcon, StyleScribbleIcon } from '@linvo/icons/lit';
+import { StyleGeneralIcon, StyleScribbleIcon } from '@icons/lit';
 
 import type { MenuItem } from './types';
 

@@ -12,7 +12,7 @@ import { DocDisplayMetaProvider } from '@linvo/linvo-shared/services';
 import type { LinvoTextAttributes } from '@linvo/linvo-shared/types';
 import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
 import { noop } from '@linvo/global/utils';
-import { LinkedPageIcon } from '@linvo/icons/lit';
+import { LinkedPageIcon } from '@icons/lit';
 import { ShadowlessElement } from '@linvo/std';
 import type { BlockModel, DeltaInsert } from '@linvo/store';
 import { consume } from '@lit/context';

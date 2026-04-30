@@ -8,7 +8,7 @@ import {
   blockCommentToolbarButton,
   type ToolbarModuleConfig,
 } from '@linvo/linvo-shared/services';
-import { CaptionIcon, CopyIcon, DeleteIcon } from '@linvo/icons/lit';
+import { CaptionIcon, CopyIcon, DeleteIcon } from '@icons/lit';
 import { html } from 'lit';
 
 import { SurfaceRefBlockComponent } from '../surface-ref-block';

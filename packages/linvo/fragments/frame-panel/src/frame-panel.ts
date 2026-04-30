@@ -1,6 +1,6 @@
 import { WithDisposable } from '@linvo/global/lit';
 import { type EditorHost, ShadowlessElement } from '@linvo/std';
-import { baseTheme } from '@linvo/theme';
+import { baseTheme } from '@theme';
 import { css, html, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 

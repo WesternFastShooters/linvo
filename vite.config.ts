@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { cpus } from 'node:os';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
@@ -10,6 +11,32 @@ export default defineConfig({
     target: 'es2018',
   },
   resolve: {
+    alias: [
+      {
+        find: '@theme/style.css',
+        replacement: resolve(__dirname, 'resources/theme/dist/style.css'),
+      },
+      {
+        find: '@theme/fonts.css',
+        replacement: resolve(__dirname, 'resources/theme/fonts/fonts.css'),
+      },
+      {
+        find: '@theme/v2',
+        replacement: resolve(__dirname, 'resources/theme/dist/v2/index.js'),
+      },
+      {
+        find: '@theme',
+        replacement: resolve(__dirname, 'resources/theme/dist/index.js'),
+      },
+      {
+        find: '@icons/lit',
+        replacement: resolve(__dirname, 'resources/icons/dist/lit.mjs'),
+      },
+      {
+        find: '@icons/rc',
+        replacement: resolve(__dirname, 'resources/icons/dist/rc.mjs'),
+      },
+    ],
     extensions: ['.ts', '.js'],
   },
   server: {

@@ -1,5 +1,5 @@
 import { IS_MOBILE } from '@linvo/global/env';
-import { ArrowRightSmallIcon } from '@linvo/icons/lit';
+import { ArrowRightSmallIcon } from '@icons/lit';
 import {
   autoPlacement,
   autoUpdate,

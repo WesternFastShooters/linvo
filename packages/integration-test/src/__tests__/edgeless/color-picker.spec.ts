@@ -1,4 +1,4 @@
-import '@linvo/theme/style.css';
+import '@theme/style.css';
 import '@linvo/linvo/gfx/pointer';
 
 import type { EdgelessRootBlockComponent } from '@linvo/linvo/blocks/root';

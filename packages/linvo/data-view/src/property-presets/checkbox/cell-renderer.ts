@@ -1,5 +1,5 @@
 import { unsafeCSSVarV2 } from '@linvo/linvo-shared/theme';
-import { CheckBoxCheckSolidIcon, CheckBoxUnIcon } from '@linvo/icons/lit';
+import { CheckBoxCheckSolidIcon, CheckBoxUnIcon } from '@icons/lit';
 import { css, html } from 'lit';
 import { query } from 'lit/decorators.js';
 

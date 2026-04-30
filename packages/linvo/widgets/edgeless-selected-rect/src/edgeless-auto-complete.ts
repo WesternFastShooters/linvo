@@ -39,7 +39,7 @@ import {
   PlusIcon,
   SiblingNodeIcon,
   SubNodeIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import {
   type BlockComponent,
   type BlockStdScope,

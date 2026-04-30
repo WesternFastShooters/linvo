@@ -1,4 +1,4 @@
-import { CheckBoxCheckSolidIcon, CheckBoxUnIcon } from '@linvo/icons/lit';
+import { CheckBoxCheckSolidIcon, CheckBoxUnIcon } from '@icons/lit';
 import { css, html } from 'lit';
 
 import { BaseGroup } from './base.js';

@@ -1,6 +1,6 @@
 import { TextUtils } from '@linvo/linvo-block-surface';
 import { FontFamily, FontFamilyList } from '@linvo/linvo-model';
-import { DoneIcon } from '@linvo/icons/lit';
+import { DoneIcon } from '@icons/lit';
 import { css, html, LitElement, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';

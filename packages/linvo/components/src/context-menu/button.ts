@@ -3,9 +3,9 @@ import {
   CheckBoxCheckSolidIcon,
   CheckBoxUnIcon,
   DoneIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import type { ReadonlySignal } from '@preact/signals-core';
-import { cssVarV2 } from '@linvo/theme/v2';
+import { cssVarV2 } from '@theme/v2';
 import { css, html, type TemplateResult, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

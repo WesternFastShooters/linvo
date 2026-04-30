@@ -14,7 +14,7 @@ import {
   DeleteIcon,
   DuplicateIcon,
   ExpandFullIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import { BlockFlavourIdentifier } from '@linvo/std';
 import { type ExtensionType, Slice } from '@linvo/store';
 import { html } from 'lit';

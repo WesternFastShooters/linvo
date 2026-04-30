@@ -1,7 +1,7 @@
 import type { FrameBlockModel } from '@linvo/linvo-model';
 import { createButtonPopper } from '@linvo/linvo-shared/utils';
 import { WithDisposable } from '@linvo/global/lit';
-import { LayerIcon } from '@linvo/icons/lit';
+import { LayerIcon } from '@icons/lit';
 import type { BlockComponent } from '@linvo/std';
 import { css, html, LitElement } from 'lit';
 import { property, query } from 'lit/decorators.js';

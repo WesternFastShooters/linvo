@@ -18,7 +18,7 @@ import {
   NumberedListIcon,
   QuoteIcon,
   TextIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 import type { EditorHost } from '@linvo/std';
 import { createContext } from '@lit/context';
 import type { Signal } from '@preact/signals-core';

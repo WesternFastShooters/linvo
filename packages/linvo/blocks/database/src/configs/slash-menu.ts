@@ -6,7 +6,7 @@ import { viewPresets } from '@linvo/data-view/view-presets';
 import {
   DatabaseKanbanViewIcon,
   DatabaseTableViewIcon,
-} from '@linvo/icons/lit';
+} from '@icons/lit';
 
 import { insertDatabaseBlockCommand } from '../commands';
 import { KanbanViewTooltip, TableViewTooltip } from './tooltips';

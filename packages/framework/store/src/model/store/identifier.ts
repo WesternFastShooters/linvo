@@ -1,4 +1,4 @@
-import { createIdentifier } from '@blocksuite/global/di';
+import { createIdentifier } from '@linvo/global/di';
 
 import type { Store } from './store';
 

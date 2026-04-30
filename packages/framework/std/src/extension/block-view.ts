@@ -1,4 +1,4 @@
-import type { ExtensionType } from '@blocksuite/store';
+import type { ExtensionType } from '@linvo/store';
 
 import { BlockViewIdentifier } from '../identifier.js';
 import type { BlockViewType } from '../spec/type.js';
@@ -13,10 +13,10 @@ import type { BlockViewType } from '../spec/type.js';
  *
  * @example
  * ```ts
- * import { BlockViewExtension } from '@blocksuite/std';
+ * import { BlockViewExtension } from '@linvo/std';
  *
  * const MyListBlockViewExtension = BlockViewExtension(
- *   'affine:list',
+ *   'linvo:list',
  *   literal`my-list-block`
  * );
  * ```

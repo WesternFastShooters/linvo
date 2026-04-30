@@ -1,6 +1,6 @@
 {
-  "name": "@blocksuite/store",
-  "description": "BlockSuite data store built for general purpose state management.",
+  "name": "@linvo/store",
+  "description": "Linvo data store built for general purpose state management.",
   "type": "module",
   "scripts": {
     "build": "tsc"
@@ -10,8 +10,8 @@
   "author": "toeverything",
   "license": "MIT",
   "dependencies": {
-    "@blocksuite/global": "workspace:*",
-    "@blocksuite/sync": "workspace:*",
+    "@linvo/global": "workspace:*",
+    "@linvo/sync": "workspace:*",
     "@preact/signals-core": "^1.8.0",
     "@types/lodash.ismatch": "^4.4.9",
     "file-type": "^21.0.0",

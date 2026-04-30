@@ -1,3 +1,3 @@
-# BlockSuite Framework
+# Linvo Framework
 
-Here are the vanilla framework packages in BlockSuite.
+Here are the vanilla framework packages in Linvo.

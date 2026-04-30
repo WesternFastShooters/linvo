@@ -1,11 +1,13 @@
-import type { EditorSetting } from '@blocksuite/affine/shared/services';
-import type { TestAffineEditorContainer } from '@blocksuite/integration-test';
+import type { EditorSetting } from '@linvo/linvo/shared/services';
+import type { TestLinvoEditorContainer } from '@linvo/integration-test';
 import type { Signal } from '@preact/signals-core';
+
+type LinvoEditorContainer = TestLinvoEditorContainer;
 
 declare global {
   interface Window {
     doc: unknown;
-    editor: TestAffineEditorContainer;
+    editor: LinvoEditorContainer;
     editorSetting$?: Signal<EditorSetting>;
     workspace: unknown;
   }

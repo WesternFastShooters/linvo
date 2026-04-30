@@ -1,7 +1,7 @@
-# `@blocksuite/sync`
+# `@linvo/sync`
 
-BlockSuite data synchronization engine.
+Linvo data synchronization engine.
 
 ## Documentation
 
-Checkout [blocksuite.io](https://blocksuite.io/) for comprehensive documentation.
+Checkout [linvo.io](https://linvo.io/) for comprehensive documentation.

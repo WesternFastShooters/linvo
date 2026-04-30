@@ -1,13 +1,13 @@
 import {
   createIdentifier,
   type ServiceIdentifier,
-} from '@blocksuite/global/di';
-import type { BaseTextAttributes, ExtensionType } from '@blocksuite/store';
+} from '@linvo/global/di';
+import type { BaseTextAttributes, ExtensionType } from '@linvo/store';
 
 import type { InlineMarkdownMatch } from './type.js';
 
 export const MarkdownMatcherIdentifier = createIdentifier<unknown>(
-  'AffineMarkdownMatcher'
+  'LinvoMarkdownMatcher'
 );
 
 export function InlineMarkdownExtension<

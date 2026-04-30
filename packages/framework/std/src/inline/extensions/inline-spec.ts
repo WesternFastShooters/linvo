@@ -2,13 +2,13 @@ import {
   createIdentifier,
   type ServiceIdentifier,
   type ServiceProvider,
-} from '@blocksuite/global/di';
-import type { BaseTextAttributes, ExtensionType } from '@blocksuite/store';
+} from '@linvo/global/di';
+import type { BaseTextAttributes, ExtensionType } from '@linvo/store';
 
 import type { InlineSpecs } from './type.js';
 
 export const InlineSpecIdentifier =
-  createIdentifier<unknown>('AffineInlineSpec');
+  createIdentifier<unknown>('LinvoInlineSpec');
 
 export function InlineSpecExtension<TextAttributes extends BaseTextAttributes>(
   name: string,

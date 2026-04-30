@@ -1,0 +1,46 @@
+{
+  "name": "@linvo/linvo-block-table",
+  "description": "Table block for Linvo.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "sideEffects": false,
+  "keywords": [],
+  "author": "toeverything",
+  "license": "MIT",
+  "dependencies": {
+    "@atlaskit/pragmatic-drag-and-drop": "^1.4.0",
+    "@emotion/css": "^11.13.5",
+    "@floating-ui/dom": "^1.6.13",
+    "@linvo/data-view": "workspace:*",
+    "@linvo/global": "workspace:*",
+    "@linvo/icons": "workspace:*",
+    "@linvo/linvo-components": "workspace:*",
+    "@linvo/linvo-ext-loader": "workspace:*",
+    "@linvo/linvo-inline-preset": "workspace:*",
+    "@linvo/linvo-model": "workspace:*",
+    "@linvo/linvo-rich-text": "workspace:*",
+    "@linvo/linvo-shared": "workspace:*",
+    "@linvo/linvo-widget-slash-menu": "workspace:*",
+    "@linvo/std": "workspace:*",
+    "@linvo/store": "workspace:*",
+    "@preact/signals-core": "^1.8.0",
+    "lit": "^3.2.0",
+    "rxjs": "^7.8.1",
+    "yjs": "^13.6.21",
+    "zod": "^3.24.1"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./view": "./src/view.ts",
+    "./store": "./src/store.ts"
+  },
+  "files": [
+    "src",
+    "dist",
+    "!src/__tests__",
+    "!dist/__tests__"
+  ],
+  "version": "0.22.4"
+}

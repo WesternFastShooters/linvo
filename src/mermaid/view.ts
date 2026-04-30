@@ -1,7 +1,7 @@
 import {
   type ViewExtensionContext,
   ViewExtensionProvider,
-} from '@blocksuite/affine/ext-loader';
+} from '@linvo/linvo/ext-loader';
 
 import { MermaidInsertModal } from './modal';
 import { MermaidPlacementTool } from './placement-tool';
@@ -14,7 +14,7 @@ function define(name: string, ctor: CustomElementConstructor) {
 }
 
 export class MermaidViewExtension extends ViewExtensionProvider {
-  override name = 'best-excalidraw-mermaid';
+  override name = 'linvo-mermaid';
 
   override effect(): void {
     super.effect();

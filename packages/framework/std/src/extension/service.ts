@@ -1,7 +1,7 @@
-import type { Container } from '@blocksuite/global/di';
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { Extension } from '@blocksuite/store';
+import type { Container } from '@linvo/global/di';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { Extension } from '@linvo/store';
 
 import type { EventName, UIEventHandler } from '../event/index.js';
 import {
@@ -16,7 +16,7 @@ import type { BlockStdScope } from '../scope/index.js';
  * BlockService is deprecated. You should reconsider where to put your feature.
  *
  * BlockService is a legacy extension that is used to provide services to the block.
- * In the previous version of BlockSuite, block service provides a way to extend the block.
+ * In the previous version of the editor framework, block service provided a way to extend a block.
  * However, in the new version, we recommend using the new extension system.
  */
 export abstract class BlockService extends Extension {
@@ -56,7 +56,7 @@ export abstract class BlockService extends Extension {
 
   static override setup(di: Container) {
     if (!this.flavour) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ValueNotExists,
         'Flavour is not defined in the BlockService'
       );

@@ -1,5 +1,5 @@
-import { createIdentifier } from '@blocksuite/global/di';
-import type { ExtensionType } from '@blocksuite/store';
+import { createIdentifier } from '@linvo/global/di';
+import type { ExtensionType } from '@linvo/store';
 
 import type { BlockStdScope } from '../../../scope';
 import type { GfxBlockComponent } from '../../../view';

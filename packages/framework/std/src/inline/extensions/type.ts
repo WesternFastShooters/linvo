@@ -2,8 +2,8 @@ import type {
   AttributeRenderer,
   InlineEditor,
   InlineRange,
-} from '@blocksuite/std/inline';
-import type { BaseTextAttributes, DeltaInsert } from '@blocksuite/store';
+} from '@linvo/std/inline';
+import type { BaseTextAttributes, DeltaInsert } from '@linvo/store';
 import type * as Y from 'yjs';
 import type { AnyZodObject, KeySchema, ZodEffects, ZodRecord } from 'zod';
 
@@ -25,10 +25,10 @@ export type InlineSpecs<
 };
 
 export type InlineMarkdownMatchAction<
-  // @ts-expect-error We allow to covariance for AffineTextAttributes
-  in AffineTextAttributes extends BaseTextAttributes = BaseTextAttributes,
+  // @ts-expect-error We allow to covariance for LinvoTextAttributes
+  in LinvoTextAttributes extends BaseTextAttributes = BaseTextAttributes,
 > = (props: {
-  inlineEditor: InlineEditor<AffineTextAttributes>;
+  inlineEditor: InlineEditor<LinvoTextAttributes>;
   prefixText: string;
   inlineRange: InlineRange;
   pattern: RegExp;
@@ -36,9 +36,9 @@ export type InlineMarkdownMatchAction<
 }) => void;
 
 export type InlineMarkdownMatch<
-  AffineTextAttributes extends BaseTextAttributes = BaseTextAttributes,
+  LinvoTextAttributes extends BaseTextAttributes = BaseTextAttributes,
 > = {
   name: string;
   pattern: RegExp;
-  action: InlineMarkdownMatchAction<AffineTextAttributes>;
+  action: InlineMarkdownMatchAction<LinvoTextAttributes>;
 };

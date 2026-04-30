@@ -1,5 +1,5 @@
-import { IS_MAC } from '@blocksuite/global/env';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
+import { IS_MAC } from '@linvo/global/env';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 import { base, keyName } from 'w3c-keyname';
 
 import type { UIEventHandler } from './base.js';
@@ -37,7 +37,7 @@ function normalizeKeyName(name: string) {
       return;
     }
 
-    throw new BlockSuiteError(
+    throw new LinvoError(
       ErrorCode.EventDispatcherError,
       'Unrecognized modifier name: ' + mod
     );

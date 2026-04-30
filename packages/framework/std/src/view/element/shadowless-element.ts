@@ -1,4 +1,4 @@
-import type { Constructor } from '@blocksuite/global/utils';
+import type { Constructor } from '@linvo/global/utils';
 import type { CSSResultGroup, CSSResultOrNative } from 'lit';
 import { CSSResult, LitElement } from 'lit';
 

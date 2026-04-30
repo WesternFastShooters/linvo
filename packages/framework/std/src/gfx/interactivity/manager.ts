@@ -1,6 +1,6 @@
-import { type ServiceIdentifier } from '@blocksuite/global/di';
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { Bound, clamp, Point } from '@blocksuite/global/gfx';
+import { type ServiceIdentifier } from '@linvo/global/di';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { Bound, clamp, Point } from '@linvo/global/gfx';
 import { signal } from '@preact/signals-core';
 import last from 'lodash-es/last.js';
 

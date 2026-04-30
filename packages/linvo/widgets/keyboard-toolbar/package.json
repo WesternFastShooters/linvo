@@ -1,0 +1,58 @@
+{
+  "name": "@linvo/linvo-widget-keyboard-toolbar",
+  "description": "Linvo keyboard toolbar widget.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "sideEffects": false,
+  "keywords": [],
+  "author": "toeverything",
+  "license": "MIT",
+  "dependencies": {
+    "@linvo/data-view": "workspace:*",
+    "@linvo/global": "workspace:*",
+    "@linvo/icons": "workspace:*",
+    "@linvo/linvo-block-attachment": "workspace:*",
+    "@linvo/linvo-block-database": "workspace:*",
+    "@linvo/linvo-block-embed": "workspace:*",
+    "@linvo/linvo-block-image": "workspace:*",
+    "@linvo/linvo-block-latex": "workspace:*",
+    "@linvo/linvo-block-list": "workspace:*",
+    "@linvo/linvo-block-note": "workspace:*",
+    "@linvo/linvo-block-paragraph": "workspace:*",
+    "@linvo/linvo-block-surface": "workspace:*",
+    "@linvo/linvo-block-surface-ref": "workspace:*",
+    "@linvo/linvo-components": "workspace:*",
+    "@linvo/linvo-ext-loader": "workspace:*",
+    "@linvo/linvo-fragment-doc-title": "workspace:*",
+    "@linvo/linvo-inline-latex": "workspace:*",
+    "@linvo/linvo-inline-link": "workspace:*",
+    "@linvo/linvo-inline-preset": "workspace:*",
+    "@linvo/linvo-inline-reference": "workspace:*",
+    "@linvo/linvo-model": "workspace:*",
+    "@linvo/linvo-rich-text": "workspace:*",
+    "@linvo/linvo-shared": "workspace:*",
+    "@linvo/std": "workspace:*",
+    "@linvo/store": "workspace:*",
+    "@linvo/theme": "workspace:*",
+    "@lit/context": "^1.1.2",
+    "@preact/signals-core": "^1.8.0",
+    "@types/lodash-es": "^4.17.12",
+    "fflate": "^0.8.2",
+    "lit": "^3.2.0",
+    "lodash-es": "^4.17.21",
+    "rxjs": "^7.8.1"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./view": "./src/view.ts"
+  },
+  "files": [
+    "src",
+    "dist",
+    "!src/__tests__",
+    "!dist/__tests__"
+  ],
+  "version": "0.22.4"
+}

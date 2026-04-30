@@ -1,6 +1,6 @@
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import type { BaseTextAttributes, DeltaInsert } from '@blocksuite/store';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import type { BaseTextAttributes, DeltaInsert } from '@linvo/store';
 import { type Signal, signal } from '@preact/signals-core';
 import { nothing, render, type TemplateResult } from 'lit';
 import { Subject } from 'rxjs';
@@ -199,14 +199,14 @@ export class InlineEditor<
     } = {}
   ) {
     if (!yText.doc) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.InlineEditorError,
         'yText must be attached to a Y.Doc'
       );
     }
 
     if (yText.toString().includes('\r')) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.InlineEditorError,
         'yText must not contain "\\r" because it will break the range synchronization'
       );
@@ -285,7 +285,7 @@ export class InlineEditor<
   transact(fn: () => void, withoutTransact = false): void {
     const doc = this.yText.doc;
     if (!doc) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.InlineEditorError,
         'yText is not attached to a doc'
       );

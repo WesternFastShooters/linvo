@@ -9,11 +9,11 @@
   "blocks": {
     "type": "block",
     "id": "xguBwzpkGD",
-    "flavour": "affine:page",
+    "flavour": "linvo:page",
     "version": 2,
     "props": {
       "title": {
-        "$blocksuite:internal:text$": true,
+        "$linvo:internal:text$": true,
         "delta": []
       }
     },
@@ -21,17 +21,17 @@
       {
         "type": "block",
         "id": "m9-hJeL979",
-        "flavour": "affine:surface",
+        "flavour": "linvo:surface",
         "version": 5,
         "props": {
           "elements": {
             "UrT0kJjtKN": {
               "index": "a2",
               "seed": 1855830969,
-              "color": "--affine-palette-line-black",
-              "fillColor": "--affine-palette-shape-yellow",
+              "color": "--linvo-palette-line-black",
+              "fillColor": "--linvo-palette-shape-yellow",
               "filled": true,
-              "fontFamily": "blocksuite:surface:Inter",
+              "fontFamily": "linvo:surface:Inter",
               "fontSize": 20,
               "fontStyle": "normal",
               "fontWeight": "400",
@@ -43,7 +43,7 @@
               "shadow": null,
               "shapeStyle": "General",
               "shapeType": "triangle",
-              "strokeColor": "--affine-palette-line-yellow",
+              "strokeColor": "--linvo-palette-line-yellow",
               "strokeStyle": "solid",
               "strokeWidth": 2,
               "textAlign": "center",
@@ -55,10 +55,10 @@
             "0AlG3AohCi": {
               "index": "a3",
               "seed": 1305411005,
-              "color": "--affine-palette-line-black",
-              "fillColor": "--affine-palette-shape-yellow",
+              "color": "--linvo-palette-line-black",
+              "fillColor": "--linvo-palette-shape-yellow",
               "filled": true,
-              "fontFamily": "blocksuite:surface:Inter",
+              "fontFamily": "linvo:surface:Inter",
               "fontSize": 20,
               "fontStyle": "normal",
               "fontWeight": "400",
@@ -70,7 +70,7 @@
               "shadow": null,
               "shapeStyle": "General",
               "shapeType": "ellipse",
-              "strokeColor": "--affine-palette-line-yellow",
+              "strokeColor": "--linvo-palette-line-yellow",
               "strokeStyle": "solid",
               "strokeWidth": 2,
               "textAlign": "center",
@@ -82,10 +82,10 @@
             "8fUiHCCqfG": {
               "index": "a4",
               "seed": 513823325,
-              "color": "--affine-palette-line-black",
-              "fillColor": "--affine-palette-shape-yellow",
+              "color": "--linvo-palette-line-black",
+              "fillColor": "--linvo-palette-shape-yellow",
               "filled": true,
-              "fontFamily": "blocksuite:surface:Inter",
+              "fontFamily": "linvo:surface:Inter",
               "fontSize": 20,
               "fontStyle": "normal",
               "fontWeight": "400",
@@ -97,7 +97,7 @@
               "shadow": null,
               "shapeStyle": "General",
               "shapeType": "rect",
-              "strokeColor": "--affine-palette-line-yellow",
+              "strokeColor": "--linvo-palette-line-yellow",
               "strokeStyle": "solid",
               "strokeWidth": 2,
               "textAlign": "center",
@@ -110,14 +110,14 @@
               "index": "a5",
               "seed": 1817567358,
               "children": {
-                "affine:surface:ymap": true,
+                "linvo:surface:ymap": true,
                 "json": {
                   "8fUiHCCqfG": true,
                   "0AlG3AohCi": true
                 }
               },
               "title": {
-                "affine:surface:text": true,
+                "linvo:surface:text": true,
                 "delta": [
                   {
                     "insert": "Group 1"
@@ -133,18 +133,18 @@
           {
             "type": "block",
             "id": "yBzeQ6raOv",
-            "flavour": "affine:frame",
+            "flavour": "linvo:frame",
             "version": 1,
             "props": {
               "title": {
-                "$blocksuite:internal:text$": true,
+                "$linvo:internal:text$": true,
                 "delta": [
                   {
                     "insert": "Frame 1"
                   }
                 ]
               },
-              "background": "--affine-palette-transparent",
+              "background": "--linvo-palette-transparent",
               "xywh": "[140.703125,199.1015625,258.6640625,164.109375]",
               "index": "a1",
               "childElementIds": {
@@ -158,11 +158,11 @@
       {
         "type": "block",
         "id": "eWPFqL6VST",
-        "flavour": "affine:note",
+        "flavour": "linvo:note",
         "version": 1,
         "props": {
           "xywh": "[0,0,498,92]",
-          "background": "--affine-note-background-white",
+          "background": "--linvo-note-background-white",
           "index": "a0",
           "hidden": false,
           "displayMode": "both",
@@ -171,7 +171,7 @@
               "borderRadius": 8,
               "borderSize": 4,
               "borderStyle": "none",
-              "shadowType": "--affine-note-shadow-box"
+              "shadowType": "--linvo-note-shadow-box"
             }
           }
         },
@@ -179,12 +179,12 @@
           {
             "type": "block",
             "id": "09MoQfa5ex",
-            "flavour": "affine:paragraph",
+            "flavour": "linvo:paragraph",
             "version": 1,
             "props": {
               "type": "text",
               "text": {
-                "$blocksuite:internal:text$": true,
+                "$linvo:internal:text$": true,
                 "delta": []
               },
               "collapsed": false
@@ -194,19 +194,19 @@
           {
             "type": "block",
             "id": "NhoAqBBMZg",
-            "flavour": "affine:surface-ref",
+            "flavour": "linvo:surface-ref",
             "version": 1,
             "props": {
               "reference": "yBzeQ6raOv",
               "caption": "",
-              "refFlavour": "affine:frame"
+              "refFlavour": "linvo:frame"
             },
             "children": []
           },
           {
             "type": "block",
             "id": "jJDE1rYIYJ",
-            "flavour": "affine:surface-ref",
+            "flavour": "linvo:surface-ref",
             "version": 1,
             "props": {
               "reference": "KfzvfxYw5C",

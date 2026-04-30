@@ -1,5 +1,5 @@
 {
-  "name": "@blocksuite/global",
+  "name": "@linvo/global",
   "types": "./index.d.ts",
   "type": "module",
   "scripts": {

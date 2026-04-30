@@ -1,6 +1,6 @@
-import { IS_IPAD } from '@blocksuite/global/env';
-import { Vec } from '@blocksuite/global/gfx';
-import { nextTick } from '@blocksuite/global/utils';
+import { IS_IPAD } from '@linvo/global/env';
+import { Vec } from '@linvo/global/gfx';
+import { nextTick } from '@linvo/global/utils';
 
 import { UIEventState, UIEventStateContext } from '../base.js';
 import type { UIEventDispatcher } from '../dispatcher.js';

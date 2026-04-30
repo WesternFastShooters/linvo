@@ -1,4 +1,4 @@
-import { DisposableGroup } from '@blocksuite/global/disposable';
+import { DisposableGroup } from '@linvo/global/disposable';
 import { Subject } from 'rxjs';
 
 import type { BlockStdScope } from '../scope/std-scope';

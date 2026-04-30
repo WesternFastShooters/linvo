@@ -1,4 +1,4 @@
-import { SignalWatcher } from '@blocksuite/global/lit';
+import { SignalWatcher } from '@linvo/global/lit';
 import { css, html, LitElement } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { property } from 'lit/decorators.js';
@@ -10,7 +10,7 @@ export class MermaidInsertModal extends SignalWatcher(LitElement) {
     :host {
       position: fixed;
       inset: 0;
-      z-index: var(--affine-z-index-modal, 1000);
+      z-index: var(--linvo-z-index-modal, 1000);
       pointer-events: none;
     }
 

@@ -1,6 +1,6 @@
-import type { Container } from '@blocksuite/global/di';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { Extension } from '@blocksuite/store';
+import type { Container } from '@linvo/global/di';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { Extension } from '@linvo/store';
 
 import { LifeCycleWatcherIdentifier, StdIdentifier } from '../identifier.js';
 import type { BlockStdScope } from '../scope/index.js';
@@ -31,7 +31,7 @@ export abstract class LifeCycleWatcher extends Extension {
 
   static override setup(di: Container) {
     if (!this.key) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ValueNotExists,
         'Key is not defined in the LifeCycleWatcher'
       );

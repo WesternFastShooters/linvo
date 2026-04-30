@@ -1,4 +1,4 @@
-import { createIdentifier } from '@blocksuite/global/di';
+import { createIdentifier } from '@linvo/global/di';
 
 import type { BlockSchemaType } from '../model/block/zod';
 import type { ExtensionType } from './extension';

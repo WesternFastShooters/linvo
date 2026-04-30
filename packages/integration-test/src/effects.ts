@@ -1,7 +1,7 @@
-import '@blocksuite/affine/effects';
+import '@linvo/linvo/effects';
 
-import { TestAffineEditorContainer } from './editors/index.js';
+import { TestLinvoEditorContainer } from './editors/index.js';
 
 export function effects() {
-  customElements.define('affine-editor-container', TestAffineEditorContainer);
+  customElements.define('linvo-editor-container', TestLinvoEditorContainer);
 }

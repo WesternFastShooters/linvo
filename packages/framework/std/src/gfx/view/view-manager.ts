@@ -1,4 +1,4 @@
-import { DisposableGroup } from '@blocksuite/global/disposable';
+import { DisposableGroup } from '@linvo/global/disposable';
 
 import { onSurfaceAdded } from '../../utils/gfx.js';
 import {

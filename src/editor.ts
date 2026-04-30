@@ -3,7 +3,7 @@ import {
   DefaultTheme,
   FontFamily,
   ShapeStyle,
-} from '@blocksuite/affine/model';
+} from '@linvo/linvo/model';
 import {
   CommunityCanvasTextFonts,
   DocModeProvider,
@@ -12,9 +12,9 @@ import {
   FeatureFlagService,
   FontConfigExtension,
   ThemeProvider,
-} from '@blocksuite/affine/shared/services';
-import type { ExtensionType, Store, Workspace } from '@blocksuite/affine/store';
-import type { TestAffineEditorContainer } from '@blocksuite/integration-test';
+} from '@linvo/linvo/shared/services';
+import type { ExtensionType, Store, Workspace } from '@linvo/linvo/store';
+import type { TestLinvoEditorContainer } from '@linvo/integration-test';
 
 import { whiteboardViewExtensionManager } from './extensions';
 import {
@@ -22,7 +22,9 @@ import {
   mockEditorSetting,
 } from './mock-services';
 
-function installEditorZoomGuards(editor: TestAffineEditorContainer) {
+type LinvoEditorContainer = TestLinvoEditorContainer;
+
+function installEditorZoomGuards(editor: LinvoEditorContainer) {
   const eventOptions: AddEventListenerOptions = {
     capture: true,
     passive: false,
@@ -46,7 +48,7 @@ function installEditorZoomGuards(editor: TestAffineEditorContainer) {
 }
 
 function getCommonExtensions(
-  editor: TestAffineEditorContainer
+  editor: LinvoEditorContainer
 ): ExtensionType[] {
   return [
     FontConfigExtension(CommunityCanvasTextFonts),
@@ -67,8 +69,8 @@ export function createEditor(doc: Store, _workspace: Workspace) {
   featureFlags.setFlag('enable_edgeless_scribbled_style', true);
 
   const editor = document.createElement(
-    'affine-editor-container'
-  ) as TestAffineEditorContainer;
+    'linvo-editor-container'
+  ) as LinvoEditorContainer;
 
   editor.autofocus = true;
   editor.doc = doc;
@@ -82,7 +84,7 @@ export function createEditor(doc: Store, _workspace: Workspace) {
   return editor;
 }
 
-export async function configureEditor(editor: TestAffineEditorContainer) {
+export async function configureEditor(editor: LinvoEditorContainer) {
   await editor.updateComplete;
 
   installEditorZoomGuards(editor);

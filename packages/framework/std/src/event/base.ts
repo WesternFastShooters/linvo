@@ -1,7 +1,7 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 
 type MatchEvent<T extends string> = T extends UIEventStateType
-  ? BlockSuiteUIEventState[T]
+  ? LinvoUIEventState[T]
   : UIEventState;
 
 export class UIEventState {
@@ -28,7 +28,7 @@ export class UIEventStateContext {
   ): MatchEvent<Type> => {
     const state = this._map[type];
     if (!state) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.EventDispatcherError,
         `UIEventStateContext: state ${type} not found`
       );
@@ -54,9 +54,9 @@ export type UIEventHandler = (
 ) => boolean | null | undefined | void;
 
 declare global {
-  interface BlockSuiteUIEventState {
+  interface LinvoUIEventState {
     defaultState: UIEventState;
   }
 
-  type UIEventStateType = keyof BlockSuiteUIEventState;
+  type UIEventStateType = keyof LinvoUIEventState;
 }

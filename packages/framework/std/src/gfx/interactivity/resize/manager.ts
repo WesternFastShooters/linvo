@@ -4,7 +4,7 @@ import {
   type IBound,
   type IPoint,
   type IVec,
-} from '@blocksuite/global/gfx';
+} from '@linvo/global/gfx';
 
 import type { GfxController } from '../..';
 import type { GfxModel } from '../../model/model';

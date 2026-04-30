@@ -1,10 +1,10 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 import type {
   BlockSnapshot,
   Slice,
   Store,
   TransformerMiddleware,
-} from '@blocksuite/store';
+} from '@linvo/store';
 import DOMPurify from 'dompurify';
 import * as lz from 'lz-string';
 import rehypeParse from 'rehype-parse';
@@ -181,7 +181,7 @@ export class Clipboard extends LifeCycleWatcher {
         index
       );
       if (!slice) {
-        throw new BlockSuiteError(
+        throw new LinvoError(
           ErrorCode.TransformerError,
           'No snapshot found'
         );
@@ -247,16 +247,16 @@ export class Clipboard extends LifeCycleWatcher {
     const sanitizedItems = DOMPurify.sanitize(items);
     const domParser = new DOMParser();
     const doc = domParser.parseFromString(sanitizedItems, 'text/html');
-    const dom = doc.querySelector<HTMLDivElement>('[data-blocksuite-snapshot]');
+    const dom = doc.querySelector<HTMLDivElement>('[data-linvo-snapshot]');
     if (!dom) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.TransformerError,
         'No snapshot found'
       );
     }
     const json = JSON.parse(
       lz.decompressFromEncodedURIComponent(
-        dom.dataset.blocksuiteSnapshot as string
+        dom.dataset.linvoSnapshot as string
       )
     );
     return json;
@@ -314,7 +314,7 @@ export class Clipboard extends LifeCycleWatcher {
     if (hasInnerHTML || isEmpty) {
       const type = 'text/html';
       const snapshot = lz.compressToEncodedURIComponent(JSON.stringify(items));
-      const html = `<div data-blocksuite-snapshot='${snapshot}'>${innerHTML}</div>`;
+      const html = `<div data-linvo-snapshot='${snapshot}'>${innerHTML}</div>`;
       clipboardItems[type] = new Blob([html], { type });
     }
 

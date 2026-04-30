@@ -1,7 +1,7 @@
-import type { ServiceIdentifier } from '@blocksuite/global/di';
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import type { IBound, IPoint } from '@blocksuite/global/gfx';
+import type { ServiceIdentifier } from '@linvo/global/di';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import type { IBound, IPoint } from '@linvo/global/gfx';
 import { computed, Signal } from '@preact/signals-core';
 import { Subject, type Subscription } from 'rxjs';
 
@@ -284,7 +284,7 @@ export class ToolController extends GfxExtension {
         tool?.[evtName](evt);
         return true;
       } catch (e) {
-        throw new BlockSuiteError(
+        throw new LinvoError(
           ErrorCode.ExecutionError,
           `Error occurred while executing ${evtName} handler of tool "${tool?.toolName}"`,
           {
@@ -550,8 +550,8 @@ export class ToolController extends GfxExtension {
   get = <T extends BaseTool>(type: ToolType<T>): T => {
     const instance = this._tools.get(type.toolName) as T | undefined;
     if (!instance) {
-      throw new BlockSuiteError(
-        BlockSuiteError.ErrorCode.ValueNotExists,
+      throw new LinvoError(
+        LinvoError.ErrorCode.ValueNotExists,
         `Trying to get tool "${type.toolName}" is not registered`
       );
     }
@@ -595,7 +595,7 @@ export class ToolController extends GfxExtension {
 
     const currentTool = this.currentTool$.peek();
     if (!currentTool) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ValueNotExists,
         `Tool "${this.currentToolName$.value}" is not defined`
       );

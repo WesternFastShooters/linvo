@@ -1,6 +1,6 @@
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { nextTick } from '@blocksuite/global/utils';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { nextTick } from '@linvo/global/utils';
 import { Subject } from 'rxjs';
 
 import {
@@ -109,7 +109,7 @@ export class Transformer {
       const rootModel = doc.root;
       const meta = this._exportDocMeta(doc);
       if (!rootModel) {
-        throw new BlockSuiteError(
+        throw new LinvoError(
           ErrorCode.TransformerError,
           'Root block not found in doc'
         );
@@ -261,7 +261,7 @@ export class Transformer {
       // Create a temporary root snapshot to encompass all content blocks
       const tmpRootSnapshot: BlockSnapshot = {
         id: 'temporary-root',
-        flavour: 'affine:page',
+        flavour: 'linvo:page',
         props: {},
         type: 'block',
         children: content,
@@ -284,7 +284,7 @@ export class Transformer {
           .filter(Boolean) as BlockModel[];
         const parentModel = parent ? doc.getBlock(parent)?.model : undefined;
         if (!parentModel) {
-          throw new BlockSuiteError(
+          throw new LinvoError(
             ErrorCode.TransformerError,
             'Parent block not found in doc when moving slice'
           );
@@ -477,7 +477,7 @@ export class Transformer {
     const docMeta = doc.meta;
 
     if (!docMeta) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.TransformerError,
         'Doc meta not found'
       );
@@ -507,7 +507,7 @@ export class Transformer {
   private _getSchema(flavour: string) {
     const schema = this.schema.flavourSchemaMap.get(flavour);
     if (!schema) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.TransformerError,
         `Flavour schema not found for ${flavour}`
       );
@@ -540,7 +540,7 @@ export class Transformer {
 
       const model = doc.getBlock(id)?.model;
       if (!model) {
-        throw new BlockSuiteError(
+        throw new LinvoError(
           ErrorCode.TransformerError,
           `Block not found by id ${id}`
         );

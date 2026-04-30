@@ -1,4 +1,4 @@
-import type { BaseTextAttributes } from '@blocksuite/store';
+import type { BaseTextAttributes } from '@linvo/store';
 
 import type { InlineEditor } from '../inline-editor.js';
 import type { InlineRange } from '../types.js';
@@ -74,7 +74,7 @@ export class EventService<TextAttributes extends BaseTextAttributes> {
         // eslint-disable-next-line sonarjs/no-duplicated-branches
       ) {
         // do not use target range when deleting across lines
-        // https://github.com/toeverything/blocksuite/issues/5381
+        // https://github.com/toeverything/linvo/issues/5381
         inlineRange = {
           index: inlineRange.index - 1,
           length: 1,

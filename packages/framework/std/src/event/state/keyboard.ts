@@ -21,7 +21,7 @@ export class KeyboardEventState extends UIEventState {
 }
 
 declare global {
-  interface BlockSuiteUIEventState {
+  interface LinvoUIEventState {
     keyboardState: KeyboardEventState;
   }
 }

@@ -1,4 +1,4 @@
-import type { ServiceIdentifier } from '@blocksuite/global/di';
+import type { ServiceIdentifier } from '@linvo/global/di';
 
 import { LifeCycleWatcherIdentifier } from '../identifier.js';
 import type { GfxController } from './controller.js';

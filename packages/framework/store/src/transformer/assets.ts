@@ -1,4 +1,4 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 
 import type { BlockProps } from '../model';
 import type { BlobCRUD } from './type';
@@ -94,7 +94,7 @@ export class AssetsManager {
   async writeToBlob(blobId: string) {
     const blob = this._assetsMap.get(blobId);
     if (!blob) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.TransformerError,
         `Blob ${blobId} not found in assets manager`
       );

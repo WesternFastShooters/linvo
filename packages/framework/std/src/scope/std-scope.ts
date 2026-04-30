@@ -1,10 +1,10 @@
-import { Container, type ServiceProvider } from '@blocksuite/global/di';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
+import { Container, type ServiceProvider } from '@linvo/global/di';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 import {
   type ExtensionType,
   type Store,
   StoreSelectionExtension,
-} from '@blocksuite/store';
+} from '@linvo/store';
 
 import { Clipboard } from '../clipboard/index.js';
 import { CommandManager } from '../command/index.js';
@@ -95,7 +95,7 @@ export class BlockStdScope {
 
   get host() {
     if (!this._host) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ValueNotExists,
         'Host is not ready to use, the `render` method should be called first'
       );

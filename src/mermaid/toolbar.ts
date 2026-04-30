@@ -1,6 +1,6 @@
-import { SignalWatcher } from '@blocksuite/global/lit';
-import { EdgelessToolbarToolMixin } from '@blocksuite/affine-widget-edgeless-toolbar';
-import { SeniorToolExtension } from '@blocksuite/affine-widget-edgeless-toolbar';
+import { SignalWatcher } from '@linvo/global/lit';
+import { EdgelessToolbarToolMixin } from '@linvo/linvo-widget-edgeless-toolbar';
+import { SeniorToolExtension } from '@linvo/linvo-widget-edgeless-toolbar';
 import { css, html, LitElement } from 'lit';
 
 import { getMermaidInsertController } from './controller';
@@ -40,10 +40,10 @@ export class EdgelessMermaidButton extends EdgelessToolbarToolMixin(
         .activeMode=${'background'}
         .iconContainerPadding=${[8, 10]}
         .iconSize=${'18px'}
-        .tooltip=${html`<affine-tooltip-content-with-shortcut
+        .tooltip=${html`<linvo-tooltip-content-with-shortcut
           data-tip="${'Mermaid'}"
           data-shortcut="${'M'}"
-        ></affine-tooltip-content-with-shortcut>`}
+        ></linvo-tooltip-content-with-shortcut>`}
         .tooltipOffset=${5}
         @click=${this.openModal}
       >

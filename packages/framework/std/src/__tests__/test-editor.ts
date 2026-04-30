@@ -1,5 +1,5 @@
-import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
-import type { ExtensionType, Store } from '@blocksuite/store';
+import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
+import type { ExtensionType, Store } from '@linvo/store';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 

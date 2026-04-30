@@ -1,6 +1,6 @@
-import { type Container, createIdentifier } from '@blocksuite/global/di';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { Extension } from '@blocksuite/store';
+import { type Container, createIdentifier } from '@linvo/global/di';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { Extension } from '@linvo/store';
 
 import { LifeCycleWatcher } from '../extension/lifecycle-watcher.js';
 import { StdIdentifier } from '../identifier.js';
@@ -24,7 +24,7 @@ export abstract class SurfaceMiddlewareBuilder extends Extension {
 
   static override setup(di: Container) {
     if (!this.key) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ValueNotExists,
         'The surface middleware builder should have a static key property.'
       );

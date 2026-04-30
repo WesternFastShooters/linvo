@@ -1,4 +1,4 @@
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 
 import type { SelectionConstructor } from './types';
 
@@ -28,7 +28,7 @@ export abstract class BaseSelection {
   }
 
   static fromJSON(_: Record<string, unknown>): BaseSelection {
-    throw new BlockSuiteError(
+    throw new LinvoError(
       ErrorCode.SelectionError,
       'You must override this method'
     );

@@ -1,6 +1,6 @@
-import { type Container, createIdentifier } from '@blocksuite/global/di';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { Extension } from '@blocksuite/store';
+import { type Container, createIdentifier } from '@linvo/global/di';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { Extension } from '@linvo/store';
 
 import type { GfxController } from './controller.js';
 import { GfxControllerIdentifier } from './identifiers.js';
@@ -28,7 +28,7 @@ export abstract class GfxExtension extends Extension {
 
   static override setup(di: Container) {
     if (!this.key) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ValueNotExists,
         'key is not defined in the GfxExtension'
       );

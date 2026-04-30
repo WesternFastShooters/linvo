@@ -1,8 +1,8 @@
-import { type Container, createIdentifier } from '@blocksuite/global/di';
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { type Bound, type IVec } from '@blocksuite/global/gfx';
-import type { Extension } from '@blocksuite/store';
+import { type Container, createIdentifier } from '@linvo/global/di';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { type Bound, type IVec } from '@linvo/global/gfx';
+import type { Extension } from '@linvo/store';
 
 import type { PointerEventState } from '../../event/index.js';
 import type { EditorHost } from '../../view/index.js';
@@ -87,7 +87,7 @@ export class GfxElementModelView<
 
   static setup(di: Container): void {
     if (!this.type) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ValueNotExists,
         'The GfxElementModelView should have a static `type` property.'
       );

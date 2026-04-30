@@ -1,5 +1,5 @@
-import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
-import type { BlockModel, Store } from '@blocksuite/store';
+import { SignalWatcher, WithDisposable } from '@linvo/global/lit';
+import type { BlockModel, Store } from '@linvo/store';
 import { consume } from '@lit/context';
 import { LitElement } from 'lit';
 

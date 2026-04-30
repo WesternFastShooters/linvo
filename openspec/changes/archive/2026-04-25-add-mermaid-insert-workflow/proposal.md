@@ -55,8 +55,8 @@
 
 - `src/extensions.ts`
 - `src/editor.ts`
-- `packages/affine/widgets/edgeless-toolbar/**`
-- `packages/affine/blocks/image/**`
+- `packages/linvo/widgets/edgeless-toolbar/**`
+- `packages/linvo/blocks/image/**`
 - edgeless CRUD 与 overlay 相关集成点
 
 潜在新增依赖：

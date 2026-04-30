@@ -1,5 +1,5 @@
-import { ViewExtensionManager } from '@blocksuite/affine/ext-loader';
-import { getInternalViewExtensions } from '@blocksuite/affine/extensions/view';
+import { ViewExtensionManager } from '@linvo/linvo/ext-loader';
+import { getInternalViewExtensions } from '@linvo/linvo/extensions/view';
 
 const manager = new ViewExtensionManager(getInternalViewExtensions());
 

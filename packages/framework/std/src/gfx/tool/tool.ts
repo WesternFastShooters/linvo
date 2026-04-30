@@ -1,7 +1,7 @@
-import { type Container, createIdentifier } from '@blocksuite/global/di';
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
-import { Extension } from '@blocksuite/store';
+import { type Container, createIdentifier } from '@linvo/global/di';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
+import { Extension } from '@linvo/store';
 
 import type { PointerEventState } from '../../event/index.js';
 import type { GfxController } from '../controller.js';
@@ -56,7 +56,7 @@ export abstract class BaseTool<
 
   static override setup(di: Container): void {
     if (!this.toolName) {
-      throw new BlockSuiteError(
+      throw new LinvoError(
         ErrorCode.ValueNotExists,
         `The tool constructor '${this.name}' should have a static 'toolName' property.`
       );

@@ -1,11 +1,11 @@
 import './style.css';
 
-import { Text } from '@blocksuite/affine/store';
+import { Text } from '@linvo/linvo/store';
 import {
   createAutoIncrementIdGenerator,
   TestWorkspace,
-} from '@blocksuite/affine/store/test';
-import { effects as integrationEffects } from '@blocksuite/integration-test/effects';
+} from '@linvo/linvo/store/test';
+import { effects as integrationEffects } from '@linvo/integration-test/effects';
 
 import { configureEditor, createEditor } from './editor';
 import { whiteboardStoreExtensionManager } from './extensions';
@@ -19,7 +19,7 @@ async function bootstrap() {
   }
 
   const workspace = new TestWorkspace({
-    id: 'best-excalidraw',
+    id: 'linvo',
     idGenerator: createAutoIncrementIdGenerator(),
   });
   workspace.storeExtensions = whiteboardStoreExtensionManager.get('store');
@@ -30,10 +30,10 @@ async function bootstrap() {
   const store = doc.getStore({ id: doc.id });
   store.load();
 
-  const rootId = store.addBlock('affine:page', {
-    title: new Text('Best Excalidraw'),
+  const rootId = store.addBlock('linvo:page', {
+    title: new Text('Linvo'),
   });
-  store.addBlock('affine:surface', {}, rootId);
+  store.addBlock('linvo:surface', {}, rootId);
   store.resetHistory();
 
   const editor = createEditor(store, workspace);
@@ -43,8 +43,8 @@ async function bootstrap() {
   shell.innerHTML = `
     <header class="shell-header">
       <div class="shell-title">
-        <h1>Best Excalidraw</h1>
-        <p>BlockSuite edgeless extracted with brush, eraser, shapes and mindmap</p>
+        <h1>Linvo</h1>
+        <p>A sketch-first whiteboard for diagrams, ideas, and visual thinking.</p>
       </div>
       <div class="shell-note">默认进入白板模式</div>
     </header>
@@ -71,6 +71,6 @@ bootstrap().catch(error => {
       error instanceof Error
         ? `${error.name}: ${error.message}\n${error.stack ?? ''}`
         : String(error);
-    app.textContent = `Failed to start Best Excalidraw: ${detail}`;
+    app.textContent = `Failed to start Linvo: ${detail}`;
   }
 });

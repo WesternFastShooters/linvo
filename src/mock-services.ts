@@ -1,35 +1,36 @@
 import {
   type DocMode,
   type ReferenceParams,
-} from '@blocksuite/affine/model';
+} from '@linvo/linvo/model';
 import {
   type DocModeProvider,
   type EditorSetting,
   GeneralSettingSchema,
   type ParseDocUrlService,
-} from '@blocksuite/affine/shared/services';
-import type { Workspace } from '@blocksuite/affine/store';
-import type { TestAffineEditorContainer } from '@blocksuite/integration-test';
+} from '@linvo/linvo/shared/services';
+import type { Workspace } from '@linvo/linvo/store';
+import type { TestLinvoEditorContainer } from '@linvo/integration-test';
 import { Signal } from '@preact/signals-core';
 import { Subject } from 'rxjs';
 
 const DEFAULT_MODE: DocMode = 'edgeless';
+type LinvoEditorContainer = TestLinvoEditorContainer;
 const slotMap = new Map<string, Subject<DocMode>>();
 
 function getModeFromStorage() {
-  const raw = localStorage.getItem('best-excalidraw:doc-mode');
+  const raw = localStorage.getItem('linvo:doc-mode');
   const entries = raw ? JSON.parse(raw) : [];
   return new Map<string, DocMode>(entries);
 }
 
 function saveModeToStorage(map: Map<string, DocMode>) {
   localStorage.setItem(
-    'best-excalidraw:doc-mode',
+    'linvo:doc-mode',
     JSON.stringify(Array.from(map.entries()))
   );
 }
 
-export function mockDocModeService(editor: TestAffineEditorContainer) {
+export function mockDocModeService(editor: LinvoEditorContainer) {
   const docModeService: DocModeProvider = {
     getPrimaryMode: docId => {
       try {

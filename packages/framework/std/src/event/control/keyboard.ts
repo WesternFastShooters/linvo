@@ -1,5 +1,5 @@
-import { DisposableGroup } from '@blocksuite/global/disposable';
-import { IS_ANDROID, IS_MAC } from '@blocksuite/global/env';
+import { DisposableGroup } from '@linvo/global/disposable';
+import { IS_ANDROID, IS_MAC } from '@linvo/global/env';
 
 import {
   type UIEventHandler,

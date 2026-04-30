@@ -248,6 +248,16 @@ export class MermaidInsertModal extends SignalWatcher(LitElement) {
   @property({ attribute: false })
   accessor controller!: MermaidInsertController;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+    window.addEventListener('keydown', this.onWindowKeyDown, true);
+  }
+
+  override disconnectedCallback(): void {
+    window.removeEventListener('keydown', this.onWindowKeyDown, true);
+    super.disconnectedCallback();
+  }
+
   override render() {
     const snapshot = this.controller?.snapshot();
     if (!snapshot?.open) {
@@ -333,4 +343,14 @@ export class MermaidInsertModal extends SignalWatcher(LitElement) {
       this.controller.startPlacement();
     }
   }
+
+  private onWindowKeyDown = (event: KeyboardEvent) => {
+    if (!this.controller?.snapshot().open || event.key !== 'Escape') {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    this.controller.close();
+  };
 }

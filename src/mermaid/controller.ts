@@ -111,12 +111,15 @@ export class MermaidInsertController {
 
     const renderResult = this.state.renderResult.value;
     const plan = this.state.plan.value;
-    if (!renderResult || !plan) return;
+    const preview = this.state.preview.value;
+    if (!renderResult || !plan || !preview) return;
 
     const options: ToolOptions<MermaidPlacementTool> = {
       controller: this,
-      renderResult,
       plan,
+      overlaySvg: preview.svg,
+      overlayWidth: preview.width,
+      overlayHeight: preview.height,
     } as ToolOptions<MermaidPlacementTool>;
 
     this.state.open.value = false;

@@ -21,7 +21,7 @@ import {
 } from '@blocksuite/std/gfx';
 import { computed, effect, type Signal, signal } from '@preact/signals-core';
 import { css, html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 
 import { ShapeTool } from '../shape-tool';
@@ -30,6 +30,9 @@ import { ShapeComponentConfig } from '../toolbar';
 export class EdgelessShapeMenu extends SignalWatcher(
   WithDisposable(LitElement)
 ) {
+  private _morePanel: HTMLElementTagNameMap['edgeless-shape-more-panel'] | null =
+    null;
+
   static override styles = css`
     :host {
       display: flex;
@@ -45,6 +48,29 @@ export class EdgelessShapeMenu extends SignalWatcher(
       align-items: center;
       justify-content: center;
       gap: 14px;
+    }
+    .shape-type-container {
+      gap: 10px;
+    }
+    .shape-type-main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .shape-more-trigger {
+      position: relative;
+      padding-left: 10px;
+    }
+    .shape-more-trigger::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 18px;
+      background: var(--affine-border-color);
     }
     .shape-type-container svg,
     .shape-style-container svg {
@@ -111,8 +137,21 @@ export class EdgelessShapeMenu extends SignalWatcher(
     return this.edgeless.std.get(ThemeProvider).theme$.value;
   });
 
+  @state()
+  accessor showMorePanel = false;
+
   override connectedCallback(): void {
     super.connectedCallback();
+
+    this._disposables.addFromEvent(
+      document,
+      'edgeless-shape-more-panel-close',
+      () => {
+        if (this.showMorePanel) {
+          this.showMorePanel = false;
+        }
+      }
+    );
 
     const gfx = this.edgeless.std.get(GfxControllerIdentifier);
     this._disposables.add(
@@ -125,9 +164,50 @@ export class EdgelessShapeMenu extends SignalWatcher(
           if (shapeName) {
             this._shapeName$.value = shapeName;
           }
+        } else if (this.showMorePanel) {
+          this.showMorePanel = false;
         }
       })
     );
+  }
+
+  override disconnectedCallback(): void {
+    this._disposeMorePanel();
+    super.disconnectedCallback();
+  }
+
+  override updated(): void {
+    this._syncMorePanel();
+  }
+
+  private _disposeMorePanel() {
+    this._morePanel?.remove();
+    this._morePanel = null;
+  }
+
+  private _syncMorePanel() {
+    if (!this.showMorePanel) {
+      this._disposeMorePanel();
+      return;
+    }
+
+    const { shapeStyle, shapeName } = this._props$.value;
+
+    if (!this._morePanel) {
+      this._morePanel = document.createElement('edgeless-shape-more-panel');
+      document.body.append(this._morePanel);
+    }
+
+    this._morePanel.edgeless = this.edgeless;
+    this._morePanel.shapeStyle = shapeStyle;
+    this._morePanel.selectedShape = shapeName;
+    this._morePanel.onSelect = (name: ShapeName) => {
+      this.onChange(name);
+      this.showMorePanel = false;
+    };
+    this._morePanel.onClose = () => {
+      this.showMorePanel = false;
+    };
   }
 
   override render() {
@@ -171,23 +251,49 @@ export class EdgelessShapeMenu extends SignalWatcher(
             )
           }
           <div class="shape-type-container">
-            ${ShapeComponentConfig.map(
-              ({ name, generalIcon, scribbledIcon, tooltip }) => {
-                return html`
-                  <edgeless-tool-icon-button
-                    .tooltip=${tooltip}
-                    .active=${shapeName === name}
-                    .activeMode=${'background'}
-                    .iconSize=${'20px'}
-                    @click=${() => this.onChange(name)}
-                  >
-                    ${shapeStyle === ShapeStyle.General
-                      ? generalIcon
-                      : scribbledIcon}
-                  </edgeless-tool-icon-button>
-                `;
-              }
-            )}
+            <div class="shape-type-main">
+              ${ShapeComponentConfig.map(
+                ({ name, generalIcon, scribbledIcon, tooltip }) => {
+                  return html`
+                    <edgeless-tool-icon-button
+                      .tooltip=${tooltip}
+                      .active=${shapeName === name}
+                      .activeMode=${'background'}
+                      .iconSize=${'20px'}
+                      @click=${() => this.onChange(name)}
+                    >
+                      ${shapeStyle === ShapeStyle.General
+                        ? generalIcon
+                        : scribbledIcon}
+                    </edgeless-tool-icon-button>
+                  `;
+                }
+              )}
+            </div>
+            <div class="shape-more-trigger">
+              <edgeless-tool-icon-button
+                .tooltip=${'More'}
+                .active=${this.showMorePanel}
+                .activeMode=${'background'}
+                .iconSize=${'20px'}
+                @click=${() => {
+                  this.showMorePanel = !this.showMorePanel;
+                }}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 1024 1024"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M298.666667 586.666667a74.666667 74.666667 0 1 1 0-149.333334 74.666667 74.666667 0 0 1 0 149.333334z m213.333333 0a74.666667 74.666667 0 1 1 0-149.333334 74.666667 74.666667 0 0 1 0 149.333334z m213.333333 0a74.666667 74.666667 0 1 1 0-149.333334 74.666667 74.666667 0 0 1 0 149.333334z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </edgeless-tool-icon-button>
+            </div>
           </div>
           <menu-divider .vertical=${true}></menu-divider>
           <edgeless-color-panel

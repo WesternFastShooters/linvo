@@ -2,6 +2,12 @@ import type { Options } from '@blocksuite/affine-block-surface';
 import { shapeMethods } from '@blocksuite/affine-model';
 import { Bound, type XYWH } from '@blocksuite/global/gfx';
 
+import {
+  drawPresetShapeOverlay,
+  drawPresetShapeUnderlay,
+  isPresetShapeType,
+} from '../preset-shape-utils.js';
+
 export const drawGeneralShape = (
   ctx: CanvasRenderingContext2D,
   type: string,
@@ -16,6 +22,11 @@ export const drawGeneralShape = (
   ctx.beginPath();
 
   const bound = Bound.fromXYWH(xywh);
+  const strokeWidth = options.strokeWidth ?? 2;
+  if (isPresetShapeType(type)) {
+    drawPresetShapeUnderlay(ctx, type, xywh, strokeWidth);
+  }
+
   switch (type) {
     case 'rect':
       shapeMethods.rect.draw(ctx, bound);
@@ -33,13 +44,21 @@ export const drawGeneralShape = (
       drawRoundedRect(ctx, xywh);
       break;
     default:
-      throw new Error(`Unknown shape type: ${type}`);
+      if (isPresetShapeType(type)) {
+        shapeMethods[type].draw(ctx, bound);
+      } else {
+        throw new Error(`Unknown shape type: ${type}`);
+      }
   }
 
   ctx.closePath();
 
   ctx.fill();
   ctx.stroke();
+
+  if (isPresetShapeType(type)) {
+    drawPresetShapeOverlay(ctx, type, xywh, strokeWidth);
+  }
 };
 
 function drawRoundedRect(ctx: CanvasRenderingContext2D, xywh: XYWH): void {

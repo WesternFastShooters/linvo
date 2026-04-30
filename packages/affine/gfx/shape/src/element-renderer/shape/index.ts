@@ -17,11 +17,12 @@ import type {
   ShapeElementModel,
   ShapeType,
 } from '@blocksuite/affine-model';
-import { DefaultTheme, TextAlign } from '@blocksuite/affine-model';
+import { DefaultTheme, ShapeType as ShapeTypeEnum, TextAlign } from '@blocksuite/affine-model';
 import type { IBound } from '@blocksuite/global/gfx';
 import { Bound } from '@blocksuite/global/gfx';
 import { deltaInsertsToChunks } from '@blocksuite/std/inline';
 
+import { custom } from './custom.js';
 import { diamond } from './diamond.js';
 import { ellipse } from './ellipse.js';
 import { rect } from './rect.js';
@@ -43,6 +44,52 @@ const shapeRenderers: Record<
   rect,
   triangle,
   ellipse,
+  [ShapeTypeEnum.Hexagon]: custom,
+  [ShapeTypeEnum.Pentagon]: custom,
+  [ShapeTypeEnum.Octagon]: custom,
+  [ShapeTypeEnum.Parallelogram]: custom,
+  [ShapeTypeEnum.LeanLeft]: custom,
+  [ShapeTypeEnum.Trapezoid]: custom,
+  [ShapeTypeEnum.TrapezoidAlt]: custom,
+  [ShapeTypeEnum.Stadium]: custom,
+  [ShapeTypeEnum.Subroutine]: custom,
+  [ShapeTypeEnum.Cylinder]: custom,
+  [ShapeTypeEnum.HorizontalCylinder]: custom,
+  [ShapeTypeEnum.LinedCylinder]: custom,
+  [ShapeTypeEnum.Document]: custom,
+  [ShapeTypeEnum.LinedDocument]: custom,
+  [ShapeTypeEnum.MultiDocument]: custom,
+  [ShapeTypeEnum.Note]: custom,
+  [ShapeTypeEnum.Package]: custom,
+  [ShapeTypeEnum.Cloud]: custom,
+  [ShapeTypeEnum.DoubleCircle]: custom,
+  [ShapeTypeEnum.FilledCircle]: custom,
+  [ShapeTypeEnum.Asymmetric]: custom,
+  [ShapeTypeEnum.Hourglass]: custom,
+  [ShapeTypeEnum.NotchedRect]: custom,
+  [ShapeTypeEnum.NotchedPentagon]: custom,
+  [ShapeTypeEnum.Bolt]: custom,
+  [ShapeTypeEnum.Bang]: custom,
+  [ShapeTypeEnum.Flag]: custom,
+  [ShapeTypeEnum.BowRect]: custom,
+  [ShapeTypeEnum.SmallCircle]: custom,
+  [ShapeTypeEnum.FramedCircle]: custom,
+  [ShapeTypeEnum.CrossedCircle]: custom,
+  [ShapeTypeEnum.TaggedDocument]: custom,
+  [ShapeTypeEnum.TaggedRect]: custom,
+  [ShapeTypeEnum.BraceLeft]: custom,
+  [ShapeTypeEnum.BraceRight]: custom,
+  [ShapeTypeEnum.Braces]: custom,
+  [ShapeTypeEnum.Delay]: custom,
+  [ShapeTypeEnum.CurvedTrapezoid]: custom,
+  [ShapeTypeEnum.DividedRect]: custom,
+  [ShapeTypeEnum.ForkJoin]: custom,
+  [ShapeTypeEnum.WindowPane]: custom,
+  [ShapeTypeEnum.LinedRect]: custom,
+  [ShapeTypeEnum.FlippedTriangle]: custom,
+  [ShapeTypeEnum.SlopedRect]: custom,
+  [ShapeTypeEnum.StackedRect]: custom,
+  [ShapeTypeEnum.Odd]: custom,
 };
 
 export const shape: ElementRenderer<ShapeElementModel> = (

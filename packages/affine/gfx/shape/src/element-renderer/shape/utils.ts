@@ -15,9 +15,18 @@ import type {
   TextAlign,
   TextVerticalAlign,
 } from '@blocksuite/affine-model';
-import { FeatureFlagService } from '@blocksuite/affine-shared/services';
+import { shapeMethods } from '@blocksuite/affine-model';
+import {
+  FeatureFlagService,
+} from '@blocksuite/affine-shared/services';
 import type { Bound, SerializedXYWH } from '@blocksuite/global/gfx';
 import { deltaInsertsToChunks } from '@blocksuite/std/inline';
+
+import {
+  drawPresetShapeOverlay,
+  drawPresetShapeUnderlay,
+  isPresetShapeType,
+} from '../../preset-shape-utils.js';
 
 export type Colors = {
   color: string;
@@ -36,6 +45,29 @@ export function drawGeneralShape(
   const sizeOffset = Math.max(shapeModel.strokeWidth, 0);
   const w = Math.max(shapeModel.w - sizeOffset, 0);
   const h = Math.max(shapeModel.h - sizeOffset, 0);
+  const xywh: [number, number, number, number] = [0, 0, w, h];
+
+  ctx.lineWidth = shapeModel.strokeWidth;
+  ctx.strokeStyle = strokeColor;
+  ctx.fillStyle = filled ? fillColor : 'transparent';
+
+  switch (shapeModel.strokeStyle) {
+    case 'none':
+      ctx.strokeStyle = 'transparent';
+      break;
+    case 'dash':
+      ctx.setLineDash([12, 12]);
+      break;
+  }
+
+  if (isPresetShapeType(shapeModel.shapeType)) {
+    drawPresetShapeUnderlay(
+      ctx,
+      shapeModel.shapeType,
+      xywh,
+      shapeModel.strokeWidth
+    );
+  }
 
   switch (shapeModel.shapeType) {
     case 'rect':
@@ -49,19 +81,17 @@ export function drawGeneralShape(
       break;
     case 'triangle':
       drawTriangle(ctx, 0, 0, w, h);
-  }
-
-  ctx.lineWidth = shapeModel.strokeWidth;
-  ctx.strokeStyle = strokeColor;
-  ctx.fillStyle = filled ? fillColor : 'transparent';
-
-  switch (shapeModel.strokeStyle) {
-    case 'none':
-      ctx.strokeStyle = 'transparent';
       break;
-    case 'dash':
-      ctx.setLineDash([12, 12]);
-      break;
+    default:
+      if (isPresetShapeType(shapeModel.shapeType)) {
+        shapeMethods[shapeModel.shapeType].draw(ctx, {
+          x: 0,
+          y: 0,
+          w,
+          h,
+          rotate: 0,
+        });
+      }
   }
 
   if (shapeModel.shadow) {
@@ -90,6 +120,10 @@ export function drawGeneralShape(
     ctx.shadowBlur = 0;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
+  }
+
+  if (isPresetShapeType(shapeModel.shapeType)) {
+    drawPresetShapeOverlay(ctx, shapeModel.shapeType, xywh, shapeModel.strokeWidth);
   }
 
   ctx.fill();

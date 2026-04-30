@@ -95,6 +95,58 @@ export async function configureEditor(editor: TestAffineEditorContainer) {
     fillColor: DefaultTheme.transparent,
     fontFamily: FontFamily.Kalam,
   };
+  const defaultShapeNames = [
+    'rect',
+    'ellipse',
+    'diamond',
+    'triangle',
+    'hexagon',
+    'pentagon',
+    'octagon',
+    'parallelogram',
+    'leanLeft',
+    'trapezoid',
+    'trapezoidAlt',
+    'stadium',
+    'subroutine',
+    'cylinder',
+    'horizontalCylinder',
+    'linedCylinder',
+    'document',
+    'linedDocument',
+    'multiDocument',
+    'note',
+    'package',
+    'cloud',
+    'doubleCircle',
+    'filledCircle',
+    'asymmetric',
+    'hourglass',
+    'notchedRect',
+    'notchedPentagon',
+    'bolt',
+    'bang',
+    'flag',
+    'bowRect',
+    'smallCircle',
+    'framedCircle',
+    'crossedCircle',
+    'taggedDocument',
+    'taggedRect',
+    'braceLeft',
+    'braceRight',
+    'braces',
+    'delay',
+    'curvedTrapezoid',
+    'dividedRect',
+    'forkJoin',
+    'windowPane',
+    'linedRect',
+    'flippedTriangle',
+    'slopedRect',
+    'stackedRect',
+    'odd',
+  ] as const;
 
   const applyShapeDefaults = (scheme: ColorScheme) => {
     const strokeColor =
@@ -102,22 +154,13 @@ export async function configureEditor(editor: TestAffineEditorContainer) {
         ? DefaultTheme.white
         : DefaultTheme.black;
 
-    editPropsStore.recordLastProps('shape:rect', {
-      ...defaultShapeProps,
-      strokeColor,
-    });
-    editPropsStore.recordLastProps('shape:ellipse', {
-      ...defaultShapeProps,
-      strokeColor,
-    });
-    editPropsStore.recordLastProps('shape:diamond', {
-      ...defaultShapeProps,
-      strokeColor,
-    });
-    editPropsStore.recordLastProps('shape:triangle', {
-      ...defaultShapeProps,
-      strokeColor,
-    });
+    for (const shapeName of defaultShapeNames) {
+      editPropsStore.recordLastProps(`shape:${shapeName}`, {
+        ...defaultShapeProps,
+        strokeColor,
+      });
+    }
+
     editPropsStore.recordLastProps('shape:roundedRect', {
       ...defaultShapeProps,
       strokeColor,

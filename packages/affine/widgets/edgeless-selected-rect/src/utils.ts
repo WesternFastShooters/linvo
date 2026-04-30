@@ -15,6 +15,7 @@ import {
   type ShapeName,
   type ShapeStyle,
 } from '@blocksuite/affine-model';
+import { EditPropsStore } from '@blocksuite/affine-shared/services';
 import { BlockSuiteError, ErrorCode } from '@blocksuite/global/exceptions';
 import { Bound, normalizeDegAngle, type XYWH } from '@blocksuite/global/gfx';
 import { assertType } from '@blocksuite/global/utils';
@@ -341,9 +342,14 @@ export function createShapeElement(
   targetType: TARGET_SHAPE_TYPE
 ) {
   const crud = edgeless.std.get(EdgelessCRUDIdentifier);
+  const editPropsStore = edgeless.std.get(EditPropsStore);
+  const shapeType = getShapeType(targetType);
+  const radius = getShapeRadius(targetType);
+  const shapeProps = editPropsStore.lastProps$.value[`shape:${targetType}`];
   const id = crud.addElement('shape', {
-    shapeType: getShapeType(targetType),
-    radius: getShapeRadius(targetType),
+    ...shapeProps,
+    shapeType,
+    radius,
     text: new Y.Text(),
   });
   if (!id) return null;

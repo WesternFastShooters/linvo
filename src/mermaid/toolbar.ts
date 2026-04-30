@@ -63,6 +63,7 @@ export class EdgelessMermaidButton extends EdgelessToolbarToolMixin(
   }
 
   private openModal() {
+    document.dispatchEvent(new CustomEvent('edgeless-shape-more-panel-close'));
     getMermaidInsertController(this.edgeless).open(this.edgeless);
   }
 }

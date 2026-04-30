@@ -1,3 +1,5 @@
+import { shapeMethods } from '@blocksuite/affine/model';
+
 import { RoughSVG } from '../../packages/affine/blocks/surface/src/utils/rough/svg.js';
 
 import type {
@@ -86,7 +88,21 @@ function appendNode(
     }
     case 'rect':
     default:
-      shape = rough.rectangle(x, y, node.width, node.height, options);
+      if (node.shapeType === 'rect') {
+        shape = rough.rectangle(x, y, node.width, node.height, options);
+        break;
+      }
+
+      shape = rough.polygon(
+        shapeMethods[node.shapeType].points({
+          x,
+          y,
+          w: node.width,
+          h: node.height,
+          rotate: 0,
+        }),
+        options
+      );
       break;
   }
 
@@ -197,14 +213,19 @@ export function buildMermaidPreviewModel(
     return {
       mode: 'image',
       svg: fallbackSvg,
+      width: plan.width,
+      height: plan.height,
     };
   }
 
+  const width = plan.width + PREVIEW_PADDING * 2;
+  const height = plan.height + PREVIEW_PADDING * 2;
+
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-  svg.setAttribute('viewBox', `0 0 ${plan.width + PREVIEW_PADDING * 2} ${plan.height + PREVIEW_PADDING * 2}`);
-  svg.setAttribute('width', `${plan.width + PREVIEW_PADDING * 2}`);
-  svg.setAttribute('height', `${plan.height + PREVIEW_PADDING * 2}`);
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  svg.setAttribute('width', `${width}`);
+  svg.setAttribute('height', `${height}`);
   svg.setAttribute('fill', 'none');
 
   createArrowMarker(svg);
@@ -232,5 +253,7 @@ export function buildMermaidPreviewModel(
   return {
     mode: 'native',
     svg: svg.outerHTML,
+    width,
+    height,
   };
 }

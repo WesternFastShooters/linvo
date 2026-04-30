@@ -24,6 +24,134 @@ type ParsedFlowchart = {
   edges: ParsedEdge[];
 };
 
+const shapeAliasMap: Record<string, NativeNodeShape> = {
+  process: 'rect',
+  rect: 'rect',
+  proc: 'rect',
+  round: 'roundedRect',
+  rounded: 'roundedRect',
+  roundedrect: 'roundedRect',
+  event: 'roundedRect',
+  triangle: 'triangle',
+  tri: 'triangle',
+  extract: 'triangle',
+  diamond: 'diamond',
+  decision: 'diamond',
+  diam: 'diamond',
+  rhombus: 'diamond',
+  ellipse: 'ellipse',
+  circle: 'ellipse',
+  circ: 'ellipse',
+  hexagon: 'hexagon',
+  hex: 'hexagon',
+  prepare: 'hexagon',
+  pentagon: 'pentagon',
+  octagon: 'octagon',
+  parallelogram: 'parallelogram',
+  leanright: 'parallelogram',
+  leanr: 'parallelogram',
+  leanleft: 'leanLeft',
+  leanl: 'leanLeft',
+  trapezoid: 'trapezoid',
+  manualoperation: 'trapezoid',
+  trapb: 'trapezoid',
+  trapezoidalt: 'trapezoidAlt',
+  invtrapezoid: 'trapezoidAlt',
+  trapt: 'trapezoidAlt',
+  stadium: 'stadium',
+  terminal: 'stadium',
+  terminator: 'stadium',
+  subroutine: 'subroutine',
+  subprocess: 'subroutine',
+  subproc: 'subroutine',
+  framedrect: 'subroutine',
+  strect: 'subroutine',
+  cyl: 'cylinder',
+  cylinder: 'cylinder',
+  database: 'cylinder',
+  db: 'cylinder',
+  horizontalcylinder: 'horizontalCylinder',
+  hcyl: 'horizontalCylinder',
+  diskstorage: 'horizontalCylinder',
+  disk: 'horizontalCylinder',
+  linedcylinder: 'linedCylinder',
+  lincyl: 'linedCylinder',
+  storage: 'linedCylinder',
+  doc: 'document',
+  document: 'document',
+  lineddocument: 'linedDocument',
+  lineddoc: 'linedDocument',
+  docs: 'multiDocument',
+  multidocument: 'multiDocument',
+  documents: 'multiDocument',
+  note: 'note',
+  package: 'package',
+  cloud: 'cloud',
+  doublecircle: 'doubleCircle',
+  dblcirc: 'doubleCircle',
+  stop: 'doubleCircle',
+  filledcircle: 'filledCircle',
+  junction: 'filledCircle',
+  smallcircle: 'smallCircle',
+  smcirc: 'smallCircle',
+  start: 'smallCircle',
+  framedcircle: 'framedCircle',
+  frcirc: 'framedCircle',
+  crossedcircle: 'crossedCircle',
+  crosscirc: 'crossedCircle',
+  summary: 'crossedCircle',
+  asymmetric: 'asymmetric',
+  hourglass: 'hourglass',
+  collate: 'hourglass',
+  notchedrect: 'notchedRect',
+  card: 'notchedRect',
+  notchedpentagon: 'notchedPentagon',
+  looplimit: 'notchedPentagon',
+  bolt: 'bolt',
+  comlink: 'bolt',
+  communicationlink: 'bolt',
+  lightningbolt: 'bolt',
+  bang: 'bang',
+  flag: 'flag',
+  papertape: 'flag',
+  bowrect: 'bowRect',
+  storeddata: 'bowRect',
+  taggeddocument: 'taggedDocument',
+  tagdocument: 'taggedDocument',
+  tagdoc: 'taggedDocument',
+  taggedrect: 'taggedRect',
+  tagrect: 'taggedRect',
+  braceleft: 'braceLeft',
+  braceright: 'braceRight',
+  braces: 'braces',
+  delay: 'delay',
+  hcorr: 'delay',
+  hcil: 'horizontalCylinder',
+  curvedtrapezoid: 'curvedTrapezoid',
+  display: 'curvedTrapezoid',
+  dividedrect: 'dividedRect',
+  divrect: 'dividedRect',
+  dividedprocess: 'dividedRect',
+  divproc: 'dividedRect',
+  forkjoin: 'forkJoin',
+  fork: 'forkJoin',
+  join: 'forkJoin',
+  filledrect: 'forkJoin',
+  windowpane: 'windowPane',
+  internalstorage: 'windowPane',
+  linedrect: 'linedRect',
+  linedprocess: 'linedRect',
+  linproc: 'linedRect',
+  shadedprocess: 'linedRect',
+  flippedtriangle: 'flippedTriangle',
+  manualfile: 'flippedTriangle',
+  slopedrect: 'slopedRect',
+  manualinput: 'slopedRect',
+  stackedrect: 'stackedRect',
+  multiprocess: 'stackedRect',
+  odd: 'odd',
+};
+
 function stripQuotes(label: string) {
   const trimmed = label.trim();
   if (
@@ -35,30 +163,22 @@ function stripQuotes(label: string) {
   return trimmed;
 }
 
-function parseNodeToken(token: string): ParsedNode | null {
-  const trimmed = token.trim();
-  if (!trimmed) return null;
-  if (
-    trimmed.includes('<') ||
-    trimmed.includes('>') ||
-    trimmed.includes('fa:') ||
-    trimmed.includes('@{')
-  ) {
-    return null;
-  }
+function resolveShapeAlias(value: string): NativeNodeShape | null {
+  return shapeAliasMap[value.toLowerCase().replace(/[^a-z]/g, '')] ?? null;
+}
 
-  const match = trimmed.match(/^([A-Za-z0-9_:-]+)(.*)$/);
-  if (!match) return null;
-
-  const [, id, rawShape = ''] = match;
-  const shape = rawShape.trim();
-  if (!shape) {
-    return { id, label: id, shapeType: 'rect' };
-  }
-
+function parseLegacyShape(shape: string): Pick<ParsedNode, 'label' | 'shapeType'> | null {
   const patterns: Array<[RegExp, NativeNodeShape]> = [
     [/^\(\((.+)\)\)$/s, 'ellipse'],
-    [/^\(\[(.+)\]\)$/s, 'roundedRect'],
+    [/^\(\(\((.+)\)\)\)$/s, 'doubleCircle'],
+    [/^\(\[(.+)\]\)$/s, 'stadium'],
+    [/^\[\((.+)\)\]$/s, 'cylinder'],
+    [/^\[\[(.+)\]\]$/s, 'subroutine'],
+    [/^\{\{(.+)\}\}$/s, 'hexagon'],
+    [/^\[\/(.+)\/\]$/s, 'parallelogram'],
+    [/^\[\\(.+)\\\]$/s, 'parallelogram'],
+    [/^\[\/(.+)\\\]$/s, 'trapezoid'],
+    [/^\[\\(.+)\/\]$/s, 'trapezoidAlt'],
     [/^\((.+)\)$/s, 'roundedRect'],
     [/^\[(.+)\]$/s, 'rect'],
     [/^\{(.+)\}$/s, 'diamond'],
@@ -68,11 +188,61 @@ function parseNodeToken(token: string): ParsedNode | null {
     const matched = shape.match(pattern);
     if (matched) {
       return {
-        id,
-        label: stripQuotes(matched[1] ?? id),
+        label: stripQuotes(matched[1] ?? ''),
         shapeType,
       };
     }
+  }
+
+  return null;
+}
+
+function parseNodeToken(token: string): ParsedNode | null {
+  const trimmed = token.trim();
+  if (!trimmed) return null;
+  if (trimmed.includes('<') || trimmed.includes('>') || trimmed.includes('fa:')) {
+    return null;
+  }
+
+  const match = trimmed.match(/^([A-Za-z0-9_:-]+)(.*)$/);
+  if (!match) return null;
+
+  const [, id, rawShape = ''] = match;
+  let shape = rawShape.trim();
+  if (!shape) {
+    return { id, label: id, shapeType: 'rect' };
+  }
+
+  if (shape.startsWith('@{')) {
+    const attrEnd = shape.indexOf('}');
+    if (attrEnd < 0) return null;
+
+    const attrSource = shape.slice(2, attrEnd);
+    const tail = shape.slice(attrEnd + 1).trim();
+    const shapeMatch = attrSource.match(/shape\s*:\s*["']?([A-Za-z0-9_-]+)["']?/i);
+    const labelMatch = attrSource.match(/label\s*:\s*("([^"]*)"|'([^']*)')/i);
+    const shapeType = shapeMatch?.[1] ? resolveShapeAlias(shapeMatch[1]) : null;
+
+    if (!shapeType) return null;
+
+    const legacy = tail ? parseLegacyShape(tail) : null;
+    return {
+      id,
+      label:
+        stripQuotes(
+          (labelMatch?.[2] ?? labelMatch?.[3] ?? legacy?.label ?? id) as string
+        ) || id,
+      shapeType,
+    };
+  }
+
+  const legacy = parseLegacyShape(shape);
+  if (legacy) {
+    return {
+      id,
+      label: legacy.label || id,
+      shapeType: legacy.shapeType,
+    };
   }
 
   return null;
@@ -121,33 +291,57 @@ function parseFlowchart(code: string): ParsedFlowchart | null {
 
 function layoutFlowchart(parsed: ParsedFlowchart): MermaidInsertPlan | null {
   const nodeIds = [...parsed.nodes.keys()];
-  const indegree = new Map<string, number>(nodeIds.map(id => [id, 0]));
   const level = new Map<string, number>(nodeIds.map(id => [id, 0]));
+  const outgoing = new Map<string, string[]>();
+  const incoming = new Map<string, number>(nodeIds.map(id => [id, 0]));
 
+  for (const id of nodeIds) {
+    outgoing.set(id, []);
+  }
   for (const edge of parsed.edges) {
-    indegree.set(edge.targetId, (indegree.get(edge.targetId) ?? 0) + 1);
+    outgoing.get(edge.sourceId)?.push(edge.targetId);
+    incoming.set(edge.targetId, (incoming.get(edge.targetId) ?? 0) + 1);
   }
 
-  const queue = nodeIds.filter(id => (indegree.get(id) ?? 0) === 0);
-  if (queue.length === 0) return null;
+  const queue = nodeIds.filter(id => (incoming.get(id) ?? 0) === 0);
+  if (queue.length === 0 && nodeIds[0]) {
+    queue.push(nodeIds[0]);
+  }
 
-  let visited = 0;
+  const visited = new Set<string>();
   while (queue.length > 0) {
     const current = queue.shift()!;
-    visited += 1;
-    const currentLevel = level.get(current) ?? 0;
+    if (visited.has(current)) continue;
+    visited.add(current);
 
-    for (const edge of parsed.edges.filter(item => item.sourceId === current)) {
-      const nextLevel = currentLevel + 1;
-      level.set(edge.targetId, Math.max(level.get(edge.targetId) ?? 0, nextLevel));
-      indegree.set(edge.targetId, (indegree.get(edge.targetId) ?? 1) - 1);
-      if ((indegree.get(edge.targetId) ?? 0) === 0) {
-        queue.push(edge.targetId);
+    const currentLevel = level.get(current) ?? 0;
+    for (const targetId of outgoing.get(current) ?? []) {
+      if (!visited.has(targetId)) {
+        level.set(targetId, Math.max(level.get(targetId) ?? 0, currentLevel + 1));
+        queue.push(targetId);
       }
     }
   }
 
-  if (visited !== nodeIds.length) return null;
+  for (const id of nodeIds) {
+    if (visited.has(id)) continue;
+    queue.push(id);
+    while (queue.length > 0) {
+      const current = queue.shift()!;
+      if (visited.has(current)) continue;
+      visited.add(current);
+      const currentLevel = level.get(current) ?? 0;
+      for (const targetId of outgoing.get(current) ?? []) {
+        if (!visited.has(targetId)) {
+          level.set(
+            targetId,
+            Math.max(level.get(targetId) ?? 0, currentLevel + 1)
+          );
+          queue.push(targetId);
+        }
+      }
+    }
+  }
 
   const grouped = new Map<number, string[]>();
   for (const id of nodeIds) {

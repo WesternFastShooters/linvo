@@ -30,7 +30,6 @@ export interface WorkspaceMeta {
   get properties(): DocsPropertiesMeta;
   setProperties(meta: DocsPropertiesMeta): void;
 
-  get docs(): unknown[] | undefined;
   initialize(): void;
 
   docMetaAdded: Subject<string>;

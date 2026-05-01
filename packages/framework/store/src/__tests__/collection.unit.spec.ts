@@ -4,7 +4,11 @@ import { applyUpdate, type Doc, encodeStateAsUpdate } from 'yjs';
 
 import type { BlockModel, DocMeta, Store } from '../index.js';
 import { Text } from '../reactive/text/index.js';
-import { createAutoIncrementIdGenerator } from '../test/index.js';
+import {
+  createAutoIncrementIdGenerator,
+  initializeTestWorkspaceDoc,
+  removeTestWorkspaceDoc,
+} from '../test/index.js';
 import { TestWorkspace } from '../test/test-workspace.js';
 import {
   NoteBlockSchemaExtension,
@@ -18,22 +22,14 @@ function createTestOptions() {
 }
 
 const defaultDocId = 'doc:home';
-const spaceId = defaultDocId;
 const spaceMetaId = 'meta';
 
 function serializCollection(doc: Doc): Record<string, any> {
-  const spaces = {};
-  doc.getMap('spaces').forEach((subDoc, key) => {
-    // @ts-expect-error ignore
-    spaces[key] = subDoc.toJSON();
-  });
-  const json = doc.toJSON();
-  delete json.spaces;
+  return doc.toJSON();
+}
 
-  return {
-    ...json,
-    spaces,
-  };
+function serializBlocks(doc: Doc) {
+  return serializCollection(doc).blocks;
 }
 
 function waitOnce<T>(slot: Subject<T>) {
@@ -61,7 +57,7 @@ function createTestDoc(docId = defaultDocId) {
   const options = createTestOptions();
   const collection = new TestWorkspace(options);
   collection.meta.initialize();
-  const doc = collection.createDoc(docId);
+  const doc = initializeTestWorkspaceDoc(collection, docId);
   const store = doc.getStore({
     extensions,
   });
@@ -97,10 +93,10 @@ describe('basic', () => {
     const collection = new TestWorkspace(options);
     collection.meta.initialize();
 
-    const doc = collection.createDoc('doc:home');
+    const doc = initializeTestWorkspaceDoc(collection, 'doc:home');
     doc.load();
-    const actual = serializCollection(collection.doc);
-    const actualDoc = actual[spaceMetaId].pages[0] as DocMeta;
+    const actual = serializCollection(collection.yDoc);
+    const actualDoc = actual[spaceMetaId].doc as DocMeta;
 
     assert.equal(typeof actualDoc.createDate, 'number');
     // @ts-expect-error ignore
@@ -108,19 +104,18 @@ describe('basic', () => {
 
     assert.deepEqual(actual, {
       [spaceMetaId]: {
-        pages: [
-          {
-            id: 'doc:home',
-            title: '',
-            tags: [],
+        doc: {
+          id: 'doc:home',
+          title: '',
+          tags: [],
+        },
+        properties: {
+          tags: {
+            options: [],
           },
-        ],
-      },
-      spaces: {
-        [spaceId]: {
-          blocks: {},
         },
       },
+      blocks: {},
     });
   });
 
@@ -135,20 +130,19 @@ describe('basic', () => {
     });
     collection.meta.initialize();
     {
-      const doc = collection.createDoc();
+      const doc = initializeTestWorkspaceDoc(collection);
       assert.equal(doc.id, '100');
     }
-    {
-      const doc = collection.createDoc();
-      assert.equal(doc.id, '101');
-    }
+    expect(() => initializeTestWorkspaceDoc(collection, '101')).toThrow(
+      /single-doc workspace already initialized/
+    );
   });
 
   it('doc ready lifecycle', () => {
     const options = createTestOptions();
     const collection = new TestWorkspace(options);
     collection.meta.initialize();
-    const doc = collection.createDoc('space:0');
+    const doc = initializeTestWorkspaceDoc(collection, 'space:0');
     const store = doc.getStore({
       extensions,
     });
@@ -175,7 +169,7 @@ describe('basic', () => {
     const collection = new TestWorkspace(options);
     collection.meta.initialize();
     const collection2 = new TestWorkspace(options);
-    const doc = collection.createDoc('space:0');
+    const doc = initializeTestWorkspaceDoc(collection, 'space:0');
     const store = doc.getStore({
       extensions,
     });
@@ -184,57 +178,24 @@ describe('basic', () => {
         title: new Text(),
       });
     });
-    {
-      const subdocsTester = vi.fn(({ added }) => {
-        expect(added.size).toBe(1);
-      });
-      // only apply root update
-      collection2.doc.once('subdocs', subdocsTester);
-      expect(subdocsTester).toBeCalledTimes(0);
-      expect(collection2.docs.size).toBe(0);
-      const update = encodeStateAsUpdate(collection.doc);
-      applyUpdate(collection2.doc, update);
-      expect(serializCollection(collection2.doc)['spaces']).toEqual({
-        'space:0': {
-          blocks: {},
-        },
-      });
-      expect(collection2.docs.size).toBe(1);
-      expect(subdocsTester).toBeCalledTimes(1);
+    const update = encodeStateAsUpdate(collection.yDoc);
+    applyUpdate(collection2.yDoc, update);
+    const doc2 = collection2.doc;
+    if (!doc2) {
+      throw new Error('doc2 is not found');
     }
-    {
-      // apply doc update
-      const update = encodeStateAsUpdate(doc.spaceDoc);
-      expect(collection2.docs.size).toBe(1);
-      const doc2 = collection2.getDoc('space:0');
-      if (!doc2) {
-        throw new Error('doc2 is not found');
-      }
-      applyUpdate(doc2.spaceDoc, update);
-      expect(serializCollection(collection2.doc)['spaces']).toEqual({
-        'space:0': {
-          blocks: {
-            '0': {
-              'prop:count': 0,
-              'prop:items': [],
-              'prop:style': {},
-              'prop:title': '',
-              'sys:children': [],
-              'sys:flavour': 'linvo:page',
-              'sys:id': '0',
-              'sys:version': 2,
-            },
-          },
-        },
-      });
-      const fn = vi.fn(({ loaded }) => {
-        expect(loaded.size).toBe(1);
-      });
-      collection2.doc.once('subdocs', fn);
-      expect(fn).toBeCalledTimes(0);
-      doc2.load();
-      expect(fn).toBeCalledTimes(1);
-    }
+    expect(serializBlocks(collection2.yDoc)).toEqual({
+      '0': {
+        'prop:count': 0,
+        'prop:items': [],
+        'prop:style': {},
+        'prop:title': '',
+        'sys:children': [],
+        'sys:flavour': 'linvo:page',
+        'sys:id': '0',
+        'sys:version': 2,
+      },
+    });
   });
 });
 
@@ -245,7 +206,7 @@ describe('addBlock', () => {
       title: new Text(),
     });
 
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],
@@ -263,7 +224,7 @@ describe('addBlock', () => {
     const doc = createTestDoc();
     doc.addBlock('linvo:page', { title: new Text('hello') });
 
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],
@@ -292,7 +253,7 @@ describe('addBlock', () => {
       noteId
     );
 
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],
@@ -369,21 +330,19 @@ describe('addBlock', () => {
     assert.equal(root.children[0].children[0].flavour, 'linvo:paragraph');
     assert.equal(root.childMap.value.get('1'), 0);
 
-    const serializedChildren = serializCollection(doc.rootDoc).spaces[spaceId]
-      .blocks['0']['sys:children'];
+    const serializedChildren = serializBlocks(doc.yDoc)['0']['sys:children'];
     assert.deepEqual(serializedChildren, ['1']);
     assert.equal(root.children[0].id, '1');
   });
 
-  it('can add and remove multi docs', async () => {
+  it('rejects a second doc in single-doc mode', async () => {
     const options = createTestOptions();
     const collection = new TestWorkspace(options);
     collection.meta.initialize();
 
-    const doc0 = collection.createDoc('doc:home');
-    const doc1 = collection.createDoc('space:doc1');
-    await Promise.all([doc0.load(), doc1.load()]);
-    assert.equal(collection.docs.size, 2);
+    const doc0 = initializeTestWorkspaceDoc(collection, 'doc:home');
+    await doc0.load();
+    assert.equal(collection.doc.id, 'doc:home');
     const store0 = doc0.getStore({
       extensions,
     });
@@ -391,16 +350,11 @@ describe('addBlock', () => {
     store0.addBlock('linvo:page', {
       title: new Text(),
     });
-    collection.removeDoc(doc0.id);
-
-    assert.equal(collection.docs.size, 1);
-    assert.equal(
-      serializCollection(doc0.rootDoc).spaces['doc:home'],
-      undefined
+    expect(() => initializeTestWorkspaceDoc(collection, 'space:doc1')).toThrow(
+      /single-doc workspace already initialized/
     );
-
-    collection.removeDoc(doc1.id);
-    assert.equal(collection.docs.size, 0);
+    removeTestWorkspaceDoc(collection, doc0.id);
+    expect(() => collection.doc).toThrow();
   });
 
   it('can remove doc that has not been loaded', () => {
@@ -408,16 +362,16 @@ describe('addBlock', () => {
     const collection = new TestWorkspace(options);
     collection.meta.initialize();
 
-    const doc0 = collection.createDoc('doc:home');
-    collection.removeDoc(doc0.id);
-    assert.equal(collection.docs.size, 0);
+    const doc0 = initializeTestWorkspaceDoc(collection, 'doc:home');
+    removeTestWorkspaceDoc(collection, doc0.id);
+    expect(() => collection.doc).toThrow();
   });
 
   it('can set doc state', () => {
     const options = createTestOptions();
     const collection = new TestWorkspace(options);
     collection.meta.initialize();
-    collection.createDoc('doc:home');
+    initializeTestWorkspaceDoc(collection, 'doc:home');
 
     assert.deepEqual(
       collection.meta.docMetas.map(({ id, title }) => ({
@@ -464,7 +418,7 @@ describe('deleteBlock', () => {
     const noteId = doc.addBlock('linvo:note', {}, rootId);
     doc.addBlock('linvo:paragraph', {}, noteId);
     doc.addBlock('linvo:paragraph', {}, noteId);
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],
@@ -502,7 +456,7 @@ describe('deleteBlock', () => {
     const deletedModel = doc.getModelById('1') as BlockModel;
     doc.deleteBlock(deletedModel);
 
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],
@@ -525,7 +479,7 @@ describe('deleteBlock', () => {
     doc.addBlock('linvo:paragraph', {}, p1);
     doc.addBlock('linvo:paragraph', {}, p1);
 
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],
@@ -574,7 +528,7 @@ describe('deleteBlock', () => {
       bringChildrenTo: deletedModelParent,
     });
 
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],
@@ -621,7 +575,7 @@ describe('deleteBlock', () => {
     doc.addBlock('linvo:paragraph', {}, p1);
     doc.addBlock('linvo:paragraph', {}, p2);
 
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],
@@ -686,7 +640,7 @@ describe('deleteBlock', () => {
       bringChildrenTo: moveToModel,
     });
 
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],
@@ -746,7 +700,7 @@ describe('deleteBlock', () => {
     doc.addBlock('linvo:paragraph', {}, noteId);
 
     // before delete
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],
@@ -776,7 +730,7 @@ describe('deleteBlock', () => {
     doc.deleteBlock(rootModel.children[0].children[0]);
 
     // after delete
-    assert.deepEqual(serializCollection(doc.rootDoc).spaces[spaceId].blocks, {
+    assert.deepEqual(serializBlocks(doc.yDoc), {
       '0': {
         'prop:count': 0,
         'prop:items': [],

@@ -15,16 +15,12 @@ export interface Workspace {
   readonly onLoadDoc?: (doc: Y.Doc) => void;
   readonly onLoadAwareness?: (awareness: Awareness) => void;
 
-  get doc(): Y.Doc;
-  get docs(): Map<string, Doc>;
+  get yDoc(): Y.Doc;
+  get doc(): Doc;
 
   slots: {
     docListUpdated: Subject<void>;
   };
-
-  createDoc(docId?: string): Doc;
-  getDoc(docId: string): Doc | null;
-  removeDoc(docId: string): void;
 
   dispose(): void;
 }

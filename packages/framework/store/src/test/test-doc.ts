@@ -18,55 +18,18 @@ export class TestDoc implements Doc {
 
   private readonly _storeContainer: StoreContainer;
 
-  private readonly _initSubDoc = () => {
-    let subDoc = this.rootDoc.getMap('spaces').get(this.id);
-    if (!subDoc) {
-      subDoc = new Y.Doc({
-        guid: this.id,
-      });
-      this.rootDoc.getMap('spaces').set(this.id, subDoc);
-      this._loaded = true;
-    } else {
-      this._loaded = false;
-      this.rootDoc.on('subdocs', this._onSubdocEvent);
-    }
-
-    return subDoc;
-  };
-
-  private _loaded!: boolean;
-
-  private readonly _onSubdocEvent = ({
-    loaded,
-  }: {
-    loaded: Set<Y.Doc>;
-  }): void => {
-    const result = Array.from(loaded).find(
-      doc => doc.guid === this._ySpaceDoc.guid
-    );
-    if (!result) {
-      return;
-    }
-    this.rootDoc.off('subdocs', this._onSubdocEvent);
-    this._loaded = true;
-  };
+  private _loaded = true;
 
   /** Indicate whether the block tree is ready */
   private _ready = false;
 
   protected readonly _yBlocks: Y.Map<YBlock>;
 
-  /**
-   * @internal Used for convenient access to the underlying Yjs map,
-   * can be used interchangeably with ySpace
-   */
-  protected readonly _ySpaceDoc: Y.Doc;
-
   readonly awarenessStore: AwarenessStore;
 
   readonly id: string;
 
-  readonly rootDoc: Y.Doc;
+  readonly yDoc: Y.Doc;
 
   get blobSync() {
     return this.workspace.blobSync;
@@ -92,23 +55,16 @@ export class TestDoc implements Doc {
     return this._ready;
   }
 
-  get spaceDoc() {
-    return this._ySpaceDoc;
-  }
-
   get yBlocks() {
     return this._yBlocks;
   }
 
   constructor({ id, collection, doc, awarenessStore }: DocOptions) {
     this.id = id;
-    this.rootDoc = doc;
+    this.yDoc = doc;
     this.awarenessStore = awarenessStore;
-
-    this._ySpaceDoc = this._initSubDoc() as Y.Doc;
-
-    this._yBlocks = this._ySpaceDoc.getMap('blocks');
     this._collection = collection;
+    this._yBlocks = this.yDoc.getMap('blocks');
     this._storeContainer = new StoreContainer(this);
   }
 
@@ -118,11 +74,6 @@ export class TestDoc implements Doc {
 
   get removeStore() {
     return this._storeContainer.removeStore;
-  }
-
-  private _destroy() {
-    this._ySpaceDoc.destroy();
-    this._loaded = false;
   }
 
   dispose() {
@@ -149,7 +100,7 @@ export class TestDoc implements Doc {
     } else if (readonly !== undefined || query) {
       storeId = id;
     } else {
-      storeId = this.spaceDoc.guid;
+      storeId = this.yDoc.guid;
     }
 
     return this._storeContainer.getStore({
@@ -166,8 +117,6 @@ export class TestDoc implements Doc {
       return this;
     }
 
-    this._ySpaceDoc.load();
-
     initFn?.();
 
     this._ready = true;
@@ -176,7 +125,7 @@ export class TestDoc implements Doc {
   }
 
   remove() {
-    this._destroy();
-    this.rootDoc.getMap('spaces').delete(this.id);
+    this.clear();
+    this._loaded = false;
   }
 }

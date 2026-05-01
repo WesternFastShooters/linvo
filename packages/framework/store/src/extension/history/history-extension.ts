@@ -20,7 +20,7 @@ export class HistoryExtension extends StoreExtension {
     super(store);
 
     this._history = new Y.UndoManager([this.store.doc.yBlocks], {
-      trackedOrigins: new Set([this.store.doc.spaceDoc.clientID]),
+      trackedOrigins: new Set([this.store.doc.yDoc.clientID]),
     });
   }
 

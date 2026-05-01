@@ -5,7 +5,10 @@ import { BlockSchemaExtension } from '../extension/schema.js';
 import { defineBlockSchema } from '../model/block/zod.js';
 // import some blocks
 import { SchemaValidateError } from '../schema/error.js';
-import { createAutoIncrementIdGenerator } from '../test/index.js';
+import {
+  createAutoIncrementIdGenerator,
+  initializeTestWorkspaceDoc,
+} from '../test/index.js';
 import { TestWorkspace } from '../test/test-workspace.js';
 import {
   DividerBlockSchemaExtension,
@@ -99,7 +102,7 @@ function createTestDoc(docId = defaultDocId) {
   const options = createTestOptions();
   const collection = new TestWorkspace(options);
   collection.meta.initialize();
-  const doc = collection.createDoc(docId);
+  const doc = initializeTestWorkspaceDoc(collection, docId);
   doc.load();
   const store = doc.getStore({ extensions });
   return store;

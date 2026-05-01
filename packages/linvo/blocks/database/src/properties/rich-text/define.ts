@@ -52,7 +52,9 @@ export const richTextPropertyModelConfig = richTextColumnType.modelConfig({
           .map((delta: DeltaInsert<LinvoTextAttributes>) => {
             if (isLinkedDoc(delta)) {
               const linkedDocId = delta.attributes?.reference?.pageId as string;
-              return collection.getDoc(linkedDocId)?.meta?.title;
+              return collection.doc.id === linkedDocId
+                ? collection.doc.meta?.title
+                : undefined;
             }
             return delta.insert;
           })

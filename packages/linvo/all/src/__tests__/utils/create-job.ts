@@ -1,4 +1,5 @@
 import { defaultImageProxyMiddleware } from '@linvo/linvo-shared/adapters';
+import { createSingleDocCRUD } from '@linvo/linvo-shared/utils';
 import {
   Schema,
   Transformer,
@@ -33,10 +34,6 @@ export function createJob(middlewares?: TransformerMiddleware[]) {
     schema,
     blobCRUD: docCollection.blobSync,
     middlewares: testMiddlewares,
-    docCRUD: {
-      create: (id: string) => docCollection.createDoc(id).getStore({ id }),
-      get: (id: string) => docCollection.getDoc(id)?.getStore({ id }) ?? null,
-      delete: (id: string) => docCollection.removeDoc(id),
-    },
+    docCRUD: createSingleDocCRUD(docCollection),
   });
 }

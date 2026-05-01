@@ -16,6 +16,7 @@ import type {
   Workspace,
 } from '@linvo/store';
 import { extMimeMap, Transformer } from '@linvo/store';
+import { createSingleDocCRUD } from '@linvo/linvo-shared/utils';
 
 import type { AssetMap, ImportedFileEntry, PathBlobIdMap } from './type.js';
 import { createAssetsArchive, download, Unzip } from './utils.js';
@@ -157,11 +158,7 @@ async function importMarkdownToDoc({
   const job = new Transformer({
     schema,
     blobCRUD: collection.blobSync,
-    docCRUD: {
-      create: (id: string) => collection.createDoc(id).getStore({ id }),
-      get: (id: string) => collection.getDoc(id)?.getStore({ id }) ?? null,
-      delete: (id: string) => collection.removeDoc(id),
-    },
+    docCRUD: createSingleDocCRUD(collection),
     middlewares: [
       defaultImageProxyMiddleware,
       fileNameMiddleware(fileName),
@@ -235,11 +232,7 @@ async function importMarkdownZip({
       const job = new Transformer({
         schema,
         blobCRUD: collection.blobSync,
-        docCRUD: {
-          create: (id: string) => collection.createDoc(id).getStore({ id }),
-          get: (id: string) => collection.getDoc(id)?.getStore({ id }) ?? null,
-          delete: (id: string) => collection.removeDoc(id),
-        },
+        docCRUD: createSingleDocCRUD(collection),
         middlewares: [
           defaultImageProxyMiddleware,
           fileNameMiddleware(fileNameWithoutExt),

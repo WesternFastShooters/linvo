@@ -16,6 +16,7 @@ import type { ExtensionType, Store, Transformer } from '@linvo/store';
 import { Schema, Text } from '@linvo/store';
 import {
   createAutoIncrementIdGenerator,
+  initializeTestWorkspaceDoc,
   TestWorkspace,
 } from '@linvo/store/test';
 
@@ -52,7 +53,7 @@ function createCollectionOptions() {
 }
 
 function initCollection(collection: TestWorkspace) {
-  const doc = collection.createDoc('doc:home').getStore();
+  const doc = initializeTestWorkspaceDoc(collection, 'doc:home').getStore();
 
   doc.load(() => {
     const rootId = doc.addBlock('linvo:page', {
@@ -69,11 +70,7 @@ async function createEditor(
   extensions: ExtensionType[] = []
 ) {
   const app = document.createElement('div');
-  const blockCollection = collection.docs.values().next().value;
-  if (!blockCollection) {
-    throw new Error('Need to create a doc first');
-  }
-  const doc = blockCollection.getStore();
+  const doc = collection.doc.getStore();
   const editor = new TestLinvoEditorContainer();
   editor.doc = doc;
   editor.mode = mode;
@@ -134,7 +131,7 @@ export async function setupEditor(
   initCollection(collection);
 
   if (enableDomRenderer) {
-    const docStore = window.collection.docs.get('doc:home')?.getStore();
+    const docStore = window.collection.doc.getStore();
     const featureFlagService = docStore?.get(FeatureFlagService);
     featureFlagService?.setFlag('enable_dom_renderer', true);
   }

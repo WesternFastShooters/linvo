@@ -248,7 +248,10 @@ export class EmbedLinkedDocBlockComponent extends EmbedBlockComponent<EmbedLinke
   }
 
   get linkedDoc() {
-    const doc = this.std.workspace.getDoc(this.model.props.pageId);
+    const doc =
+      this.std.workspace.doc.id === this.model.props.pageId
+        ? this.std.workspace.doc
+        : null;
     return doc?.getStore({ id: this.model.props.pageId });
   }
 

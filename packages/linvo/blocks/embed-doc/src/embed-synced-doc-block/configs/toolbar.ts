@@ -339,18 +339,21 @@ const builtinSurfaceToolbarConfig = {
 
         let contentModels: BlockModel[] = [];
         {
-          const doc = ctx.store.workspace.getDoc(syncedDocModel.props.pageId);
+          const doc =
+            ctx.store.workspace.doc.id === syncedDocModel.props.pageId
+              ? ctx.store.workspace.doc
+              : null;
           // TODO(@L-Sun): clear query cache
           const store = doc?.getStore({ readonly: true });
           if (!store) return;
           contentModels = store
             .getModelsByFlavour('linvo:note')
             .filter(
-              (note): note is NoteBlockModel =>
+              (note: BlockModel): note is NoteBlockModel =>
                 matchModels(note, [NoteBlockModel]) &&
                 note.props.displayMode !== NoteDisplayMode.EdgelessOnly
             )
-            .flatMap(note => note.children);
+            .flatMap((note: NoteBlockModel) => note.children);
         }
         if (contentModels.length === 0) return;
 

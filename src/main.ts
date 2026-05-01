@@ -3,6 +3,7 @@ import './style.css';
 import { Text } from '@linvo/linvo/store';
 import {
   createAutoIncrementIdGenerator,
+  initializeTestWorkspaceDoc,
   TestWorkspace,
 } from '@linvo/linvo/store/test';
 import { effects as integrationEffects } from '@linvo/integration-test/effects';
@@ -26,7 +27,7 @@ async function bootstrap() {
   workspace.start();
   workspace.meta.initialize();
 
-  const doc = workspace.createDoc('doc:whiteboard');
+  const doc = initializeTestWorkspaceDoc(workspace, 'doc:whiteboard');
   const store = doc.getStore({ id: doc.id });
   store.load();
 

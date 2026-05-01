@@ -15,7 +15,7 @@ import {
   type Store,
   Text,
 } from '@linvo/store';
-import { TestWorkspace } from '@linvo/store/test';
+import { initializeTestWorkspaceDoc, TestWorkspace } from '@linvo/store/test';
 
 import { createTestHost } from './create-test-host';
 
@@ -81,7 +81,7 @@ export function createLinvoTemplate(
     // Create a new doc
     const workspace = new TestWorkspace({});
     workspace.meta.initialize();
-    const doc = workspace.createDoc('test-doc');
+    const doc = initializeTestWorkspaceDoc(workspace, 'test-doc');
     const container = new Container();
     extensions.forEach(extension => {
       extension.setup(container);
@@ -176,7 +176,7 @@ export function createLinvoTemplate(
     // Create a temporary doc to hold the block
     const workspace = new TestWorkspace({});
     workspace.meta.initialize();
-    const doc = workspace.createDoc('temp-doc');
+    const doc = initializeTestWorkspaceDoc(workspace, 'temp-doc');
     const store = doc.getStore({ extensions });
 
     let blockId: string | null = null;

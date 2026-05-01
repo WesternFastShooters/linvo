@@ -7,7 +7,7 @@ import {
   ParagraphBlockModel,
 } from '@linvo/linvo-model';
 import { NotificationProvider } from '@linvo/linvo-shared/services';
-import { matchModels } from '@linvo/linvo-shared/utils';
+import { createDefaultDoc, matchModels } from '@linvo/linvo-shared/utils';
 import type { BlockStdScope } from '@linvo/std';
 import {
   type BlockModel,
@@ -15,7 +15,6 @@ import {
   type DraftModel,
   Slice,
   type Store,
-  Text,
 } from '@linvo/store';
 
 // Throttle delay for block updates to reduce unnecessary re-renders
@@ -174,24 +173,12 @@ export async function convertSelectedBlocksToLinkedDoc(
 }
 
 export function createLinkedDocFromSlice(
-  std: BlockStdScope,
+  _std: BlockStdScope,
   doc: Store,
-  snapshots: BlockSnapshot[],
+  _snapshots: BlockSnapshot[],
   docTitle?: string
 ) {
-  const _doc = doc.workspace.createDoc();
-  const linkedDoc = _doc.getStore();
-  linkedDoc.load(() => {
-    const rootId = linkedDoc.addBlock('linvo:root', {
-      title: new Text(docTitle),
-    });
-    linkedDoc.addBlock('linvo:surface', {}, rootId);
-    const noteId = linkedDoc.addBlock('linvo:note', {}, rootId);
-    snapshots.forEach(snapshot => {
-      std.clipboard
-        .pasteBlockSnapshot(snapshot, linkedDoc, noteId)
-        .catch(console.error);
-    });
+  return createDefaultDoc(doc.workspace, {
+    title: docTitle,
   });
-  return linkedDoc;
 }

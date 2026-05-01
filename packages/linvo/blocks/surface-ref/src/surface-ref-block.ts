@@ -219,10 +219,8 @@ export class SurfaceRefBlockComponent extends BlockComponent<SurfaceRefBlockMode
       let result = find(this.store);
       if (result[0]) return result;
 
-      for (const doc of this.std.workspace.docs.values()) {
-        result = find(doc.getStore());
-        if (result[0]) return result;
-      }
+      result = find(this.std.workspace.doc.getStore());
+      if (result[0]) return result;
 
       return [null, this.store.id];
     };
@@ -233,7 +231,8 @@ export class SurfaceRefBlockComponent extends BlockComponent<SurfaceRefBlockMode
       this._referencedModel =
         referencedModel && referencedModel.xywh ? referencedModel : null;
       // TODO(@L-Sun): clear query cache
-      const doc = this.store.workspace.getDoc(docId);
+      const doc =
+        this.store.workspace.doc.id === docId ? this.store.workspace.doc : null;
       this._previewDoc = doc?.getStore({ readonly: true }) ?? null;
     };
 

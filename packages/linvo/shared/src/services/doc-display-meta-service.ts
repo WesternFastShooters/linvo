@@ -99,7 +99,8 @@ export class DocDisplayMetaService
     pageId: string,
     { params, title, referenced }: DocDisplayMetaParams = {}
   ): ReadonlySignal<TemplateResult> {
-    const doc = this.std.workspace.getDoc(pageId);
+    const doc =
+      this.std.workspace.doc.id === pageId ? this.std.workspace.doc : null;
 
     if (!doc) {
       return computed(() => DocDisplayMetaService.icons.deleted);
@@ -156,7 +157,8 @@ export class DocDisplayMetaService
     pageId: string,
     { title }: DocDisplayMetaParams = {}
   ): ReadonlySignal<string> {
-    const doc = this.std.workspace.getDoc(pageId);
+    const doc =
+      this.std.workspace.doc.id === pageId ? this.std.workspace.doc : null;
 
     if (!doc) {
       return computed(() => title || 'Deleted doc');

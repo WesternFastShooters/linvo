@@ -54,7 +54,7 @@ export class DocEngine {
   readonly priorityTarget = new SharedPriorityTarget();
 
   get rootDocId() {
-    return this.rootDoc.guid;
+    return this.yDoc.guid;
   }
 
   get status() {
@@ -62,7 +62,7 @@ export class DocEngine {
   }
 
   constructor(
-    readonly rootDoc: Doc,
+    readonly yDoc: Doc,
     readonly main: DocSource,
     readonly shadows: DocSource[],
     readonly logger: Logger
@@ -126,7 +126,7 @@ export class DocEngine {
     try {
       // Step 1: start main sync peer
       state.mainPeer = new SyncPeer(
-        this.rootDoc,
+        this.yDoc,
         this.main,
         this.priorityTarget,
         this.logger
@@ -142,13 +142,13 @@ export class DocEngine {
 
       this.updateSyncingState(state.mainPeer, state.shadowPeers);
 
-      // Step 2: wait for main sync complete
+      // Step 2: wait for the main doc to load
       await state.mainPeer.waitForLoaded(signal);
 
       // Step 3: start shadow sync peer
       state.shadowPeers = this.shadows.map(shadow => {
         const peer = new SyncPeer(
-          this.rootDoc,
+          this.yDoc,
           shadow,
           this.priorityTarget,
           this.logger

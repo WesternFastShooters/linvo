@@ -1,5 +1,6 @@
 import {
   createAutoIncrementIdGenerator,
+  initializeTestWorkspaceDoc,
   TestWorkspace,
 } from '@linvo/store/test';
 import { describe, expect, test } from 'vitest';
@@ -38,7 +39,7 @@ describe('editor host', () => {
     const collection = new TestWorkspace(createTestOptions());
 
     collection.meta.initialize();
-    const doc = collection.createDoc('home');
+    const doc = initializeTestWorkspaceDoc(collection, 'home');
     const store = doc.getStore({ extensions });
     doc.load();
     const rootId = store.addBlock('test:page');

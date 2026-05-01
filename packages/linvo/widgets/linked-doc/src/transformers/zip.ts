@@ -5,6 +5,7 @@ import {
 import { sha } from '@linvo/global/utils';
 import type { DocSnapshot, Schema, Store, Workspace } from '@linvo/store';
 import { extMimeMap, getAssetName, Transformer } from '@linvo/store';
+import { createSingleDocCRUD } from '@linvo/linvo-shared/utils';
 
 import { download, Unzip, Zip } from './utils.js';
 
@@ -17,11 +18,7 @@ async function exportDocs(
   const job = new Transformer({
     schema,
     blobCRUD: collection.blobSync,
-    docCRUD: {
-      create: (id: string) => collection.createDoc(id).getStore({ id }),
-      get: (id: string) => collection.getDoc(id)?.getStore({ id }) ?? null,
-      delete: (id: string) => collection.removeDoc(id),
-    },
+    docCRUD: createSingleDocCRUD(collection),
     middlewares: [
       replaceIdMiddleware(collection.idGenerator),
       titleMiddleware(collection.meta.docMetas),
@@ -108,11 +105,7 @@ async function importDocs(
   const job = new Transformer({
     schema,
     blobCRUD: collection.blobSync,
-    docCRUD: {
-      create: (id: string) => collection.createDoc(id).getStore({ id }),
-      get: (id: string) => collection.getDoc(id)?.getStore({ id }) ?? null,
-      delete: (id: string) => collection.removeDoc(id),
-    },
+    docCRUD: createSingleDocCRUD(collection),
     middlewares: [
       replaceIdMiddleware(collection.idGenerator),
       titleMiddleware(collection.meta.docMetas),

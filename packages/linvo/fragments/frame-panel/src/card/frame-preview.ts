@@ -116,7 +116,7 @@ export class FramePreview extends WithDisposable(ShadowlessElement) {
   }
 
   private _initPreviewDoc() {
-    const doc = this._originalDoc.workspace.getDoc(this._originalDoc.id);
+    const doc = this._originalDoc.workspace.doc;
     this._previewDoc =
       doc?.getStore({ readonly: true, query: this._docFilter }) ?? null;
     this.disposables.add(() => {

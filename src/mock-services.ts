@@ -68,9 +68,7 @@ export function mockParseDocUrlService(
         return;
       }
       const path = decodeURIComponent(new URL(url).hash.slice(1));
-      const target = Array.from(collection.docs.values()).find(
-        doc => doc.id === path
-      );
+      const target = collection.doc.id === path ? collection.doc : null;
       if (!target) {
         return;
       }

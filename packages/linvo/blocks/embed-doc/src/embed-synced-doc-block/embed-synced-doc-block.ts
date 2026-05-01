@@ -381,7 +381,10 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
 
   get syncedDoc() {
     const options: GetStoreOptions = { readonly: true };
-    const doc = this.std.workspace.getDoc(this.model.props.pageId);
+    const doc =
+      this.std.workspace.doc.id === this.model.props.pageId
+        ? this.std.workspace.doc
+        : null;
     return doc?.getStore(options) ?? null;
   }
 

@@ -9,7 +9,7 @@ import type {
 import { createYProxy } from '../reactive/proxy.js';
 
 type DocCollectionMetaState = {
-  pages?: unknown[];
+  doc?: DocMeta;
   properties?: DocsPropertiesMeta;
   name?: string;
   avatar?: string;
@@ -17,23 +17,19 @@ type DocCollectionMetaState = {
 
 export class TestMeta implements WorkspaceMeta {
   private readonly _handleDocCollectionMetaEvents = (
-    events: Y.YEvent<Y.Array<unknown> | Y.Text | Y.Map<unknown>>[]
+    events: Y.YEvent<Y.Text | Y.Map<unknown>>[]
   ) => {
     events.forEach(e => {
       const hasKey = (k: string) =>
         e.target === this._yMap && e.changes.keys.has(k);
 
-      if (
-        e.target === this.yDocs ||
-        e.target.parent === this.yDocs ||
-        hasKey('pages')
-      ) {
+      if (hasKey('doc')) {
         this._handleDocMetaEvent();
       }
     });
   };
 
-  private _prevDocs = new Set<string>();
+  private _prevDocId: string | null = null;
 
   protected readonly _proxy: DocCollectionMetaState;
 
@@ -52,14 +48,7 @@ export class TestMeta implements WorkspaceMeta {
   readonly id: string = 'meta';
 
   get docMetas() {
-    if (!this._proxy.pages) {
-      return [] as DocMeta[];
-    }
-    return this._proxy.pages as DocMeta[];
-  }
-
-  get docs() {
-    return this._proxy.pages;
+    return this._proxy.doc ? [this._proxy.doc] : [];
   }
 
   get properties(): DocsPropertiesMeta {
@@ -74,10 +63,6 @@ export class TestMeta implements WorkspaceMeta {
     return meta;
   }
 
-  get yDocs() {
-    return this._yMap.get('pages') as unknown as Y.Array<unknown>;
-  }
-
   constructor(doc: Y.Doc) {
     this.doc = doc;
     const map = doc.getMap(this.id) as Y.Map<
@@ -89,86 +74,70 @@ export class TestMeta implements WorkspaceMeta {
   }
 
   private _handleDocMetaEvent() {
-    const { docMetas, _prevDocs } = this;
+    const currentDoc = this._proxy.doc;
+    const currentId = currentDoc?.id ?? null;
 
-    const newDocs = new Set<string>();
+    if (currentId && currentId !== this._prevDocId) {
+      this.docMetaAdded.next(currentId);
+    }
 
-    docMetas.forEach(docMeta => {
-      if (!_prevDocs.has(docMeta.id)) {
-        this.docMetaAdded.next(docMeta.id);
-      }
-      newDocs.add(docMeta.id);
-    });
+    if (this._prevDocId && this._prevDocId !== currentId) {
+      this.docMetaRemoved.next(this._prevDocId);
+    }
 
-    _prevDocs.forEach(prevDocId => {
-      const isRemoved = newDocs.has(prevDocId) === false;
-      if (isRemoved) {
-        this.docMetaRemoved.next(prevDocId);
-      }
-    });
-
-    this._prevDocs = newDocs;
-
+    this._prevDocId = currentId;
     this.docMetaUpdated.next();
   }
 
-  addDocMeta(doc: DocMeta, index?: number) {
+  addDocMeta(doc: DocMeta) {
     this.doc.transact(() => {
-      if (!this.docs) {
-        return;
+      const existing = this._proxy.doc;
+      if (existing && existing.id !== doc.id) {
+        throw new Error(
+          `single-doc workspace already initialized with doc id ${existing.id}`
+        );
       }
-      const docs = this.docs as unknown[];
-      if (index === undefined) {
-        docs.push(doc);
-      } else {
-        docs.splice(index, 0, doc);
-      }
+      this._proxy.doc = doc;
     }, this.doc.clientID);
   }
 
   getDocMeta(id: string) {
-    return this.docMetas.find(doc => doc.id === id);
+    return this._proxy.doc?.id === id ? this._proxy.doc : undefined;
   }
 
   initialize() {
-    if (!this._proxy.pages) {
-      this._proxy.pages = [];
+    if (!this._proxy.properties) {
+      this._proxy.properties = {
+        tags: {
+          options: [],
+        },
+      };
     }
   }
 
   removeDocMeta(id: string) {
-    // you cannot delete a doc if there's no doc
-    if (!this.docs) {
-      return;
-    }
-
-    const docMeta = this.docMetas;
-    const index = docMeta.findIndex((doc: DocMeta) => id === doc.id);
-    if (index === -1) {
+    if (this._proxy.doc?.id !== id) {
       return;
     }
     this.doc.transact(() => {
-      if (!this.docs) {
-        return;
-      }
-      this.docs.splice(index, 1);
+      this._proxy.doc = undefined;
     }, this.doc.clientID);
   }
 
   setDocMeta(id: string, props: Partial<DocMeta>) {
-    const docs = (this.docs as DocMeta[]) ?? [];
-    const index = docs.findIndex((doc: DocMeta) => id === doc.id);
+    if (this._proxy.doc?.id !== id) {
+      return;
+    }
 
     this.doc.transact(() => {
-      if (!this.docs) {
+      const current = this._proxy.doc;
+      if (!current) {
         return;
       }
-      if (index === -1) return;
-
-      const doc = this.docs[index] as Record<string, unknown>;
-      Object.entries(props).forEach(([key, value]) => {
-        doc[key] = value;
-      });
+      this._proxy.doc = {
+        ...current,
+        ...props,
+      };
     }, this.doc.clientID);
   }
 

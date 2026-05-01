@@ -53,9 +53,7 @@ export class TestWorkspace implements Workspace {
 
   readonly blobSync: BlobEngine;
 
-  readonly blockCollections = new Map<string, TestDoc>();
-
-  readonly doc: Y.Doc;
+  readonly yDoc: Y.Doc;
 
   readonly docSync: DocEngine;
 
@@ -69,9 +67,7 @@ export class TestWorkspace implements Workspace {
     docListUpdated: new Subject<void>(),
   };
 
-  get docs() {
-    return this.blockCollections;
-  }
+  private _docRef: TestDoc | null = null;
 
   constructor({
     id,
@@ -85,8 +81,8 @@ export class TestWorkspace implements Workspace {
     },
   }: DocCollectionOptions = {}) {
     this.id = id || '';
-    this.doc = new Y.Doc({ guid: id });
-    this.awarenessStore = new AwarenessStore(new Awareness(this.doc));
+    this.yDoc = new Y.Doc({ guid: id });
+    this.awarenessStore = new AwarenessStore(new Awareness(this.yDoc));
 
     const logger = new NoopLogger();
 
@@ -95,7 +91,7 @@ export class TestWorkspace implements Workspace {
       awarenessSources
     );
     this.docSync = new DocEngine(
-      this.doc,
+      this.yDoc,
       docSources.main,
       docSources.shadows ?? [],
       logger
@@ -108,33 +104,40 @@ export class TestWorkspace implements Workspace {
 
     this.idGenerator = idGenerator ?? nanoid;
 
-    this.meta = new TestMeta(this.doc);
-    this._bindDocMetaEvents();
+    this.meta = new TestMeta(this.yDoc);
+    this.meta.docMetaUpdated.subscribe(() => this.slots.docListUpdated.next());
   }
 
-  private _bindDocMetaEvents() {
-    this.meta.docMetaAdded.subscribe(docId => {
-      const doc = new TestDoc({
+  get doc(): Doc {
+    const existing = this.meta.docMetas[0];
+    if (!existing) {
+      throw new LinvoError(
+        ErrorCode.DocCollectionError,
+        'single-doc workspace is not initialized'
+      );
+    }
+    return this._ensureDoc(existing.id);
+  }
+
+  private _ensureDoc(docId: string): TestDoc {
+    if (!this._docRef) {
+      this._docRef = new TestDoc({
         id: docId,
         collection: this,
-        doc: this.doc,
+        doc: this.yDoc,
         awarenessStore: this.awarenessStore,
       });
-      this.blockCollections.set(doc.id, doc);
-    });
+      return this._docRef;
+    }
 
-    this.meta.docMetaUpdated.subscribe(() => this.slots.docListUpdated.next());
+    if (this._docRef.id !== docId) {
+      throw new LinvoError(
+        ErrorCode.DocCollectionError,
+        `single-doc workspace already initialized with doc id ${this._docRef.id}`
+      );
+    }
 
-    this.meta.docMetaRemoved.subscribe(id => {
-      const space = this.getBlockCollection(id);
-      if (!space) return;
-      this.blockCollections.delete(id);
-      space.remove();
-    });
-  }
-
-  private _hasDoc(docId: string) {
-    return this.docs.has(docId);
+    return this._docRef;
   }
 
   /**
@@ -143,29 +146,6 @@ export class TestWorkspace implements Workspace {
    */
   canGracefulStop() {
     this.docSync.canGracefulStop();
-  }
-
-  /**
-   * By default, only an empty doc will be created.
-   * If the `init` parameter is passed, a `surface`, `note`, and `paragraph` block
-   * will be created in the doc simultaneously.
-   */
-  createDoc(docId?: string): Doc {
-    const id = docId ?? this.idGenerator();
-    if (this._hasDoc(id)) {
-      throw new LinvoError(
-        ErrorCode.DocCollectionError,
-        'doc already exists'
-      );
-    }
-
-    this.meta.addDocMeta({
-      id,
-      title: '',
-      createDate: Date.now(),
-      tags: [],
-    });
-    return this.getDoc(id) as Doc;
   }
 
   dispose() {
@@ -180,33 +160,6 @@ export class TestWorkspace implements Workspace {
     this.docSync.forceStop();
     this.blobSync.stop();
     this.awarenessSync.disconnect();
-  }
-
-  getBlockCollection(docId: string): TestDoc | null {
-    const space = this.docs.get(docId) as TestDoc | undefined;
-    return space ?? null;
-  }
-
-  getDoc(docId: string): Doc | null {
-    const collection = this.getBlockCollection(docId);
-    return collection;
-  }
-
-  removeDoc(docId: string) {
-    const docMeta = this.meta.getDocMeta(docId);
-    if (!docMeta) {
-      throw new LinvoError(
-        ErrorCode.DocCollectionError,
-        `doc meta not found: ${docId}`
-      );
-    }
-
-    const blockCollection = this.getBlockCollection(docId);
-    if (!blockCollection) return;
-
-    blockCollection.dispose();
-    this.meta.removeDocMeta(docId);
-    this.blockCollections.delete(docId);
   }
 
   /**

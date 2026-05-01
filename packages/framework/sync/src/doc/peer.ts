@@ -27,29 +27,7 @@ export interface DocPeerStatus {
 
 /**
  * # DocPeer
- * A DocPeer is responsible for syncing one Storage with one Y.Doc and its subdocs.
- *
- * ```
- *                    ┌─────┐
- *                    │Start│
- *                    └──┬──┘
- *                       │
- *    ┌──────┐     ┌─────▼──────┐        ┌────┐
- *    │listen◄─────┤pull rootdoc│        │peer│
- *    └──┬───┘     └─────┬──────┘        └──┬─┘
- *       │               │ onLoad()         │
- *    ┌──▼───┐     ┌─────▼──────┐      ┌────▼────┐
- *    │listen◄─────┤pull subdocs│      │subscribe│
- *    └──┬───┘     └─────┬──────┘      └────┬────┘
- *       │               │ onReady()        │
- *    ┌──▼──┐      ┌─────▼───────┐       ┌──▼──┐
- *    │queue├──────►apply updates◄───────┤queue│
- *    └─────┘      └─────────────┘       └─────┘
- * ```
- *
- * listen: listen for updates from ydoc, typically from user modifications.
- * subscribe: listen for updates from storage, typically from other users.
- *
+ * A DocPeer is responsible for syncing one Storage with one Y.Doc.
  */
 export class SyncPeer {
   private _status: DocPeerStatus = {
@@ -62,8 +40,10 @@ export class SyncPeer {
 
   readonly abort = new AbortController();
 
-  // handle updates from storage
   handleStorageUpdates = (id: string, data: Uint8Array) => {
+    if (id !== this.yDoc.guid) {
+      return;
+    }
     this.state.pullUpdatesQueue.push({
       id,
       data,
@@ -71,35 +51,16 @@ export class SyncPeer {
     this.updateSyncStatus();
   };
 
-  // handle subdocs changes, append new subdocs to queue, remove subdocs from queue
-  handleSubdocsUpdate = ({
-    added,
-    removed,
-  }: {
-    added: Set<Doc>;
-    removed: Set<Doc>;
-  }) => {
-    for (const subdoc of added) {
-      this.state.subdocsLoadQueue.push({ id: subdoc.guid, doc: subdoc });
-    }
-
-    for (const subdoc of removed) {
-      this.disconnectDoc(subdoc);
-      this.state.subdocsLoadQueue.remove(doc => doc.doc === subdoc);
-    }
-    this.updateSyncStatus();
-  };
-
-  // handle updates from ydoc
   handleYDocUpdates = (update: Uint8Array, origin: string, doc: Doc) => {
-    // don't push updates from storage
-    if (origin === this.name) {
+    if (origin === this.name || doc.guid !== this.yDoc.guid) {
       return;
     }
 
-    const exist = this.state.pushUpdatesQueue.find(({ id }) => id === doc.guid);
-    if (exist) {
-      exist.data.push(update);
+    const existing = this.state.pushUpdatesQueue.find(
+      ({ id }) => id === doc.guid
+    );
+    if (existing) {
+      existing.data.push(update);
     } else {
       this.state.pushUpdatesQueue.push({
         id: doc.guid,
@@ -123,15 +84,11 @@ export class SyncPeer {
       id: string;
       data: Uint8Array;
     }>;
-    subdocLoading: boolean;
-    subdocsLoadQueue: PriorityAsyncQueue<{ id: string; doc: Doc }>;
   } = {
     connectedDocs: new Map(),
     pushUpdatesQueue: new PriorityAsyncQueue([], this.priorityTarget),
     pushingUpdate: false,
     pullUpdatesQueue: new PriorityAsyncQueue([], this.priorityTarget),
-    subdocLoading: false,
-    subdocsLoadQueue: new PriorityAsyncQueue([], this.priorityTarget),
   };
 
   get name() {
@@ -151,7 +108,7 @@ export class SyncPeer {
   }
 
   constructor(
-    readonly rootDoc: Doc,
+    readonly yDoc: Doc,
     readonly source: DocSource,
     readonly priorityTarget = new SharedPriorityTarget(),
     readonly logger: Logger
@@ -159,7 +116,6 @@ export class SyncPeer {
     this.logger.debug(`doc-peer:${this.name} start`);
 
     this.syncRetryLoop(this.abort.signal).catch(err => {
-      // should not reach here
       console.error(err);
     });
   }
@@ -173,18 +129,13 @@ export class SyncPeer {
       applyUpdate(doc, docData, 'load');
     }
 
-    // diff root doc and in-storage, save updates to pendingUpdates
     this.state.pushUpdatesQueue.push({
       id: doc.guid,
       data: [encodeStateAsUpdate(doc, inStorageState)],
     });
 
     this.state.connectedDocs.set(doc.guid, doc);
-
-    // start listen root doc changes
     doc.on('update', this.handleYDocUpdates);
-
-    // mark rootDoc as loaded
     doc.emit('sync', [true, doc]);
 
     this.updateSyncStatus();
@@ -200,24 +151,14 @@ export class SyncPeer {
     this.state.connectedDocs.clear();
     this.state.pushUpdatesQueue.clear();
     this.state.pullUpdatesQueue.clear();
-    this.state.subdocsLoadQueue.clear();
     this.state.pushingUpdate = false;
-    this.state.subdocLoading = false;
   }
 
-  /**
-   * stop sync
-   *
-   * DocPeer is one-time use, this peer should be discarded after call stop().
-   */
   stop() {
     this.logger.debug(`doc-peer:${this.name} stop`);
     this.abort.abort(MANUALLY_STOP);
   }
 
-  /**
-   * main synchronization logic
-   */
   async sync(abortOuter: AbortSignal) {
     this.initState();
     const abortInner = new AbortController();
@@ -230,67 +171,34 @@ export class SyncPeer {
     try {
       this.updateSyncStatus();
 
-      // start listen storage updates
       dispose = await this.source.subscribe(
         this.handleStorageUpdates,
         reason => {
-          // abort if storage disconnect, should trigger retry loop
           abortInner.abort('subscribe disconnect:' + reason);
         }
       );
       throwIfAborted(abortInner.signal);
 
-      // Step 1: load root doc
-      await this.connectDoc(this.rootDoc, abortInner.signal);
+      await this.connectDoc(this.yDoc, abortInner.signal);
 
-      // Step 2: load subdocs
-      this.state.subdocsLoadQueue.push(
-        ...Array.from(this.rootDoc.getSubdocs()).map(doc => ({
-          id: doc.guid,
-          doc,
-        }))
-      );
-      this.updateSyncStatus();
-
-      this.rootDoc.on('subdocs', this.handleSubdocsUpdate);
-
-      // Finally: start sync
       await Promise.all([
-        // load subdocs
-        (async () => {
-          while (throwIfAborted(abortInner.signal)) {
-            const subdoc = await this.state.subdocsLoadQueue.next(
-              abortInner.signal
-            );
-            this.state.subdocLoading = true;
-            this.updateSyncStatus();
-            await this.connectDoc(subdoc.doc, abortInner.signal);
-            this.state.subdocLoading = false;
-            this.updateSyncStatus();
-          }
-        })(),
-        // pull updates
         (async () => {
           while (throwIfAborted(abortInner.signal)) {
             const { id, data } = await this.state.pullUpdatesQueue.next(
               abortInner.signal
             );
-            // don't apply empty data or Uint8Array([0, 0])
             if (
+              id === this.yDoc.guid &&
               !(
                 data.byteLength === 0 ||
                 (data.byteLength === 2 && data[0] === 0 && data[1] === 0)
               )
             ) {
-              const subdoc = this.state.connectedDocs.get(id);
-              if (subdoc) {
-                applyUpdate(subdoc, data, this.name);
-              }
+              applyUpdate(this.yDoc, data, this.name);
             }
             this.updateSyncStatus();
           }
         })(),
-        // push updates
         (async () => {
           while (throwIfAborted(abortInner.signal)) {
             const { id, data } = await this.state.pushUpdatesQueue.next(
@@ -301,8 +209,8 @@ export class SyncPeer {
 
             const merged = mergeUpdates(data);
 
-            // don't push empty data or Uint8Array([0, 0])
             if (
+              id === this.yDoc.guid &&
               !(
                 merged.byteLength === 0 ||
                 (merged.byteLength === 2 && merged[0] === 0 && merged[1] === 0)
@@ -318,16 +226,13 @@ export class SyncPeer {
       ]);
     } finally {
       dispose?.();
-      for (const docs of this.state.connectedDocs.values()) {
-        this.disconnectDoc(docs);
+      const connectedDocs = Array.from(this.state.connectedDocs.values());
+      for (const doc of connectedDocs) {
+        this.disconnectDoc(doc);
       }
-      this.rootDoc.off('subdocs', this.handleSubdocsUpdate);
     }
   }
 
-  /**
-   * auto retry after 5 seconds if sync failed
-   */
   async syncRetryLoop(abort: AbortSignal) {
     while (abort.aborted === false) {
       try {
@@ -353,7 +258,6 @@ export class SyncPeer {
             setTimeout(resolve, 5 * 1000);
           }),
           new Promise((_, reject) => {
-            // exit if manually stopped
             if (abort.aborted) {
               reject(abort.reason);
             }
@@ -366,8 +270,6 @@ export class SyncPeer {
         if (err === MANUALLY_STOP || abort.aborted) {
           return;
         }
-
-        // should never reach here
         throw err;
       }
     }
@@ -377,8 +279,6 @@ export class SyncPeer {
     let step;
     if (this.state.connectedDocs.size === 0) {
       step = DocPeerStep.LoadingRootDoc;
-    } else if (this.state.subdocsLoadQueue.length || this.state.subdocLoading) {
-      step = DocPeerStep.LoadingSubDoc;
     } else if (
       this.state.pullUpdatesQueue.length ||
       this.state.pushUpdatesQueue.length ||
@@ -390,25 +290,23 @@ export class SyncPeer {
     }
 
     this.status = {
-      step: step,
-      totalDocs:
-        this.state.connectedDocs.size + this.state.subdocsLoadQueue.length,
-      loadedDocs: this.state.connectedDocs.size,
-      pendingPullUpdates:
-        this.state.pullUpdatesQueue.length + (this.state.subdocLoading ? 1 : 0),
+      step,
+      totalDocs: 1,
+      loadedDocs: this.state.connectedDocs.size > 0 ? 1 : 0,
+      pendingPullUpdates: this.state.pullUpdatesQueue.length,
       pendingPushUpdates:
         this.state.pushUpdatesQueue.length + (this.state.pushingUpdate ? 1 : 0),
     };
   }
 
   async waitForLoaded(abort?: AbortSignal) {
-    if (this.status.step >= DocPeerStep.LoadingSubDoc) {
+    if (this.status.step >= DocPeerStep.Loaded) {
       return;
     }
     await Promise.race([
       new Promise<void>(resolve => {
         this.onStatusChange.subscribe(status => {
-          if (status.step >= DocPeerStep.LoadingSubDoc) {
+          if (status.step >= DocPeerStep.Loaded) {
             resolve();
           }
         });

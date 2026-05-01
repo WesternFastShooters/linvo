@@ -369,19 +369,17 @@ export class Store {
    * @category History
    */
   transact(fn: () => void, shouldTransact: boolean = this._shouldTransact) {
-    const spaceDoc = this._doc.spaceDoc;
-    spaceDoc.transact(
+    const yDoc = this._doc.yDoc;
+    yDoc.transact(
       () => {
         try {
           fn();
         } catch (e) {
-          console.error(
-            `An error occurred while Y.doc ${spaceDoc.guid} transacting:`
-          );
+          console.error(`An error occurred while Y.doc ${yDoc.guid} transacting:`);
           console.error(e);
         }
       },
-      shouldTransact ? this.spaceDoc.clientID : null
+      shouldTransact ? this.yDoc.clientID : null
     );
   }
 
@@ -525,15 +523,6 @@ export class Store {
   }
 
   /**
-   * @internal
-   * Get the root Y.Doc of sub Y.Doc.
-   * In the current design, store is on a sub Y.Doc, and all sub docs have the same root Y.Doc.
-   */
-  get rootDoc() {
-    return this._doc.rootDoc;
-  }
-
-  /**
    * Get the {@link Schema} instance of the store.
    */
   get schema() {
@@ -544,8 +533,8 @@ export class Store {
    * @internal
    * Get the Y.Doc instance of the store.
    */
-  get spaceDoc() {
-    return this._doc.spaceDoc;
+  get yDoc() {
+    return this._doc.yDoc;
   }
 
   private _isDisposed = false;
@@ -1170,10 +1159,25 @@ export class Store {
       schema: this.schema,
       blobCRUD: this.workspace.blobSync,
       docCRUD: {
-        create: (id: string) => this.workspace.createDoc(id).getStore({ id }),
-        get: (id: string) =>
-          this.workspace.getDoc(id)?.getStore({ id }) ?? null,
-        delete: (id: string) => this.workspace.removeDoc(id),
+        create: (id: string) => {
+          if (id !== this.id) {
+            throw new LinvoError(
+              ErrorCode.DocCollectionError,
+              `single-doc store cannot create additional doc ${id}`
+            );
+          }
+          return this;
+        },
+        get: (id: string) => (id === this.id ? this : null),
+        delete: (id: string) => {
+          if (id !== this.id) {
+            return;
+          }
+          throw new LinvoError(
+            ErrorCode.DocCollectionError,
+            'single-doc store does not support transformer-driven doc deletion'
+          );
+        },
       },
       middlewares,
     });

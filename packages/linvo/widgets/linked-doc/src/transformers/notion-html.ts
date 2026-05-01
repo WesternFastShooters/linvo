@@ -11,6 +11,7 @@ import {
   Transformer,
   type Workspace,
 } from '@linvo/store';
+import { createSingleDocCRUD } from '@linvo/linvo-shared/utils';
 
 import { Unzip } from './utils.js';
 
@@ -130,11 +131,7 @@ async function importNotionZip({
       const job = new Transformer({
         schema,
         blobCRUD: collection.blobSync,
-        docCRUD: {
-          create: (id: string) => collection.createDoc(id).getStore({ id }),
-          get: (id: string) => collection.getDoc(id)?.getStore({ id }) ?? null,
-          delete: (id: string) => collection.removeDoc(id),
-        },
+        docCRUD: createSingleDocCRUD(collection),
         middlewares: [defaultImageProxyMiddleware],
       });
       const htmlAdapter = new NotionHtmlAdapter(job, provider);

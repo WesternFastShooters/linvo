@@ -116,7 +116,9 @@ export class LinkCell extends BaseCellRenderer<string, string> {
   docName$ = computed(() => {
     const title =
       this.docId$.value &&
-      this.std?.workspace.getDoc(this.docId$.value)?.meta?.title;
+      this.std?.workspace.doc.id === this.docId$.value
+        ? this.std.workspace.doc.meta?.title
+        : undefined;
     if (title == null) {
       return;
     }

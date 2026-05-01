@@ -1,38 +1,56 @@
-import {
-  DEFAULT_PAGE_BLOCK_HEIGHT,
-  DEFAULT_PAGE_BLOCK_WIDTH,
-} from '@linvo/linvo-model';
+import { LinvoError, ErrorCode } from '@linvo/global/exceptions';
 import type { Workspace } from '@linvo/store';
-import { Text } from '@linvo/store';
+import type { Store } from '@linvo/store';
+
+type SingleDocCRUD = {
+  create: (id: string) => Store;
+  get: (id: string) => Store | null;
+  delete: (id: string) => void;
+};
+
+export function getWorkspaceDoc(
+  workspace: Workspace,
+  docId: string
+) {
+  return workspace.doc.id === docId ? workspace.doc : null;
+}
+
+export function createSingleDocCRUD(workspace: Workspace): SingleDocCRUD {
+  return {
+    create: (id: string) => {
+      const doc = getWorkspaceDoc(workspace, id);
+      if (!doc) {
+        throw new LinvoError(
+          ErrorCode.DocCollectionError,
+          `single-doc workspace cannot create doc ${id}`
+        );
+      }
+      return doc.getStore({ id: doc.id });
+    },
+    get: (id: string) => {
+      const doc = getWorkspaceDoc(workspace, id);
+      return doc?.getStore({ id: doc.id }) ?? null;
+    },
+    delete: (id: string) => {
+      if (workspace.doc.id !== id) {
+        return;
+      }
+      throw new LinvoError(
+        ErrorCode.DocCollectionError,
+        'single-doc workspace does not support deleting the current doc'
+      );
+    },
+  };
+}
 
 export function createDefaultDoc(
-  collection: Workspace,
+  _collection: Workspace,
   options: { id?: string; title?: string } = {}
-) {
-  const doc = collection.createDoc(options.id);
-  doc.load();
-
-  const store = doc.getStore();
-  const title = options.title ?? '';
-  const rootId = store.addBlock('linvo:root', {
-    title: new Text(title),
-  });
-  collection.meta.setDocMeta(doc.id, {
-    title,
-  });
-
-  store.addBlock('linvo:surface', {}, rootId);
-  const noteId = store.addBlock(
-    'linvo:note',
-    {
-      xywh: `[0, 0, ${DEFAULT_PAGE_BLOCK_WIDTH}, ${DEFAULT_PAGE_BLOCK_HEIGHT}]`,
-    },
-    rootId
+): Store {
+  throw new LinvoError(
+    ErrorCode.DocCollectionError,
+    `single-doc workspace does not support creating a new doc${
+      options.id ? ` (${options.id})` : ''
+    }`
   );
-  store.addBlock('linvo:paragraph', {}, noteId);
-  // To make sure the content of new doc would not be clear
-  // By undo operation for the first time
-  store.resetHistory();
-
-  return store;
 }

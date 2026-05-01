@@ -73,28 +73,17 @@ export class BlockQueryDataSource extends DataSourceBase {
     for (const property of this.meta.properties) {
       this.columnMetaMap.set(property.metaConfig.type, property.metaConfig);
     }
-    for (const collection of this.workspace.docs.values()) {
-      for (const block of Object.values(collection.getStore().blocks.peek())) {
-        if (this.meta.selector(block)) {
-          this.blockMap.set(block.id, block);
-        }
+    const doc = this.workspace.doc.getStore();
+    for (const block of Object.values(doc.blocks.peek())) {
+      if (this.meta.selector(block)) {
+        this.blockMap.set(block.id, block);
       }
     }
-    this.workspace.docs.forEach(doc => {
-      this.listenToDoc(doc.getStore());
-    });
+    this.listenToDoc(doc);
     this.workspace.slots.docListUpdated.subscribe(() => {
-      this.workspace.docs.forEach(doc => {
-        if (!this.docDisposeMap.has(doc.id)) {
-          this.listenToDoc(doc.getStore());
-        }
-      });
-      this.docDisposeMap.forEach((_, id) => {
-        if (!this.workspace.docs.has(id)) {
-          this.docDisposeMap.get(id)?.();
-          this.docDisposeMap.delete(id);
-        }
-      });
+      if (!this.docDisposeMap.has(doc.id)) {
+        this.listenToDoc(doc);
+      }
     });
   }
 

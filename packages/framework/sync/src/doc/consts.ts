@@ -5,11 +5,11 @@ export enum DocEngineStep {
 }
 
 export enum DocPeerStep {
-  Loaded = 4.5,
   LoadingRootDoc = 2,
   LoadingSubDoc = 3,
+  Loaded = 3,
   Retrying = 1,
   Stopped = 0,
-  Synced = 6,
-  Syncing = 5,
+  Syncing = 4,
+  Synced = 5,
 }

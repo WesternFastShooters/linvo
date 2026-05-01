@@ -6,7 +6,10 @@ import { BlockSchemaExtension } from '../extension/schema.js';
 import { BlockModel } from '../model/block/block-model.js';
 import { defineBlockSchema } from '../model/block/zod.js';
 import { Text } from '../reactive/index.js';
-import { createAutoIncrementIdGenerator } from '../test/index.js';
+import {
+  createAutoIncrementIdGenerator,
+  initializeTestWorkspaceDoc,
+} from '../test/index.js';
 import { TestWorkspace } from '../test/test-workspace.js';
 import { AssetsManager, BaseBlockTransformer } from '../transformer/index.js';
 
@@ -59,7 +62,7 @@ test('model to snapshot', () => {
   const options = createTestOptions();
   const collection = new TestWorkspace(options);
   collection.meta.initialize();
-  const doc = collection.createDoc('home');
+  const doc = initializeTestWorkspaceDoc(collection, 'home');
   const store = doc.getStore({ extensions });
   doc.load();
   store.addBlock('page');
@@ -77,7 +80,7 @@ test('snapshot to model', async () => {
   const options = createTestOptions();
   const collection = new TestWorkspace(options);
   collection.meta.initialize();
-  const doc = collection.createDoc('home');
+  const doc = initializeTestWorkspaceDoc(collection, 'home');
   const store = doc.getStore({ extensions });
   doc.load();
   store.addBlock('page');

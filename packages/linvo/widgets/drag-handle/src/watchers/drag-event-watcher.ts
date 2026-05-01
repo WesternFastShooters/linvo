@@ -1226,7 +1226,7 @@ export class DragEventWatcher {
 
       if (
         dndExtApi &&
-        this.std.store.workspace.docs.has(sourceDocId) &&
+        this.std.store.workspace.doc.id === sourceDocId &&
         this.gfx.surface &&
         snapshot.pageId !== this.std.store.doc.id
       ) {

@@ -2,7 +2,10 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 import * as Y from 'yjs';
 
 import type { BlockModel, Store } from '../model/index.js';
-import { createAutoIncrementIdGenerator } from '../test/index.js';
+import {
+  createAutoIncrementIdGenerator,
+  initializeTestWorkspaceDoc,
+} from '../test/index.js';
 import { TestWorkspace } from '../test/test-workspace.js';
 import {
   DividerBlockSchemaExtension,
@@ -31,7 +34,7 @@ test('trigger props updated', () => {
   const collection = new TestWorkspace(options);
   collection.meta.initialize();
 
-  const doc = collection.createDoc('home');
+  const doc = initializeTestWorkspaceDoc(collection, 'home');
   doc.load();
   const store = doc.getStore({
     extensions,
@@ -94,7 +97,7 @@ test('stash and pop', () => {
   const collection = new TestWorkspace(options);
   collection.meta.initialize();
 
-  const doc = collection.createDoc('home');
+  const doc = initializeTestWorkspaceDoc(collection, 'home');
   doc.load();
   const store = doc.getStore({
     extensions,
@@ -167,7 +170,7 @@ test('always get latest value in onChange', () => {
   const collection = new TestWorkspace(options);
   collection.meta.initialize();
 
-  const doc = collection.createDoc('home');
+  const doc = initializeTestWorkspaceDoc(collection, 'home');
   doc.load();
   const store = doc.getStore({
     extensions,
@@ -216,7 +219,7 @@ test('query', () => {
   const options = createTestOptions();
   const collection = new TestWorkspace(options);
   collection.meta.initialize();
-  const doc = collection.createDoc('home');
+  const doc = initializeTestWorkspaceDoc(collection, 'home');
   doc.load();
   const store1 = doc.getStore({
     extensions,
@@ -258,7 +261,7 @@ test('local readonly', () => {
   const options = createTestOptions();
   const collection = new TestWorkspace(options);
   collection.meta.initialize();
-  const doc = collection.createDoc('home');
+  const doc = initializeTestWorkspaceDoc(collection, 'home');
   const store1 = doc.getStore({
     extensions,
   });
@@ -292,7 +295,7 @@ describe('move blocks', () => {
     const collection = new TestWorkspace(options);
     collection.meta.initialize();
 
-    const doc = collection.createDoc('home');
+    const doc = initializeTestWorkspaceDoc(collection, 'home');
     doc.load();
     const store = doc.getStore({ extensions });
     const pageId = store.addBlock('linvo:page');

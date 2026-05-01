@@ -21,6 +21,7 @@ import type { BlockModel, Store } from '@linvo/store';
 import { Text } from '@linvo/store';
 import {
   createAutoIncrementIdGenerator,
+  initializeTestWorkspaceDoc,
   TestWorkspace,
 } from '@linvo/store/test';
 import { beforeEach, describe, expect, test } from 'vitest';
@@ -41,7 +42,7 @@ function createTestDoc(docId = 'doc0') {
   const options = createTestOptions();
   const collection = new TestWorkspace(options);
   collection.meta.initialize();
-  const doc = collection.createDoc(docId);
+  const doc = initializeTestWorkspaceDoc(collection, docId);
   doc.load();
   return doc.getStore({ extensions });
 }

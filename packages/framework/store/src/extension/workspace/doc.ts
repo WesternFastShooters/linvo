@@ -30,8 +30,10 @@ export interface Doc {
 
   get workspace(): Workspace;
 
-  get rootDoc(): Y.Doc;
-  get spaceDoc(): Y.Doc;
+  /**
+   * The single Y.Doc backing this Linvo document.
+   */
+  get yDoc(): Y.Doc;
   get yBlocks(): Y.Map<YBlock>;
 }
 

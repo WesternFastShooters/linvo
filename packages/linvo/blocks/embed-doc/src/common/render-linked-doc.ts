@@ -25,14 +25,11 @@ export function renderLinkedDocInCard(
     return;
   }
 
-  // eslint-disable-next-line sonarjs/no-collapsible-if
   if ('bannerContainer' in card) {
-    if (card.editorMode === 'page') {
-      renderPageAsBanner(card).catch(e => {
-        console.error(e);
-        card.isError = true;
-      });
-    }
+    renderPageAsBanner(card).catch(e => {
+      console.error(e);
+      card.isError = true;
+    });
   }
 
   renderNoteContent(card).catch(e => {
@@ -188,7 +185,7 @@ async function renderNoteContent(
   const std = card.host.std;
   const previewSpec = std
     .get(ViewExtensionManagerIdentifier)
-    .get('preview-page');
+    .get('preview');
   const previewStd = new BlockStdScope({
     store: previewDoc,
     extensions: previewSpec,

@@ -35,7 +35,7 @@ export function createLinkedDocFromNote(
   blockSnapshot.props.displayMode = NoteDisplayMode.DocAndEdgeless;
   const linkedDoc = _doc.getStore({ id: doc.id });
   linkedDoc.load(() => {
-    const rootId = linkedDoc.addBlock('linvo:page', {
+    const rootId = linkedDoc.addBlock('linvo:root', {
       title: new Text(docTitle),
     });
     linkedDoc.addBlock('linvo:surface', {}, rootId);
@@ -56,7 +56,7 @@ export function createLinkedDocFromEdgelessElements(
   const transformer = host.store.getTransformer();
   const linkedDoc = _doc.getStore();
   linkedDoc.load(() => {
-    const rootId = linkedDoc.addBlock('linvo:page', {
+    const rootId = linkedDoc.addBlock('linvo:root', {
       title: new Text(docTitle),
     });
     const surfaceId = linkedDoc.addBlock('linvo:surface', {}, rootId);

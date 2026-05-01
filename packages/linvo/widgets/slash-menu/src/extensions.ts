@@ -17,7 +17,7 @@ export class SlashMenuExtension extends Extension {
 
   static override setup(di: Container) {
     WidgetViewExtension(
-      'linvo:page',
+      'linvo:root',
       LINVO_SLASH_MENU_WIDGET,
       literal`${unsafeStatic(LINVO_SLASH_MENU_WIDGET)}`
     ).setup(di);

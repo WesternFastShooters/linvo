@@ -1,9 +1,9 @@
 import type { SerializedXYWH } from '@linvo/global/gfx';
 import { z } from 'zod';
 
-export type DocMode = 'edgeless' | 'page';
+export type DocMode = 'edgeless';
 
-export const DocModes = ['edgeless', 'page'] as const;
+export const DocModes = ['edgeless'] as const;
 
 export type FootNoteReferenceType = 'doc' | 'attachment' | 'url';
 

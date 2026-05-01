@@ -139,8 +139,7 @@ export const isOutOfNoteBlock = (
 ) => {
   // TODO: need to find a better way to check if the point is out of note block
   const rect = noteBlock.getBoundingClientRect();
-  const insidePageEditor =
-    editorHost.std.get(DocModeProvider).getEditorMode() === 'page';
+  const insidePageEditor = false;
   const padding =
     (NOTE_CONTAINER_PADDING +
       (insidePageEditor ? 0 : EDGELESS_NOTE_EXTRA_PADDING)) *
@@ -166,11 +165,7 @@ export const getClosestNoteBlock = (
   rootComponent: BlockComponent,
   point: Point
 ) => {
-  const isInsidePageEditor =
-    editorHost.std.get(DocModeProvider).getEditorMode() === 'page';
-  return isInsidePageEditor
-    ? findClosestBlockComponent(rootComponent, point, 'linvo-note')
-    : getHoveringNote(point);
+  return getHoveringNote(point) ?? findClosestBlockComponent(rootComponent, point, 'linvo-note');
 };
 
 export const getClosestBlockByPoint = (

@@ -51,7 +51,7 @@ export class RootBlockModel extends BlockModel<RootBlockProps> {
 }
 
 export const RootBlockSchema = defineBlockSchema({
-  flavour: 'linvo:page',
+  flavour: 'linvo:root',
   props: (internal): RootBlockProps => ({
     title: internal.Text(),
   }),

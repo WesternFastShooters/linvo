@@ -9,11 +9,10 @@ import {
  * Defines the different types of views where extensions can be applied.
  */
 export type ViewScope =
-  | 'page' // Standard page view
   | 'edgeless' // Edgeless (whiteboard) view
-  | 'preview-page' // Page preview view
+  | 'preview' // Preview view
   | 'preview-edgeless' // Edgeless preview view
-  | 'mobile-page' // Mobile page view
+  | 'mobile' // Mobile preview view
   | 'mobile-edgeless'; // Mobile edgeless view
 
 /**
@@ -36,10 +35,10 @@ export type ViewScope =
  *     super.setup(context, options);
  *
  *     context.register([CommonExt]);
- *     if (context.scope === 'page') {
- *       context.register([PageExt]);
- *     } else if (context.scope === 'edgeless') {
+ *     if (context.scope === 'edgeless') {
  *       context.register([EdgelessExt]);
+ *     } else {
+ *       context.register([PreviewExt]);
  *     }
  *     if (options?.theme === 'dark') {
  *       context.register([DarkModeExt]);
@@ -100,7 +99,7 @@ export class ViewExtensionProvider<
    * @returns True if the scope is preview, false otherwise
    */
   isPreview = (scope: ViewScope) => {
-    return scope === 'preview-page' || scope === 'preview-edgeless';
+    return scope === 'preview' || scope === 'preview-edgeless';
   };
 
   /**
@@ -109,7 +108,7 @@ export class ViewExtensionProvider<
    * @returns True if the scope is mobile, false otherwise
    */
   isMobile = (scope: ViewScope) => {
-    return scope === 'mobile-page' || scope === 'mobile-edgeless';
+    return scope === 'mobile' || scope === 'mobile-edgeless';
   };
 
   override setup(context: ViewExtensionContext, options?: Options) {

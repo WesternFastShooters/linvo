@@ -43,8 +43,6 @@ export class PointerEventWatcher {
   private readonly _canEditing = (noteBlock: BlockComponent) => {
     if (noteBlock.store.id !== this.widget.store.id) return false;
 
-    if (this.widget.mode === 'page') return true;
-
     const selection = this._gfx.selection;
 
     const noteBlockId = noteBlock.model.id;
@@ -260,9 +258,7 @@ export class PointerEventWatcher {
       ) as NoteBlockComponent | null;
 
       this.widget.noteScale.value =
-        this.widget.mode === 'page'
-          ? 1
-          : (closestNoteBlock?.model.props.edgeless.scale ?? 1);
+        closestNoteBlock?.model.props.edgeless.scale ?? 1;
 
       if (
         closestNoteBlock &&

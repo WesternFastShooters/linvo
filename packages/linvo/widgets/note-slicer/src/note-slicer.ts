@@ -445,7 +445,7 @@ export class NoteSlicer extends WidgetComponent<RootBlockModel> {
 }
 
 export const noteSlicerWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   NOTE_SLICER_WIDGET,
   literal`${unsafeStatic(NOTE_SLICER_WIDGET)}`
 );

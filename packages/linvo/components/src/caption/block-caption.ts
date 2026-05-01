@@ -52,9 +52,7 @@ export class BlockCaptionEditor<
   };
 
   get mode(): DocMode {
-    return this.doc.getParent(this.model)?.flavour === 'linvo:surface'
-      ? 'edgeless'
-      : 'page';
+    return 'edgeless';
   }
 
   private _onCaptionKeydown(event: KeyboardEvent) {

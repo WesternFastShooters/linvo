@@ -528,7 +528,7 @@ export class EmbedLinkedDocBlockComponent extends EmbedBlockComponent<EmbedLinke
       );
 
       if (this._referenceToNode) {
-        this._linkedDocMode = this.model.props.params?.mode ?? 'page';
+        this._linkedDocMode = this.model.props.params?.mode ?? 'edgeless';
       } else {
         const docMode = this.std.get(DocModeProvider);
         this._linkedDocMode = docMode.getPrimaryMode(this.model.props.pageId);
@@ -605,7 +605,7 @@ export class EmbedLinkedDocBlockComponent extends EmbedBlockComponent<EmbedLinke
   private accessor _docUpdatedAt: Date = new Date();
 
   @state()
-  private accessor _linkedDocMode: DocMode = 'page';
+  private accessor _linkedDocMode: DocMode = 'edgeless';
 
   @state()
   private accessor _loading = false;

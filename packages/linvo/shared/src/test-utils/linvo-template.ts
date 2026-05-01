@@ -31,7 +31,7 @@ const DEFAULT_EXTENSIONS = [
 
 // Mapping from tag names to flavours
 const tagToFlavour: Record<string, string> = {
-  'linvo-page': 'linvo:page',
+  'linvo-page': 'linvo:root',
   'linvo-note': 'linvo:note',
   'linvo-paragraph': 'linvo:paragraph',
   'linvo-list': 'linvo:list',
@@ -199,7 +199,7 @@ export function createLinvoTemplate(
         flavour === 'linvo:list' ||
         flavour === 'linvo:code'
       ) {
-        const pageId = store.addBlock('linvo:page', {});
+        const pageId = store.addBlock('linvo:root', {});
         const noteId = store.addBlock('linvo:note', {}, pageId);
         blockId = buildDocFromElement(store, root, noteId, selectionInfo);
       } else {

@@ -148,7 +148,7 @@ export class LinvoDocRemoteSelectionWidget extends WidgetComponent {
       return null;
     }
 
-    if (this.block.model.flavour !== 'linvo:page') {
+    if (this.block.model.flavour !== 'linvo:root') {
       console.error('remote selection widget must be used in page component');
       return null;
     }
@@ -216,7 +216,7 @@ export class LinvoDocRemoteSelectionWidget extends WidgetComponent {
       return [];
     }
 
-    if (this.block.model.flavour !== 'linvo:page') {
+    if (this.block.model.flavour !== 'linvo:root') {
       console.error('remote selection widget must be used in page component');
       return [];
     }

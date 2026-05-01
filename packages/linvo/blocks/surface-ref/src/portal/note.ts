@@ -124,7 +124,7 @@ export class SurfaceRefNotePortal extends WithDisposable(ShadowlessElement) {
     });
     const previewSpec = this.host.std
       .get(ViewExtensionManagerIdentifier)
-      .get('preview-page');
+      .get('preview');
     return new BlockStdScope({
       store: doc,
       extensions: previewSpec,

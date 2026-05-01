@@ -136,7 +136,7 @@ export class FramePreview extends WithDisposable(ShadowlessElement) {
           if (
             payload.type !== 'block' ||
             payload.method !== 'add' ||
-            payload.view.model.flavour !== 'linvo:page'
+            payload.view.model.flavour !== 'linvo:root'
           ) {
             return;
           }

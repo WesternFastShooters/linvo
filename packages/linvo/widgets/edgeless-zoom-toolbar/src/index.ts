@@ -88,7 +88,7 @@ export class LinvoEdgelessZoomToolbarWidget extends WidgetComponent<RootBlockMod
 }
 
 export const edgelessZoomToolbarWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   LINVO_EDGELESS_ZOOM_TOOLBAR_WIDGET,
   literal`${unsafeStatic(LINVO_EDGELESS_ZOOM_TOOLBAR_WIDGET)}`
 );

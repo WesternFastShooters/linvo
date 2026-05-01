@@ -50,19 +50,11 @@ export function isEmptyDoc(doc: Store | null, mode: DocMode) {
     return true;
   }
 
-  if (mode === 'page') {
-    const notes = getNotesFromDoc(doc);
-    if (!notes || !notes.length) {
-      return true;
-    }
-    return notes.every(note => isEmptyNote(note));
-  } else {
-    const surface = getSurfaceBlock(doc);
-    if (surface?.elementModels.length || doc.blockSize > 2) {
-      return false;
-    }
-    return true;
+  const surface = getSurfaceBlock(doc);
+  if (surface?.elementModels.length || doc.blockSize > 2) {
+    return false;
   }
+  return true;
 }
 
 export function isEmptyNote(note: BlockModel) {
@@ -190,7 +182,7 @@ export function createLinkedDocFromSlice(
   const _doc = doc.workspace.createDoc();
   const linkedDoc = _doc.getStore();
   linkedDoc.load(() => {
-    const rootId = linkedDoc.addBlock('linvo:page', {
+    const rootId = linkedDoc.addBlock('linvo:root', {
       title: new Text(docTitle),
     });
     linkedDoc.addBlock('linvo:surface', {}, rootId);

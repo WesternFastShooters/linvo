@@ -53,17 +53,12 @@ export const insertLatexBlockCommand: Command<
           await blockComponent.updateComplete;
           blockComponent.toggleEditor();
 
-          const mode = std.get(DocModeProvider).getEditorMode() ?? 'page';
           const ifEdgelessText = blockComponent.closest('linvo-edgeless-text');
           std.getOptional(TelemetryProvider)?.track('Latex', {
             from:
-              mode === 'page'
-                ? 'doc'
-                : ifEdgelessText
-                  ? 'edgeless text'
-                  : 'edgeless note',
-            page: mode === 'page' ? 'doc' : 'edgeless',
-            segment: mode === 'page' ? 'doc' : 'whiteboard',
+              ifEdgelessText ? 'edgeless text' : 'edgeless note',
+            page: 'edgeless',
+            segment: 'whiteboard',
             module: 'equation',
             control: 'create equation',
           });

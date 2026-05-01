@@ -319,7 +319,7 @@ export class LinvoPageDraggingAreaWidget extends WidgetComponent<RootBlockModel>
 }
 
 export const pageDraggingAreaWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   LINVO_PAGE_DRAGGING_AREA_WIDGET,
   literal`${unsafeStatic(LINVO_PAGE_DRAGGING_AREA_WIDGET)}`
 );

@@ -136,7 +136,7 @@ export class LinvoKeyboardToolbarWidget extends WidgetComponent<RootBlockModel> 
 }
 
 export const keyboardToolbarWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   LINVO_KEYBOARD_TOOLBAR_WIDGET,
   literal`${unsafeStatic(LINVO_KEYBOARD_TOOLBAR_WIDGET)}`
 );

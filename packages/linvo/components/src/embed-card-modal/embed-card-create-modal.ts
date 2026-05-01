@@ -38,7 +38,15 @@ export class EmbedCardCreateModal extends SignalWatcher(
       .getEmbedBlockOptions(url);
 
     const { mode } = this.createOptions;
-    if (mode === 'page') {
+    if (mode === 'edgeless') {
+      const gfx = this.host.std.get(GfxControllerIdentifier);
+      const surfaceModel = gfx.surface;
+      if (!surfaceModel) {
+        return;
+      }
+
+      this.createOptions.onSave(url);
+    } else {
       const { parentModel, index } = this.createOptions;
       let flavour = 'linvo:bookmark';
 
@@ -54,14 +62,6 @@ export class EmbedCardCreateModal extends SignalWatcher(
         parentModel,
         index
       );
-    } else if (mode === 'edgeless') {
-      const gfx = this.host.std.get(GfxControllerIdentifier);
-      const surfaceModel = gfx.surface;
-      if (!surfaceModel) {
-        return;
-      }
-
-      this.createOptions.onSave(url);
     }
     this.onConfirm({ mode });
     this.remove();

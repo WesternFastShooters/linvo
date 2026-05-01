@@ -127,7 +127,7 @@ export class EdgelessLassoDraggingAreaWidget extends WidgetComponent<RootBlockMo
 }
 
 export const edgelessLassoDraggingAreaWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   EDGELESS_LASSO_DRAGGING_AREA_WIDGET,
   literal`${unsafeStatic(EDGELESS_LASSO_DRAGGING_AREA_WIDGET)}`
 );

@@ -86,15 +86,9 @@ export class TestLinvoEditorContainer extends SignalWatcher(
 
   private readonly _edgelessSpecs = signal<ExtensionType[]>([]);
 
-  private readonly _mode = signal<DocMode>('page');
+  private readonly _mode = signal<DocMode>('edgeless');
 
-  private readonly _pageSpecs = signal<ExtensionType[]>([]);
-
-  private readonly _specs = computed(() =>
-    this._mode.value === 'page'
-      ? this._pageSpecs.value
-      : this._edgelessSpecs.value
-  );
+  private readonly _specs = computed(() => this._edgelessSpecs.value);
 
   private readonly _std = computed(() => {
     return new BlockStdScope({
@@ -140,11 +134,11 @@ export class TestLinvoEditorContainer extends SignalWatcher(
   }
 
   set pageSpecs(specs: ExtensionType[]) {
-    this._pageSpecs.value = specs;
+    this._edgelessSpecs.value = specs;
   }
 
   get pageSpecs() {
-    return this._pageSpecs.value;
+    return this._edgelessSpecs.value;
   }
 
   get rootModel() {
@@ -164,41 +158,25 @@ export class TestLinvoEditorContainer extends SignalWatcher(
   }
 
   override firstUpdated() {
-    if (this.mode === 'page') {
-      setTimeout(() => {
-        if (this.autofocus && this.mode === 'page') {
-          const richText = this.querySelector('rich-text');
-          const inlineEditor = richText?.inlineEditor;
-          inlineEditor?.focusEnd();
-        }
-      });
-    }
+    setTimeout(() => {
+      if (this.autofocus) {
+        const richText = this.querySelector('rich-text');
+        const inlineEditor = richText?.inlineEditor;
+        inlineEditor?.focusEnd();
+      }
+    });
   }
 
   override render() {
     const mode = this._mode.value;
     const themeService = this.std.get(ThemeProvider);
-    const appTheme = themeService.app$.value;
     const edgelessTheme = themeService.edgeless$.value;
 
     return html`${keyed(
       this.rootModel.id + mode,
       html`
-        <div
-          data-theme=${mode === 'page' ? appTheme : edgelessTheme}
-          class=${mode === 'page'
-            ? 'linvo-page-viewport'
-            : 'linvo-edgeless-viewport'}
-        >
-          ${when(
-            mode === 'page',
-            () => html` <doc-title .doc=${this.doc}></doc-title> `
-          )}
-          <div
-            class=${mode === 'page'
-              ? 'page-editor playground-page-editor-container'
-              : 'edgeless-editor-container'}
-          >
+        <div data-theme=${edgelessTheme} class="linvo-edgeless-viewport">
+          <div class="edgeless-editor-container">
             ${this._editorTemplate.value}
           </div>
         </div>

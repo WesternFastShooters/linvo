@@ -71,7 +71,7 @@ export class PreviewHelper {
     const store = widget.store.doc.getStore({ query });
     let previewSpec = widget.std
       .get(ViewExtensionManagerIdentifier)
-      .get('preview-page');
+      .get('preview');
     const settingSignal = signal({ ...editorSetting.setting$.peek() });
     const extensions = [
       DocModeExtension(docModeService),

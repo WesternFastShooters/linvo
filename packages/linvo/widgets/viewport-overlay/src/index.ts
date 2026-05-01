@@ -78,7 +78,7 @@ export class LinvoViewportOverlayWidget extends WidgetComponent<RootBlockModel> 
 }
 
 export const viewportOverlayWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   LINVO_VIEWPORT_OVERLAY_WIDGET,
   literal`${unsafeStatic(LINVO_VIEWPORT_OVERLAY_WIDGET)}`
 );

@@ -332,7 +332,7 @@ export class LinvoLinkedDocWidget extends WidgetComponent<RootBlockModel> {
 }
 
 export const linkedDocWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   LINVO_LINKED_DOC_WIDGET,
   literal`${unsafeStatic(LINVO_LINKED_DOC_WIDGET)}`
 );

@@ -42,8 +42,8 @@ export const htmlLinkElementToDeltaMatcher = HtmlASTToDeltaExtension({
                 pageId,
                 params: {
                   mode:
-                    mode && ['edgeless', 'page'].includes(mode)
-                      ? (mode as 'edgeless' | 'page')
+                    mode === 'edgeless'
+                      ? 'edgeless'
                       : undefined,
                   blockIds,
                   elementIds,

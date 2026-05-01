@@ -725,7 +725,7 @@ export class EdgelessToolbarWidget extends WidgetComponent<RootBlockModel> {
 }
 
 export const edgelessToolbarWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   EDGELESS_TOOLBAR_WIDGET,
   literal`${unsafeStatic(EDGELESS_TOOLBAR_WIDGET)}`
 );

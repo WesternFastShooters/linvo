@@ -40,7 +40,7 @@ const DEFERED_BLOCK = [
  * Those block should not be inserted directly
  * it should be merged with current existing block
  */
-const MERGE_BLOCK = ['linvo:surface', 'linvo:page'] as const;
+const MERGE_BLOCK = ['linvo:surface', 'linvo:root'] as const;
 
 type MergeBlockFlavour = (typeof MERGE_BLOCK)[number];
 
@@ -117,7 +117,7 @@ export class TemplateJob {
 
   private _getMergeBlockId(modelData: BlockSnapshot) {
     switch (modelData.flavour as MergeBlockFlavour) {
-      case 'linvo:page':
+      case 'linvo:root':
         return this.model.store.root!.id;
       case 'linvo:surface':
         return this.model.id;
@@ -305,7 +305,7 @@ export class TemplateJob {
 
   private _mergeProps(from: BlockSnapshot, to: BlockModel) {
     switch (from.flavour as MergeBlockFlavour) {
-      case 'linvo:page':
+      case 'linvo:root':
         break;
       case 'linvo:surface':
         this._mergeSurfaceElements(

@@ -323,7 +323,7 @@ export class MarkdownAdapter extends BaseAdapter<Markdown> {
       children: [],
     };
     return {
-      type: 'page',
+      type: 'doc',
       meta: {
         id: nanoid(),
         title: 'Untitled',
@@ -333,7 +333,7 @@ export class MarkdownAdapter extends BaseAdapter<Markdown> {
       blocks: {
         type: 'block',
         id: nanoid(),
-        flavour: 'linvo:page',
+        flavour: 'linvo:root',
         props: {
           title: {
             '$linvo:internal:text$': true,

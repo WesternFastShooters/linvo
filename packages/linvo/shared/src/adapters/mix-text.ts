@@ -191,7 +191,7 @@ export class MixTextAdapter extends BaseAdapter<MixText> {
   toDocSnapshot(payload: ToDocSnapshotPayload<MixText>): DocSnapshot {
     payload.file = payload.file.replaceAll('\r', '');
     return {
-      type: 'page',
+      type: 'doc',
       meta: {
         id: nanoid(),
         title: 'Untitled',
@@ -201,7 +201,7 @@ export class MixTextAdapter extends BaseAdapter<MixText> {
       blocks: {
         type: 'block',
         id: nanoid(),
-        flavour: 'linvo:page',
+        flavour: 'linvo:root',
         props: {
           title: {
             '$linvo:internal:text$': true,

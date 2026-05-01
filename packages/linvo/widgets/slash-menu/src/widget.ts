@@ -100,7 +100,7 @@ export class LinvoSlashMenuWidget extends WidgetComponent {
       }
     };
 
-    if (this.block?.model.flavour !== 'linvo:page') {
+    if (this.block?.model.flavour !== 'linvo:root') {
       console.error('SlashMenuWidget should be used in RootBlock');
       return;
     }

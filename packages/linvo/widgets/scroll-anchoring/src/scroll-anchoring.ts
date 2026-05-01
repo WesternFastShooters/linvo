@@ -75,20 +75,6 @@ export class LinvoScrollAnchoringWidget extends WidgetComponent {
     return new Bound(vx, vy, w * zoom, h * zoom);
   }
 
-  #getBoundsInPage(id: string) {
-    const blockComponent = this.std.view.getBlock(id);
-    if (!blockComponent) return;
-
-    const container = this.host;
-    const containerRect = container.getBoundingClientRect();
-    const { left, top, width, height } = blockComponent.getBoundingClientRect();
-
-    const offsetX = containerRect.left - container.offsetLeft;
-    const offsetY = containerRect.top - container.offsetTop;
-
-    return new Bound(left - offsetX, top - offsetY, width, height);
-  }
-
   #moveToAnchorInEdgeless(id: string) {
     const controller = this.std.get(GfxControllerIdentifier);
     const surface = controller.surface;
@@ -205,11 +191,6 @@ export class LinvoScrollAnchoringWidget extends WidgetComponent {
 
         const { mode, id } = anchor;
 
-        if (mode === 'page') {
-          this.#moveToAnchorInPage(id);
-          return;
-        }
-
         this.#moveToAnchorInEdgeless(id);
       })
     );
@@ -224,13 +205,13 @@ export class LinvoScrollAnchoringWidget extends WidgetComponent {
           elementIds: [eid],
           highlight,
         } = highlighted;
-        const id = mode === 'page' ? bid : eid || bid;
+        const id = eid || bid;
         if (!id) return;
 
         // Consumes highlight selection
         this.std.selection.clear(['highlight']);
 
-        this.anchor$.value = { mode, id, highlight };
+        this.anchor$.value = { mode: 'edgeless', id, highlight };
         this.#listened = true;
       })
     );
@@ -247,8 +228,7 @@ export class LinvoScrollAnchoringWidget extends WidgetComponent {
 
     const { mode, id } = anchor;
 
-    const bounds =
-      mode === 'page' ? this.#getBoundsInPage(id) : this.#getBoundsInEdgeless();
+    const bounds = this.#getBoundsInEdgeless();
     if (!bounds) return nothing;
 
     const classes = { highlight: true, [mode]: true };

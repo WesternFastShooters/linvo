@@ -42,7 +42,7 @@ export type CollectionInfoSnapshot = {
 };
 
 export type DocSnapshot = {
-  type: 'page';
+  type: 'doc';
   meta: DocMeta;
   blocks: BlockSnapshot;
 };
@@ -55,7 +55,7 @@ const DocMetaSchema = z.object({
 });
 
 export const DocSnapshotSchema: z.ZodType<DocSnapshot> = z.object({
-  type: z.literal('page'),
+  type: z.literal('doc'),
   meta: DocMetaSchema,
   blocks: BlockSnapshotSchema,
 });

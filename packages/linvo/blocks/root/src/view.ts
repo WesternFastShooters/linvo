@@ -34,7 +34,7 @@ export class RootViewExtension extends ViewExtensionProvider {
   override setup(context: ViewExtensionContext) {
     super.setup(context);
     context.register([
-      FlavourExtension('linvo:page'),
+      FlavourExtension('linvo:root'),
       fallbackKeymap,
       ToolbarModuleExtension({
         id: BlockFlavourIdentifier(NoteBlockSchema.model.flavour),
@@ -54,7 +54,7 @@ export class RootViewExtension extends ViewExtensionProvider {
   private readonly _setupPage = (context: ViewExtensionContext) => {
     context.register(ViewportElementExtension('.linvo-page-viewport'));
     context.register(
-      BlockViewExtension('linvo:page', literal`linvo-preview-root`)
+      BlockViewExtension('linvo:root', literal`linvo-preview-root`)
     );
     if (!this.isPreview(context.scope)) {
       context.register(ReadOnlyClipboard);
@@ -69,7 +69,7 @@ export class RootViewExtension extends ViewExtensionProvider {
     if (context.scope === 'preview-edgeless') {
       context.register([
         BlockViewExtension(
-          'linvo:page',
+          'linvo:root',
           literal`linvo-edgeless-root-preview`
         ),
         EdgelessLocker,
@@ -77,7 +77,7 @@ export class RootViewExtension extends ViewExtensionProvider {
       return;
     }
     context.register([
-      BlockViewExtension('linvo:page', literal`linvo-edgeless-root`),
+      BlockViewExtension('linvo:root', literal`linvo-edgeless-root`),
       EdgelessClipboardController,
       AltCloneExtension,
     ]);

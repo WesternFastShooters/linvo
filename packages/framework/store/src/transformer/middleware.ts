@@ -26,7 +26,7 @@ export type BeforeImportPayload =
     }
   | {
       snapshot: DocSnapshot;
-      type: 'page';
+      type: 'doc';
     }
   | {
       snapshot: CollectionInfoSnapshot;
@@ -40,7 +40,7 @@ export type BeforeExportPayload =
     }
   | {
       page: Store;
-      type: 'page';
+      type: 'doc';
     }
   | {
       slice: Slice;
@@ -60,7 +60,7 @@ export type AfterExportPayload =
     }
   | {
       snapshot: DocSnapshot;
-      type: 'page';
+      type: 'doc';
       page: Store;
     }
   | {
@@ -85,7 +85,7 @@ export type AfterImportPayload =
   | AfterImportBlockPayload
   | {
       snapshot: DocSnapshot;
-      type: 'page';
+      type: 'doc';
       page: Store;
     }
   | {

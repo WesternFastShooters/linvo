@@ -59,43 +59,24 @@ export class EmbedEdgelessSyncedDocBlockComponent extends toEdgelessEmbedBlock(
 
     const themeService = this.std.get(ThemeProvider);
     const themeExtension = this.std.getOptional(ThemeExtensionIdentifier);
-    const appTheme = themeService.app$.value;
     let edgelessTheme = themeService.edgeless$.value;
     if (themeExtension?.getEdgelessTheme && this.syncedDoc?.id) {
       edgelessTheme = themeExtension.getEdgelessTheme(this.syncedDoc.id).value;
     }
-    const theme = this.isPageMode ? appTheme : edgelessTheme;
+    const theme = edgelessTheme;
 
     const scale = this.model.props.scale ?? 1;
 
     this.dataset.nestedEditor = '';
 
-    const renderEditor = () => {
-      return choose(editorMode, [
-        [
-          'page',
-          () => html`
-            <div class="linvo-page-viewport" data-theme=${appTheme}>
-              ${new BlockStdScope({
-                store: syncedDoc,
-                extensions: this._buildPreviewSpec('preview-page'),
-              }).render()}
-            </div>
-          `,
-        ],
-        [
-          'edgeless',
-          () => html`
-            <div class="linvo-edgeless-viewport" data-theme=${edgelessTheme}>
-              ${new BlockStdScope({
-                store: syncedDoc,
-                extensions: this._buildPreviewSpec('preview-edgeless'),
-              }).render()}
-            </div>
-          `,
-        ],
-      ]);
-    };
+    const renderEditor = () => html`
+      <div class="linvo-edgeless-viewport" data-theme=${edgelessTheme}>
+        ${new BlockStdScope({
+          store: syncedDoc,
+          extensions: this._buildPreviewSpec('preview-edgeless'),
+        }).render()}
+      </div>
+    `;
 
     const header =
       this.std
@@ -123,7 +104,7 @@ export class EmbedEdgelessSyncedDocBlockComponent extends toEdgelessEmbedBlock(
             ${header}
           </div>
           <div class="linvo-embed-synced-doc-editor">
-            ${this.isPageMode && this._isEmptySyncedDoc
+            ${this._isEmptySyncedDoc
               ? html`
                   <div class="linvo-embed-synced-doc-editor-empty">
                     <span>

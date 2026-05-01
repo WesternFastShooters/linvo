@@ -129,7 +129,7 @@ export const replaceIdMiddleware =
     // Before Import
 
     const beforeImportPageSubscription = slots.beforeImport
-      .pipe(filter(payload => payload.type === 'page'))
+      .pipe(filter(payload => payload.type === 'doc'))
       .subscribe(payload => {
         if (idMap.has(payload.snapshot.meta.id)) {
           payload.snapshot.meta.id = idMap.get(payload.snapshot.meta.id)!;
@@ -149,7 +149,7 @@ export const replaceIdMiddleware =
       )
       .subscribe(payload => {
         const { snapshot } = payload;
-        if (snapshot.flavour === 'linvo:page') {
+        if (snapshot.flavour === 'linvo:root') {
           const index = snapshot.children.findIndex(
             c => c.flavour === 'linvo:surface'
           );

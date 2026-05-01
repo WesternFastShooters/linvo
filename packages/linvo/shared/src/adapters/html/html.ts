@@ -313,7 +313,7 @@ export class HtmlAdapter extends BaseAdapter<Html> {
       children: [],
     };
     return {
-      type: 'page',
+      type: 'doc',
       meta: {
         id: nanoid(),
         title: HastUtils.getTextContent(titleAst, 'Untitled'),
@@ -323,7 +323,7 @@ export class HtmlAdapter extends BaseAdapter<Html> {
       blocks: {
         type: 'block',
         id: nanoid(),
-        flavour: 'linvo:page',
+        flavour: 'linvo:root',
         props: {
           title: {
             '$linvo:internal:text$': true,

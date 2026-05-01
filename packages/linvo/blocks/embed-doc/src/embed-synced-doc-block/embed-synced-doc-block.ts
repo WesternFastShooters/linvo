@@ -113,7 +113,7 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
     ],
   };
 
-  protected _buildPreviewSpec = (name: 'preview-page' | 'preview-edgeless') => {
+  protected _buildPreviewSpec = (name: 'preview' | 'preview-edgeless') => {
     const nextDepth = this.depth + 1;
     const viewExtensionManager = this.std.get(ViewExtensionManagerIdentifier);
     const previewSpec = viewExtensionManager.get(name);
@@ -168,15 +168,10 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
   protected _renderSyncedView = () => {
     const syncedDoc = this.syncedDoc;
     const editorMode = this.editorMode;
-    const isPageMode = this.isPageMode;
 
     if (!syncedDoc) {
       console.error('Synced doc is not found');
       return html`${nothing}`;
-    }
-
-    if (isPageMode) {
-      this.dataset.pageMode = '';
     }
 
     const containerStyleMap = styleMap({
@@ -186,41 +181,22 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
 
     const themeService = this.std.get(ThemeProvider);
     const themeExtension = this.std.getOptional(ThemeExtensionIdentifier);
-    const appTheme = themeService.app$.value;
     let edgelessTheme = themeService.edgeless$.value;
     if (themeExtension?.getEdgelessTheme && this.syncedDoc?.id) {
       edgelessTheme = themeExtension.getEdgelessTheme(this.syncedDoc.id).value;
     }
-    const theme = isPageMode ? appTheme : edgelessTheme;
+    const theme = edgelessTheme;
 
     this.dataset.nestedEditor = '';
 
-    const renderEditor = () => {
-      return choose(editorMode, [
-        [
-          'page',
-          () => html`
-            <div class="linvo-page-viewport" data-theme=${appTheme}>
-              ${new BlockStdScope({
-                store: syncedDoc,
-                extensions: this._buildPreviewSpec('preview-page'),
-              }).render()}
-            </div>
-          `,
-        ],
-        [
-          'edgeless',
-          () => html`
-            <div class="linvo-edgeless-viewport" data-theme=${edgelessTheme}>
-              ${new BlockStdScope({
-                store: syncedDoc,
-                extensions: this._buildPreviewSpec('preview-edgeless'),
-              }).render()}
-            </div>
-          `,
-        ],
-      ]);
-    };
+    const renderEditor = () => html`
+      <div class="linvo-edgeless-viewport" data-theme=${edgelessTheme}>
+        ${new BlockStdScope({
+          store: syncedDoc,
+          extensions: this._buildPreviewSpec('preview-edgeless'),
+        }).render()}
+      </div>
+    `;
 
     return this.renderEmbed(
       () => html`
@@ -239,7 +215,7 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
           ?data-scale=${undefined}
         >
           <div class="linvo-embed-synced-doc-editor">
-            ${isPageMode && this._isEmptySyncedDoc
+            ${this._isEmptySyncedDoc
               ? html`
                   <div class="linvo-embed-synced-doc-editor-empty">
                     <span>
@@ -248,7 +224,7 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
                   </div>
                 `
               : guard(
-                  [editorMode, syncedDoc, appTheme, edgelessTheme],
+                  [editorMode, syncedDoc, edgelessTheme],
                   renderEditor
                 )}
           </div>
@@ -392,7 +368,7 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
   }
 
   protected get isPageMode() {
-    return this.editorMode === 'page';
+    return false;
   }
 
   get linkedMode() {
@@ -405,7 +381,6 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
 
   get syncedDoc() {
     const options: GetStoreOptions = { readonly: true };
-    if (this.isPageMode) options.query = this._pageFilter;
     const doc = this.std.workspace.getDoc(this.model.props.pageId);
     return doc?.getStore(options) ?? null;
   }
@@ -621,7 +596,7 @@ export class EmbedSyncedDocBlockComponent extends EmbedBlockComponent<EmbedSynce
   accessor syncedDocEditorHost: EditorHost | null = null;
 
   @state()
-  accessor syncedDocMode: DocMode = 'page';
+  accessor syncedDocMode: DocMode = 'edgeless';
 
   override accessor useCaptionEditor = true;
 }

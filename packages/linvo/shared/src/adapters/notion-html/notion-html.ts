@@ -211,7 +211,7 @@ export class NotionHtmlAdapter extends BaseAdapter<NotionHtml> {
       children: [],
     };
     return {
-      type: 'page',
+      type: 'doc',
       meta: {
         id: payload.pageId ?? nanoid(),
         title: HastUtils.getTextContent(titleAst, ''),
@@ -221,7 +221,7 @@ export class NotionHtmlAdapter extends BaseAdapter<NotionHtml> {
       blocks: {
         type: 'block',
         id: nanoid(),
-        flavour: 'linvo:page',
+        flavour: 'linvo:root',
         props: {
           title: {
             '$linvo:internal:text$': true,

@@ -18,17 +18,10 @@ type LinvoEditorContainer = TestLinvoEditorContainer;
 const slotMap = new Map<string, Subject<DocMode>>();
 
 function getModeFromStorage() {
-  const raw = localStorage.getItem('linvo:doc-mode');
-  const entries = raw ? JSON.parse(raw) : [];
-  return new Map<string, DocMode>(entries);
+  return new Map<string, DocMode>();
 }
 
-function saveModeToStorage(map: Map<string, DocMode>) {
-  localStorage.setItem(
-    'linvo:doc-mode',
-    JSON.stringify(Array.from(map.entries()))
-  );
-}
+function saveModeToStorage(_map: Map<string, DocMode>) {}
 
 export function mockDocModeService(editor: LinvoEditorContainer) {
   const docModeService: DocModeProvider = {
@@ -57,8 +50,7 @@ export function mockDocModeService(editor: LinvoEditorContainer) {
       slotMap.get(docId)?.next(mode);
     },
     togglePrimaryMode: docId => {
-      const mode =
-        docModeService.getPrimaryMode(docId) === 'page' ? 'edgeless' : 'page';
+      const mode = DEFAULT_MODE;
       docModeService.setPrimaryMode(mode, docId);
       return mode;
     },

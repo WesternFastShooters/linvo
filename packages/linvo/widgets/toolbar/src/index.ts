@@ -6,7 +6,7 @@ import { LINVO_TOOLBAR_WIDGET } from './toolbar';
 export * from './toolbar';
 
 export const toolbarWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   LINVO_TOOLBAR_WIDGET,
   literal`${unsafeStatic(LINVO_TOOLBAR_WIDGET)}`
 );

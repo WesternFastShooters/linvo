@@ -1145,8 +1145,8 @@ export class DragEventWatcher {
     const groupByParent = groupBy(snapshot.content, block =>
       schema.safeValidate(block.flavour, 'linvo:surface')
         ? 'linvo:surface'
-        : schema.safeValidate(block.flavour, 'linvo:page')
-          ? 'linvo:page'
+        : schema.safeValidate(block.flavour, 'linvo:root')
+          ? 'linvo:root'
           : // if the parent is not surface or page, it can't be dropped as gfx block
             // mark it as empty
             'empty'
@@ -1189,8 +1189,8 @@ export class DragEventWatcher {
           .catch(console.error);
       }
 
-      if (groupByParent['linvo:page']) {
-        const content = groupByParent['linvo:page'];
+      if (groupByParent['linvo:root']) {
+        const content = groupByParent['linvo:root'];
         const pageSnapshot = {
           ...snapshot,
           content,
@@ -1521,8 +1521,6 @@ export class DragEventWatcher {
     if (
       // linvo:surface block can't be drop target in any modes
       matchModels(view.model, [SurfaceBlockModel]) ||
-      // in page mode, blocks other than root block can be drop target
-      (this.mode === 'page' && view.model.role === 'root') ||
       // in edgeless mode, only root and note block can be drop target
       (this.mode === 'edgeless' &&
         !matchModels(view.model, [NoteBlockModel]) &&
@@ -1543,10 +1541,7 @@ export class DragEventWatcher {
         }
       >({
         element: view,
-        getIsSticky: () => {
-          const result = this.mode === 'page' || isUnderNote;
-          return result;
-        },
+        getIsSticky: () => isUnderNote,
         canDrop: ({ source }) => {
           /**
            * general rules:
@@ -1699,7 +1694,7 @@ export class DragEventWatcher {
     const disposables = widget.disposables;
     const scrollable = getScrollContainer(this.host);
 
-    if (scrollable && this.mode === 'page') {
+    if (scrollable) {
       disposables.add(
         std.dnd.autoScroll<DragBlockEntity>({
           element: scrollable,

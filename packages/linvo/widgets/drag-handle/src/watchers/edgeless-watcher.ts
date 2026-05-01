@@ -91,7 +91,7 @@ export class EdgelessWatcher {
 
   updateAnchorElement = () => {
     if (!this.widget.isConnected) return;
-    if (this.widget.store.readonly || this.widget.mode === 'page') {
+    if (this.widget.store.readonly) {
       this.widget.hide();
       return;
     }
@@ -161,10 +161,6 @@ export class EdgelessWatcher {
   constructor(readonly widget: LinvoDragHandleWidget) {}
 
   watch() {
-    if (this.widget.mode === 'page') {
-      return;
-    }
-
     const { disposables, std } = this.widget;
     const gfx = std.get(GfxControllerIdentifier);
     const { viewport, selection, tool, surface } = gfx;

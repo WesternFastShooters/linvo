@@ -103,7 +103,7 @@ export class Transformer {
   docToSnapshot = (doc: Store): DocSnapshot | undefined => {
     try {
       this._slots.beforeExport.next({
-        type: 'page',
+        type: 'doc',
         page: doc,
       });
       const rootModel = doc.root;
@@ -119,12 +119,12 @@ export class Transformer {
         return;
       }
       const docSnapshot: DocSnapshot = {
-        type: 'page',
+        type: 'doc',
         meta,
         blocks,
       };
       this._slots.afterExport.next({
-        type: 'page',
+        type: 'doc',
         page: doc,
         snapshot: docSnapshot,
       });
@@ -195,7 +195,7 @@ export class Transformer {
   snapshotToDoc = async (snapshot: DocSnapshot): Promise<Store | undefined> => {
     try {
       this._slots.beforeImport.next({
-        type: 'page',
+        type: 'doc',
         snapshot,
       });
       DocSnapshotSchema.parse(snapshot);
@@ -204,7 +204,7 @@ export class Transformer {
       doc.load();
       await this.snapshotToBlock(blocks, doc);
       this._slots.afterImport.next({
-        type: 'page',
+        type: 'doc',
         snapshot,
         page: doc,
       });
@@ -261,7 +261,7 @@ export class Transformer {
       // Create a temporary root snapshot to encompass all content blocks
       const tmpRootSnapshot: BlockSnapshot = {
         id: 'temporary-root',
-        flavour: 'linvo:page',
+        flavour: 'linvo:root',
         props: {},
         type: 'block',
         children: content,

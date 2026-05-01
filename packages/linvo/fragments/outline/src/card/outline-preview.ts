@@ -128,7 +128,7 @@ export class OutlineBlockPreview extends SignalWatcher(
     const showPreviewIcon = this._context.showIcons$.value;
 
     switch (block.flavour) {
-      case 'linvo:page':
+      case 'linvo:root':
         assertType<RootBlockModel>(block);
         return block.props.title.length > 0
           ? html`<span

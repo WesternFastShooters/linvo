@@ -64,8 +64,6 @@ export class LinvoDragHandleWidget extends WidgetComponent<RootBlockModel> {
 
   anchorEdgelessElement: ReadonlySignal<GfxModel | null> = computed(() => {
     if (!this.anchorBlockId.value) return null;
-    if (this.mode === 'page') return null;
-
     const crud = this.std.get(EdgelessCRUDIdentifier);
     const edgelessElement = crud.getElementById(this.anchorBlockId.value);
     return edgelessElement;

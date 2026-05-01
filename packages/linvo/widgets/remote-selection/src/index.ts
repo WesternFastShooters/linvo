@@ -8,13 +8,13 @@ export * from './doc';
 export * from './edgeless';
 
 export const docRemoteSelectionWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   LINVO_DOC_REMOTE_SELECTION_WIDGET,
   literal`${unsafeStatic(LINVO_DOC_REMOTE_SELECTION_WIDGET)}`
 );
 
 export const edgelessRemoteSelectionWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   LINVO_EDGELESS_REMOTE_SELECTION_WIDGET,
   literal`${unsafeStatic(LINVO_EDGELESS_REMOTE_SELECTION_WIDGET)}`
 );

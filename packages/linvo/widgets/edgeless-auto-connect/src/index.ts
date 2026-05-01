@@ -622,7 +622,7 @@ export class EdgelessAutoConnectWidget extends WidgetComponent<RootBlockModel> {
 }
 
 export const autoConnectWidget = WidgetViewExtension(
-  'linvo:page',
+  'linvo:root',
   LINVO_EDGELESS_AUTO_CONNECT_WIDGET,
   literal`${unsafeStatic(LINVO_EDGELESS_AUTO_CONNECT_WIDGET)}`
 );

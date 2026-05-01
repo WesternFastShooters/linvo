@@ -6,7 +6,7 @@ import type { ExtensionType } from '@linvo/store';
 import { Extension } from '@linvo/store';
 import { Subject, type Subscription } from 'rxjs';
 
-const DEFAULT_MODE: DocMode = 'page';
+const DEFAULT_MODE: DocMode = 'edgeless';
 
 export interface DocModeProvider {
   /**
@@ -60,7 +60,6 @@ export const DocModeProvider = createIdentifier<DocModeProvider>(
   'LinvoDocModeService'
 );
 
-const modeMap = new Map<string, DocMode>();
 const slotMap = new Map<string, Subject<DocMode>>();
 
 export class DocModeService extends Extension implements DocModeProvider {
@@ -69,11 +68,11 @@ export class DocModeService extends Extension implements DocModeProvider {
   }
 
   getEditorMode(): DocMode | null {
-    return null;
+    return DEFAULT_MODE;
   }
 
-  getPrimaryMode(id: string) {
-    return modeMap.get(id) ?? DEFAULT_MODE;
+  getPrimaryMode(_id: string) {
+    return DEFAULT_MODE;
   }
 
   onPrimaryModeChange(handler: (mode: DocMode) => void, id: string) {
@@ -88,15 +87,12 @@ export class DocModeService extends Extension implements DocModeProvider {
   }
 
   setPrimaryMode(mode: DocMode, id: string) {
-    modeMap.set(id, mode);
     slotMap.get(id)?.next(mode);
   }
 
   togglePrimaryMode(id: string) {
-    const mode = this.getPrimaryMode(id) === 'page' ? 'edgeless' : 'page';
-    this.setPrimaryMode(mode, id);
-
-    return mode;
+    this.setPrimaryMode(DEFAULT_MODE, id);
+    return DEFAULT_MODE;
   }
 }
 

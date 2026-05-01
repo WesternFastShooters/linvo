@@ -121,7 +121,7 @@ export function getNextContentBlock(
   while (currentBlock) {
     const nextSibling = doc.getNext(currentBlock);
     if (nextSibling) {
-      // Assert nextSibling is not possible to be `linvo:page`
+      // Assert nextSibling is not possible to be `linvo:root`
       if (nextSibling.role === 'hub') {
         // in edgeless mode, limit search for the next block within the same note
         if (

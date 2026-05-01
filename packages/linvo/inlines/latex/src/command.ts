@@ -43,17 +43,11 @@ export const insertInlineLatex: Command<{
     length: 1,
   });
 
-  const mode = ctx.std.get(DocModeProvider).getEditorMode() ?? 'page';
   const ifEdgelessText = blockComponent.closest('linvo-edgeless-text');
   ctx.std.getOptional(TelemetryProvider)?.track('Latex', {
-    from:
-      mode === 'page'
-        ? 'doc'
-        : ifEdgelessText
-          ? 'edgeless text'
-          : 'edgeless note',
-    page: mode === 'page' ? 'doc' : 'edgeless',
-    segment: mode === 'page' ? 'doc' : 'whiteboard',
+    from: ifEdgelessText ? 'edgeless text' : 'edgeless note',
+    page: 'edgeless',
+    segment: 'whiteboard',
     module: 'inline equation',
     control: 'create inline equation',
   });

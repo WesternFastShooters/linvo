@@ -30,7 +30,7 @@ async function bootstrap() {
   const store = doc.getStore({ id: doc.id });
   store.load();
 
-  const rootId = store.addBlock('linvo:page', {
+  const rootId = store.addBlock('linvo:root', {
     title: new Text('Linvo'),
   });
   store.addBlock('linvo:surface', {}, rootId);
@@ -41,13 +41,6 @@ async function bootstrap() {
   const shell = document.createElement('div');
   shell.className = 'shell';
   shell.innerHTML = `
-    <header class="shell-header">
-      <div class="shell-title">
-        <h1>Linvo</h1>
-        <p>A sketch-first whiteboard for diagrams, ideas, and visual thinking.</p>
-      </div>
-      <div class="shell-note">默认进入白板模式</div>
-    </header>
     <main class="editor-shell"></main>
   `;
 

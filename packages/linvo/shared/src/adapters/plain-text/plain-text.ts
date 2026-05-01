@@ -198,7 +198,7 @@ export class PlainTextAdapter extends BaseAdapter<PlainText> {
   toDocSnapshot(payload: ToDocSnapshotPayload<PlainText>): DocSnapshot {
     payload.file = payload.file.replaceAll('\r', '');
     return {
-      type: 'page',
+      type: 'doc',
       meta: {
         id: nanoid(),
         title: 'Untitled',
@@ -208,7 +208,7 @@ export class PlainTextAdapter extends BaseAdapter<PlainText> {
       blocks: {
         type: 'block',
         id: nanoid(),
-        flavour: 'linvo:page',
+        flavour: 'linvo:root',
         props: {
           title: {
             '$linvo:internal:text$': true,

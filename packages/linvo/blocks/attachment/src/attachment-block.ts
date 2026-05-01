@@ -281,9 +281,7 @@ export class AttachmentBlockComponent extends CaptionedBlockComponent<Attachment
             onOverFileSize?.();
 
             {
-              const mode =
-                this.std.get(DocModeProvider).getEditorMode() ?? 'page';
-              const segment = mode === 'page' ? 'doc' : 'whiteboard';
+              const segment = 'whiteboard';
               this.std
                 .getOptional(TelemetryProvider)
                 ?.track('AttachmentUpgradedEvent', {
@@ -322,9 +320,7 @@ export class AttachmentBlockComponent extends CaptionedBlockComponent<Attachment
           run().catch(console.error);
 
           {
-            const mode =
-              this.std.get(DocModeProvider).getEditorMode() ?? 'page';
-            const segment = mode === 'page' ? 'doc' : 'whiteboard';
+            const segment = 'whiteboard';
             this.std
               .getOptional(TelemetryProvider)
               ?.track('AttachmentReloadedEvent', {

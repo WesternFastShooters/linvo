@@ -14,7 +14,7 @@ export function createDefaultDoc(
 
   const store = doc.getStore();
   const title = options.title ?? '';
-  const rootId = store.addBlock('linvo:page', {
+  const rootId = store.addBlock('linvo:root', {
     title: new Text(title),
   });
   collection.meta.setDocMeta(doc.id, {

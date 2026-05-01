@@ -17,11 +17,7 @@ export class KeyboardToolbarViewExtension extends ViewExtensionProvider {
 
   override setup(context: ViewExtensionContext) {
     super.setup(context);
-    if (
-      context.scope === 'mobile-page' ||
-      // Legacy mobile page
-      (context.scope === 'page' && IS_MOBILE)
-    ) {
+    if (context.scope === 'mobile' || IS_MOBILE) {
       context.register(keyboardToolbarWidget);
     }
   }

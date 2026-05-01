@@ -187,7 +187,7 @@ export class ExportManager {
     const viewportElement = rootComponent.viewportElement;
     if (!viewportElement) return;
     const pageContainer = viewportElement.querySelector(
-      '.linvo-page-root-block-container'
+      '.linvo-preview-root'
     );
     const rect = pageContainer?.getBoundingClientRect();
     const { viewport } = rootComponent;

@@ -21,12 +21,14 @@ import type { MermaidInsertController } from './controller';
 import { buildMermaidPreviewModel } from './preview';
 import type {
   MermaidInsertPlan,
+  MermaidRenderResult,
   NativeNodeShape,
 } from './types';
 
 type MermaidPlacementOptions = {
   controller: MermaidInsertController;
   plan: MermaidInsertPlan;
+  renderResult: MermaidRenderResult;
   overlaySvg: string;
   overlayWidth: number;
   overlayHeight: number;
@@ -394,7 +396,10 @@ export async function commitMermaidPlan(
       node.shapeType === 'filledCircle' || node.shapeType === 'forkJoin'
         ? {
             filled: true,
-            fillColor: lastProps?.strokeColor,
+            fillColor:
+              lastProps && 'strokeColor' in lastProps
+                ? lastProps.strokeColor
+                : undefined,
           }
         : null;
     const shapeId = crud.addElement('shape', {

@@ -1,7 +1,7 @@
 import type { LitElement } from 'lit';
 
 import { DisposableGroup } from '../disposable/index.js';
-import type { Constructor } from '../utils/types.js';
+import type { AbstractConstructor, Constructor } from '../utils/types.js';
 
 // See https://lit.dev/docs/composition/mixins/#mixins-in-typescript
 // This definition should be exported, see https://github.com/microsoft/TypeScript/issues/30355#issuecomment-839834550
@@ -27,10 +27,10 @@ export declare class DisposableClass {
  * }
  * ```
  */
-export function WithDisposable<T extends Constructor<LitElement>>(
+export function WithDisposable<T extends AbstractConstructor<LitElement>>(
   SuperClass: T
 ) {
-  class DerivedClass extends SuperClass {
+  abstract class DerivedClass extends SuperClass {
     protected _disposables = new DisposableGroup();
 
     get disposables() {

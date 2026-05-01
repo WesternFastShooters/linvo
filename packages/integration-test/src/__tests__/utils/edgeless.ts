@@ -1,6 +1,6 @@
 import type {
   EdgelessRootBlockComponent,
-  PageRootBlockComponent,
+  PreviewRootBlockComponent,
 } from '@linvo/linvo/blocks/root';
 import type { SurfaceBlockComponent } from '@linvo/linvo/blocks/surface';
 import type { Store } from '@linvo/store';
@@ -19,7 +19,7 @@ export function getDocRootBlock(
   doc: Store,
   editor: TestLinvoEditorContainer,
   mode: 'page'
-): PageRootBlockComponent;
+): PreviewRootBlockComponent;
 export function getDocRootBlock(
   doc: Store,
   editor: TestLinvoEditorContainer,
@@ -32,7 +32,7 @@ export function getDocRootBlock(
 ) {
   return editor.host!.view.getBlock(doc.root!.id) as
     | EdgelessRootBlockComponent
-    | PageRootBlockComponent;
+    | PreviewRootBlockComponent;
 }
 
 export function addNote(doc: Store, props: Record<string, any> = {}) {

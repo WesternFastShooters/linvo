@@ -96,7 +96,9 @@ export function mockEditorSetting() {
 
   const initialValue = Object.entries(GeneralSettingSchema.shape).reduce(
     (acc, [key, schema]) => {
-      acc[key as keyof EditorSetting] = schema.parse(undefined);
+      (
+        acc as Record<string, EditorSetting[keyof EditorSetting]>
+      )[key] = schema.parse(undefined);
       return acc;
     },
     {} as EditorSetting

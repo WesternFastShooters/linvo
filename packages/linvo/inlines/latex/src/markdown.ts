@@ -6,6 +6,8 @@ import type { LinvoTextAttributes } from '@linvo/linvo-shared/types';
 import type { BlockComponent } from '@linvo/std';
 import { InlineMarkdownExtension } from '@linvo/std/inline';
 
+import type { LinvoLatexNode } from './latex-node/latex-node.js';
+
 export const LatexExtension = InlineMarkdownExtension<LinvoTextAttributes>({
   name: 'latex',
 
@@ -110,7 +112,9 @@ export const LatexExtension = InlineMarkdownExtension<LinvoTextAttributes>({
           if (!textPoint) return;
 
           const [text] = textPoint;
-          const latexNode = text.parentElement?.closest('linvo-latex-node');
+          const latexNode = text.parentElement?.closest(
+            'linvo-latex-node'
+          ) as LinvoLatexNode | null;
           if (!latexNode) return;
 
           latexNode.toggleEditor();

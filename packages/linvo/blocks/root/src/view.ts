@@ -14,7 +14,7 @@ import {
 } from '@linvo/std';
 import { literal } from 'lit/static-html.js';
 
-import { PageClipboard, ReadOnlyClipboard } from './clipboard';
+import { ReadOnlyClipboard } from './clipboard';
 import { builtinToolbarConfig } from './configs/toolbar';
 import { EdgelessClipboardController, EdgelessRootService } from './edgeless';
 import { EdgelessElementToolbarExtension } from './edgeless/configs/toolbar';
@@ -41,10 +41,7 @@ export class RootViewExtension extends ViewExtensionProvider {
         config: builtinToolbarConfig,
       }),
     ]);
-    if (
-      context.scope === 'preview-page' ||
-      context.scope === 'preview-edgeless'
-    ) {
+    if (this.isPreview(context.scope)) {
       context.register(ReadOnlyClipboard);
     }
     if (this.isEdgeless(context.scope)) {
@@ -56,16 +53,12 @@ export class RootViewExtension extends ViewExtensionProvider {
 
   private readonly _setupPage = (context: ViewExtensionContext) => {
     context.register(ViewportElementExtension('.linvo-page-viewport'));
-    if (context.scope === 'preview-page') {
-      context.register(
-        BlockViewExtension('linvo:page', literal`linvo-preview-root`)
-      );
-      return;
-    }
     context.register(
-      BlockViewExtension('linvo:page', literal`linvo-page-root`)
+      BlockViewExtension('linvo:page', literal`linvo-preview-root`)
     );
-    context.register(PageClipboard);
+    if (!this.isPreview(context.scope)) {
+      context.register(ReadOnlyClipboard);
+    }
   };
 
   private readonly _setupEdgeless = (context: ViewExtensionContext) => {

@@ -101,5 +101,5 @@ export class ImageResizeManager {
 }
 
 function getClosestRootBlockComponent(el: HTMLElement): BlockComponent | null {
-  return el.closest('linvo-edgeless-root, linvo-page-root');
+  return el.closest('linvo-edgeless-root, linvo-preview-root');
 }

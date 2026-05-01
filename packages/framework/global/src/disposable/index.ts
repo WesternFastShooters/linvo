@@ -1,5 +1,7 @@
 import { Subject, Subscription } from 'rxjs';
 
+import '../types/index.js';
+
 type DisposeCallback = () => void;
 
 export interface Disposable {
@@ -63,13 +65,20 @@ export class DisposableGroup {
     handler: (e: VirtualKeyboardEventMap[N]) => void,
     eventOptions?: boolean | AddEventListenerOptions
   ): void;
+  addFromEvent<E extends Event = Event>(
+    element: EventTarget | null | undefined,
+    eventName: string,
+    handler: (e: E) => void,
+    eventOptions?: boolean | AddEventListenerOptions
+  ): void;
 
   addFromEvent(
-    target: HTMLElement | Window | Document | VisualViewport | VirtualKeyboard,
+    target: EventTarget | null | undefined,
     type: string,
     handler: (e: Event) => void,
     eventOptions?: boolean | AddEventListenerOptions
   ) {
+    if (!target) return;
     this.add({
       dispose: () => {
         target.removeEventListener(type, handler as () => void, eventOptions);

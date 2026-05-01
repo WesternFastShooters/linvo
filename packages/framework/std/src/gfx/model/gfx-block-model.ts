@@ -286,7 +286,7 @@ export function GfxCompatibleBlockModel<
   Props extends GfxCompatibleProps,
   T extends Constructor<BlockModel<Props>> = Constructor<BlockModel<Props>>,
 >(BlockModelSuperClass: T) {
-  if (BlockModelSuperClass === BlockModel) {
+  if (BlockModelSuperClass === (BlockModel as unknown as T)) {
     return GfxBlockElementModel as unknown as typeof GfxBlockElementModel<Props>;
   } else {
     let currentClass = BlockModelSuperClass;

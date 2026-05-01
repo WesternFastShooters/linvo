@@ -69,5 +69,5 @@ export function SignalWatcher<T extends ReactiveElementConstructor>(
       });
     }
   }
-  return SignalWatcher;
+  return SignalWatcher as unknown as T;
 }

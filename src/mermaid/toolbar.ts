@@ -1,3 +1,5 @@
+import type { EdgelessRootBlockComponent } from '@linvo/linvo/blocks/root';
+import { DefaultTool } from '@linvo/linvo/blocks/surface';
 import { SignalWatcher } from '@linvo/global/lit';
 import { EdgelessToolbarToolMixin } from '@linvo/linvo-widget-edgeless-toolbar';
 import { SeniorToolExtension } from '@linvo/linvo-widget-edgeless-toolbar';
@@ -30,8 +32,11 @@ export class EdgelessMermaidButton extends EdgelessToolbarToolMixin(
 
   override enableActiveBackground = true;
 
+  override type = DefaultTool;
+
   override render() {
-    const controller = getMermaidInsertController(this.edgeless);
+    const edgeless = this.edgeless as EdgelessRootBlockComponent;
+    const controller = getMermaidInsertController(edgeless);
     const active = controller.state.open.value;
 
     return html`
@@ -64,7 +69,8 @@ export class EdgelessMermaidButton extends EdgelessToolbarToolMixin(
 
   private openModal() {
     document.dispatchEvent(new CustomEvent('edgeless-shape-more-panel-close'));
-    getMermaidInsertController(this.edgeless).open(this.edgeless);
+    const edgeless = this.edgeless as EdgelessRootBlockComponent;
+    getMermaidInsertController(edgeless).open(edgeless);
   }
 }
 
@@ -72,7 +78,7 @@ export const mermaidSeniorTool = SeniorToolExtension('mermaid', ({ block }) => {
   return {
     name: 'Mermaid',
     content: html`<edgeless-mermaid-button
-      .edgeless=${block}
+      .edgeless=${block as EdgelessRootBlockComponent}
     ></edgeless-mermaid-button>`,
   };
 });

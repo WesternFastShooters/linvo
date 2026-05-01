@@ -17,8 +17,8 @@ export function getModelByElement<Model extends BlockModel>(
 export function getRootByElement(
   element: Element
 ): BlockComponent<RootBlockModel> | null {
-  const pageRoot = getPageRootByElement(element);
-  if (pageRoot) return pageRoot;
+  const previewRoot = getPreviewRootByElement(element);
+  if (previewRoot) return previewRoot;
 
   const edgelessRoot = getEdgelessRootByElement(element);
   if (edgelessRoot) return edgelessRoot;
@@ -26,10 +26,10 @@ export function getRootByElement(
   return null;
 }
 
-export function getPageRootByElement(
+export function getPreviewRootByElement(
   element: Element
 ): BlockComponent<RootBlockModel> | null {
-  return element.closest('linvo-page-root');
+  return element.closest('linvo-preview-root');
 }
 
 export function getEdgelessRootByElement(

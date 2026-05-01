@@ -211,7 +211,11 @@ export class SurfaceBlockModel extends BlockModel<SurfaceBlockProps> {
       yMap,
       model: this,
       stashedStore: stashed,
-      onChange: payload => mounted && options.onChange({ id, ...payload }),
+      onChange: (payload: {
+        props: Record<string, unknown>;
+        oldValues: Record<string, unknown>;
+        local: boolean;
+      }) => mounted && options.onChange({ id, ...payload }),
     }) as GfxPrimitiveElementModel;
 
     // @ts-expect-error ignore

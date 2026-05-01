@@ -88,7 +88,10 @@ const PRESET_SHAPES: ShapeOption[] = PRESET_SHAPE_TYPES.map(name => ({
 
 function renderPresetShapeIcon(name: (typeof PRESET_SHAPE_TYPES)[number]) {
   const path = pointsToSvgPath(
-    shapeMethods[getShapeType(name)].points({ x: 3, y: 4, w: 18, h: 14 })
+    shapeMethods[getShapeType(name)].points({ x: 3, y: 4, w: 18, h: 14 }) as [
+      number,
+      number,
+    ][]
   );
   const underlay =
     name === ShapeType.MultiDocument
@@ -100,7 +103,7 @@ function renderPresetShapeIcon(name: (typeof PRESET_SHAPE_TYPES)[number]) {
                 y: 1,
                 w: 18,
                 h: 14,
-              })
+              }) as [number, number][]
             )}
             fill="none"
             stroke="currentColor"
@@ -116,7 +119,7 @@ function renderPresetShapeIcon(name: (typeof PRESET_SHAPE_TYPES)[number]) {
                 y: 2.5,
                 w: 18,
                 h: 14,
-              })
+              }) as [number, number][]
             )}
             fill="none"
             stroke="currentColor"
@@ -129,7 +132,12 @@ function renderPresetShapeIcon(name: (typeof PRESET_SHAPE_TYPES)[number]) {
       : name === ShapeType.StackedRect
         ? svg`
             <path
-              d=${pointsToSvgPath(shapeMethods.rect.points({ x: 1, y: 1, w: 18, h: 14 }))}
+              d=${pointsToSvgPath(
+                shapeMethods.rect.points({ x: 1, y: 1, w: 18, h: 14 }) as [
+                  number,
+                  number,
+                ][]
+              )}
               fill="none"
               stroke="currentColor"
               stroke-width="1.5"
@@ -138,7 +146,12 @@ function renderPresetShapeIcon(name: (typeof PRESET_SHAPE_TYPES)[number]) {
               opacity="0.45"
             />
             <path
-              d=${pointsToSvgPath(shapeMethods.rect.points({ x: 2, y: 2.5, w: 18, h: 14 }))}
+              d=${pointsToSvgPath(
+                shapeMethods.rect.points({ x: 2, y: 2.5, w: 18, h: 14 }) as [
+                  number,
+                  number,
+                ][]
+              )}
               fill="none"
               stroke="currentColor"
               stroke-width="1.5"
@@ -453,7 +466,7 @@ export class EdgelessShapeMorePanel extends WithDisposable(LitElement) {
   accessor onSelect!: (name: ShapeName) => void;
 
   @property({ attribute: false })
-  accessor onClose?: () => void;
+  accessor onClose: (() => void) | null = null;
 
   @property({ attribute: false })
   accessor selectedShape: ShapeName = ShapeType.Rect;

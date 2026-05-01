@@ -47,12 +47,17 @@ export class Zip {
 
   async generate() {
     this.zip.end();
+    const compressed = Uint8Array.from(this.compressed);
     return new Promise<Blob>(resolve => {
       if (this.finalized) {
-        resolve(new Blob([this.compressed], { type: 'application/zip' }));
+        resolve(new Blob([compressed.buffer], { type: 'application/zip' }));
       } else {
         this.finalize = () =>
-          resolve(new Blob([this.compressed], { type: 'application/zip' }));
+          resolve(
+            new Blob([Uint8Array.from(this.compressed).buffer], {
+              type: 'application/zip',
+            })
+          );
       }
     });
   }
@@ -78,7 +83,8 @@ export class Unzip {
       const fileExt =
         fileName.lastIndexOf('.') === -1 ? '' : fileName.split('.').at(-1);
       const mime = extMimeMap.get(fileExt ?? '');
-      const content = new File([this.unzipped![path]], fileName, {
+      const bytes = Uint8Array.from(this.unzipped![path]);
+      const content = new File([bytes.buffer], fileName, {
         type: mime ?? '',
       }) as Blob;
       yield { path, content, index };

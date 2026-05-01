@@ -100,7 +100,7 @@ function appendNode(
           w: node.width,
           h: node.height,
           rotate: 0,
-        }),
+        }) as [number, number][],
         options
       );
       break;

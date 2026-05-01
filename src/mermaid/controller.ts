@@ -117,6 +117,7 @@ export class MermaidInsertController {
     const options: ToolOptions<MermaidPlacementTool> = {
       controller: this,
       plan,
+      renderResult,
       overlaySvg: preview.svg,
       overlayWidth: preview.width,
       overlayHeight: preview.height,

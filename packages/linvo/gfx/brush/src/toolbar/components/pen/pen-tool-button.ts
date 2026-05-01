@@ -146,7 +146,9 @@ export class EdgelessPenToolButton extends EdgelessToolbarToolMixin(
       edgeless: this.edgeless,
       onChange: (props: Record<string, unknown>) => {
         const pen = this.pen$.peek();
-        this.edgeless.std.get(EditPropsStore).recordLastProps(pen, props);
+        if (pen !== 'magicBrush') {
+          this.edgeless.std.get(EditPropsStore).recordLastProps(pen, props);
+        }
         setPenByType(pen);
       },
     });

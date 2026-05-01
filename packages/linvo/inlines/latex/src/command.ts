@@ -4,6 +4,8 @@ import {
 } from '@linvo/linvo-shared/services';
 import type { Command, TextSelection } from '@linvo/std';
 
+import type { LinvoLatexNode } from './latex-node/latex-node.js';
+
 export const insertInlineLatex: Command<{
   currentTextSelection?: TextSelection;
   textSelection?: TextSelection;
@@ -64,7 +66,9 @@ export const insertInlineLatex: Command<{
       const textPoint = inlineEditor.getTextPoint(textSelection.from.index + 1);
       if (!textPoint) return;
       const [text] = textPoint;
-      const latexNode = text.parentElement?.closest('linvo-latex-node');
+      const latexNode = text.parentElement?.closest(
+        'linvo-latex-node'
+      ) as LinvoLatexNode | null;
       if (!latexNode) return;
       latexNode.toggleEditor();
     })

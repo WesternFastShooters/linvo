@@ -12,9 +12,7 @@ const env = (
     ? globalThis
     : typeof window !== 'undefined'
       ? window
-      : typeof global !== 'undefined'
-        ? global
-        : {}
+      : {}
 ) as Record<string, boolean>;
 const importIdentifier = '__ $BLOCKSUITE_STORE$ __';
 

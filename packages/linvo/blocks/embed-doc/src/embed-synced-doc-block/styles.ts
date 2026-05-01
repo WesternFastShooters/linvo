@@ -27,7 +27,7 @@ export const blockStyles = css`
 
   .edgeless-block-portal-embed
     .linvo-embed-synced-doc-editor
-    .linvo-page-root-block-container {
+    .linvo-preview-root {
     width: 100%;
   }
 
@@ -171,7 +171,7 @@ export const blockStyles = css`
     height: 100%;
   }
 
-  .linvo-embed-synced-doc-editor .linvo-page-root-block-container {
+  .linvo-embed-synced-doc-editor .linvo-preview-root {
     width: 100%;
     max-width: 100%;
   }

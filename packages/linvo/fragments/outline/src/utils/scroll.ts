@@ -88,10 +88,12 @@ function highlightBlock(host: EditorHost, blockId: string) {
   const emptyClear = () => {};
 
   if (host.store.root?.id === blockId) return emptyClear;
+  const root = host.store.root;
+  if (!root) return emptyClear;
 
-  const rootComponent = host.querySelector<
-    HTMLElement & { viewport: Viewport }
-  >('linvo-page-root');
+  const rootComponent = host.view.getBlock(root.id) as
+    | (HTMLElement & { viewport: Viewport })
+    | null;
   if (!rootComponent) return emptyClear;
 
   if (!rootComponent.viewport) {

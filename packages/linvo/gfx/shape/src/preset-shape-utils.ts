@@ -73,7 +73,7 @@ export function getPresetShapePoints(
   xywh: XYWH,
   strokeWidth = 0
 ): IVec[] {
-  return shapeMethods[type].points(getRenderBound(xywh, strokeWidth));
+  return shapeMethods[type].points(getRenderBound(xywh, strokeWidth)) as IVec[];
 }
 
 export function pointsToSvgPath(points: IVec[]) {
@@ -280,7 +280,7 @@ export function drawPresetShapeUnderlayRough(
       [-6, -5],
     ]) {
       rc.polygon(
-        shapeMethods.rect.points(getRenderBound([x + dx, y + dy, w, h])),
+        shapeMethods.rect.points(getRenderBound([x + dx, y + dy, w, h])) as IVec[],
         {
           ...options,
           fill: undefined,

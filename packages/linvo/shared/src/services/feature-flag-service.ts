@@ -23,8 +23,6 @@ export interface LinvoFlags {
   enable_dom_renderer: boolean;
 }
 
-export type LinvoFlags = LinvoFlags;
-
 export class FeatureFlagService extends StoreExtension {
   static override key = 'feature-flag-server';
 

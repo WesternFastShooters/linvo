@@ -1,5 +1,12 @@
 const agent = globalThis.navigator?.userAgent ?? '';
-const platform = globalThis.navigator?.platform || globalThis.process?.platform;
+const processPlatform = (
+  globalThis as typeof globalThis & {
+    process?: {
+      platform?: string;
+    };
+  }
+).process?.platform;
+const platform = globalThis.navigator?.platform || processPlatform || '';
 
 export const IS_WEB =
   typeof window !== 'undefined' && typeof document !== 'undefined';

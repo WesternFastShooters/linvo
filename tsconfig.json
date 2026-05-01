@@ -10,11 +10,12 @@
     "verbatimModuleSyntax": true,
     "jsx": "react-jsx",
     "allowJs": false,
-    "noEmit": true,
     "isolatedModules": true,
+    "skipLibCheck": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "types": [
-      "vite/client"
+      "vite/client",
+      "node"
     ],
     "paths": {
       "@theme": [
@@ -40,5 +41,11 @@
   "include": [
     "src",
     "packages"
+  ],
+  "exclude": [
+    "**/__tests__/**",
+    "**/src/test/**",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
   ]
 }

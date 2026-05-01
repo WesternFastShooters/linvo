@@ -1,7 +1,6 @@
 import {
   EdgelessRootBlockComponent,
   EdgelessRootPreviewBlockComponent,
-  PageRootBlockComponent,
   PreviewRootBlockComponent,
 } from './index.js';
 
@@ -11,7 +10,6 @@ export function effects() {
 }
 
 function registerRootComponents() {
-  customElements.define('linvo-page-root', PageRootBlockComponent);
   customElements.define('linvo-preview-root', PreviewRootBlockComponent);
   customElements.define('linvo-edgeless-root', EdgelessRootBlockComponent);
   customElements.define(
@@ -23,6 +21,6 @@ function registerRootComponents() {
 declare global {
   interface HTMLElementTagNameMap {
     'linvo-edgeless-root': EdgelessRootBlockComponent;
-    'linvo-page-root': PageRootBlockComponent;
+    'linvo-preview-root': PreviewRootBlockComponent;
   }
 }

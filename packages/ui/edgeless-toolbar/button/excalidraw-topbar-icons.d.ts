@@ -1,0 +1,11 @@
+export declare const ExcalidrawSelectIcon: () => import("lit-html").TemplateResult<1>;
+export declare const ExcalidrawPenIcon: () => import("lit-html").TemplateResult<1>;
+export declare const ExcalidrawHighlighterIcon: () => import("lit-html").TemplateResult<1>;
+export declare const ExcalidrawMagicBrushIcon: () => import("lit-html").TemplateResult<1>;
+export declare const ExcalidrawCurveIcon: () => import("lit-html").TemplateResult<1>;
+export declare const ExcalidrawEraserIcon: () => import("lit-html").TemplateResult<1>;
+export declare const ExcalidrawShapeIcon: () => import("lit-html").TemplateResult<1>;
+export declare const ExcalidrawMindmapIcon: () => import("lit-html").TemplateResult<1>;
+export declare const ExcalidrawWebPreviewIcon: () => import("lit-html").TemplateResult<1>;
+export declare const ExcalidrawFrameIcon: () => import("lit-html").TemplateResult<1>;
+export declare const ExcalidrawChevronDownIcon: () => import("lit-html").TemplateResult<1>;

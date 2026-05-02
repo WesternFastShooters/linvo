@@ -1,0 +1,30 @@
+import { PlainTextEditor } from '@linvo-primitives/text';
+import { ShapeElementModel } from '@linvo-core/content';
+import { type BlockComponent, type BlockStdScope, ShadowlessElement } from '@linvo-core/std';
+import { nothing } from 'lit';
+export declare function mountShapeTextEditor(shapeElement: ShapeElementModel, edgeless: BlockComponent): void;
+declare const EdgelessShapeTextEditor_base: typeof ShadowlessElement & import("@linvo-core/global/utils").Constructor<import("@linvo-core/global/lit").DisposableClass>;
+export declare class EdgelessShapeTextEditor extends EdgelessShapeTextEditor_base {
+    private _keeping;
+    private _lastXYWH;
+    private _resizeObserver;
+    get inlineEditor(): PlainTextEditor;
+    get crud(): import("@linvo-core/block-surface").EdgelessCRUDExtension;
+    get gfx(): import("@linvo-core/std/gfx").GfxController;
+    get selection(): import("@linvo-core/std/gfx").GfxSelectionManager;
+    get inlineEditorContainer(): HTMLDivElement;
+    get isMindMapNode(): boolean;
+    private _initMindmapKeyBindings;
+    private _stashMindMapTree;
+    private _unmount;
+    private _updateElementWH;
+    connectedCallback(): void;
+    firstUpdated(): void;
+    getUpdateComplete(): Promise<boolean>;
+    render(): import("lit-html").TemplateResult<1> | typeof nothing;
+    setKeeping(keeping: boolean): void;
+    accessor element: ShapeElementModel;
+    accessor std: BlockStdScope;
+    accessor plainTextEditor: PlainTextEditor;
+}
+export {};

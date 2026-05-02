@@ -5,24 +5,37 @@
   "packageManager": "yarn@4.7.0",
   "workspaces": [
     ".",
-    "packages/**/*"
+    "packages/core",
+    "packages/primitives",
+    "packages/ui",
+    "packages/integrations",
+    "test/**/*"
   ],
   "scripts": {
+    "graph:whiteboard-runtime": "node ./scripts/graph-whiteboard-runtime.mjs",
+    "audit:whiteboard-dead-code": "node ./scripts/audit-whiteboard-dead-code.mjs",
+    "audit:workspace-deps": "node ./scripts/audit-package-workspace-deps.mjs",
+    "cleanup:package-structure": "node ./scripts/cleanup-package-structure.mjs",
+    "flatten:package-src": "node ./scripts/flatten-package-src.mjs",
+    "publish": "node ./scripts/publish-packages.mjs",
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview --host",
-    "ts-check": "node ./scripts/ts-check.mjs",
+    "audit:whiteboard-runtime": "node ./scripts/audit-whiteboard-runtime.mjs",
+    "audit:test-imports": "node ./scripts/audit-test-imports.mjs",
+    "ts-check": "node ./scripts/ts-check.mjs && node ./scripts/audit-test-imports.mjs",
     "test": "node ./scripts/run-tests.mjs"
   },
   "dependencies": {
-    "@linvo/integration-test": "workspace:*",
-    "@linvo/linvo": "workspace:*",
     "@preact/signals-core": "^1.8.0",
+    "@whfzgyx/linvo-core": "workspace:*",
+    "@whfzgyx/linvo-integrations": "workspace:*",
+    "@whfzgyx/linvo-primitives": "workspace:*",
+    "@whfzgyx/linvo-ui": "workspace:*",
     "change-case": "^5.4.4",
     "lit": "^3.2.0",
     "mermaid": "^11.14.0",
     "rxjs": "^7.8.1",
-    "yjs": "^13.6.21",
     "zod": "^3.23.8"
   },
   "devDependencies": {

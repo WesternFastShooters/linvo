@@ -1,0 +1,59 @@
+{
+  "name": "@whfzgyx/linvo-ui",
+  "description": "UI components and editor widgets for Linvo.",
+  "type": "module",
+  "sideEffects": false,
+  "author": "toeverything",
+  "license": "MIT",
+  "version": "0.22.5",
+  "scripts": {
+    "build": "node ../../scripts/stage-publish-package.mjs packages/ui"
+  },
+  "publishConfig": {
+    "directory": "dist",
+    "access": "public"
+  },
+  "dependencies": {
+    "@floating-ui/dom": "^1.6.13",
+    "@lit/context": "^1.1.2",
+    "@lottiefiles/dotlottie-wc": "^0.5.0",
+    "@preact/signals-core": "^1.8.0",
+    "@types/hast": "^3.0.4",
+    "@types/katex": "^0.16.7",
+    "@types/lodash-es": "^4.17.12",
+    "@types/mdast": "^4.0.4",
+    "@whfzgyx/linvo-core": "workspace:*",
+    "@whfzgyx/linvo-primitives": "workspace:*",
+    "collapse-white-space": "^2.1.0",
+    "date-fns": "^4.0.0",
+    "katex": "^0.16.11",
+    "lit": "^3.2.0",
+    "lit-html": "^3.2.1",
+    "lodash-es": "^4.17.21",
+    "remark-math": "^6.0.0",
+    "rxjs": "^7.8.1",
+    "shiki": "^3.0.0",
+    "zod": "^3.23.8"
+  },
+  "exports": {
+    "./components": "./components-base/index.ts",
+    "./components/*": "./components-base/*",
+    "./edgeless-dragging-area": "./edgeless-dragging-area/index.ts",
+    "./edgeless-dragging-area/*": "./edgeless-dragging-area/*",
+    "./edgeless-selected-rect": "./edgeless-selected-rect/index.ts",
+    "./edgeless-selected-rect/*": "./edgeless-selected-rect/*",
+    "./edgeless-toolbar": "./edgeless-toolbar/index.ts",
+    "./edgeless-toolbar/*": "./edgeless-toolbar/*",
+    "./edgeless-zoom-toolbar": "./edgeless-zoom-toolbar/index.ts",
+    "./edgeless-zoom-toolbar/*": "./edgeless-zoom-toolbar/*",
+    "./frame-title": "./frame-title/index.ts",
+    "./frame-title/*": "./frame-title/*",
+    "./scroll-anchoring": "./scroll-anchoring/index.ts",
+    "./scroll-anchoring/*": "./scroll-anchoring/*",
+    "./viewport-overlay": "./viewport-overlay/index.ts",
+    "./viewport-overlay/*": "./viewport-overlay/*"
+  },
+  "files": [
+    "dist"
+  ]
+}

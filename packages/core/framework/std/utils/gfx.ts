@@ -1,0 +1,32 @@
+import type { Store } from '@linvo-core/store';
+import { effect } from '@preact/signals-core';
+
+import { SurfaceBlockModel } from '../gfx/scene/surface/surface-model';
+
+export function onSurfaceAdded(
+  doc: Store,
+  callback: (model: SurfaceBlockModel | null) => void
+): () => void {
+  let found = false;
+  let foundId = '';
+
+  const dispose = effect(() => {
+    // if the surface is already found, no need to search again
+    if (found && doc.getBlock(foundId)) {
+      return;
+    }
+
+    for (const block of Object.values(doc.blocks.value)) {
+      if (block.model instanceof SurfaceBlockModel) {
+        callback(block.model);
+        found = true;
+        foundId = block.id;
+        return;
+      }
+    }
+
+    callback(null);
+  });
+
+  return dispose;
+}

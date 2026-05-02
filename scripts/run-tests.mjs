@@ -4,7 +4,9 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const rootDir = process.cwd();
+const vitestBin = path.join(rootDir, 'node_modules/.bin/vitest');
 const packagesDir = path.join(rootDir, 'packages');
+const testDir = path.join(rootDir, 'test');
 const testFilePattern = /\.(?:unit\.)?(?:spec|test)\.[cm]?[jt]sx?$/;
 const ignoredDirs = new Set(['node_modules', '.git', '.yarn', 'dist']);
 
@@ -41,7 +43,7 @@ async function collectTestFiles(dir, files = []) {
 async function findPackageDir(filePath) {
   let current = path.dirname(filePath);
 
-  while (current.startsWith(packagesDir)) {
+  while (current.startsWith(packagesDir) || current.startsWith(testDir)) {
     if (await exists(path.join(current, 'package.json'))) {
       return current;
     }
@@ -55,7 +57,10 @@ async function findPackageDir(filePath) {
 }
 
 async function discoverTestPackages() {
-  const files = await collectTestFiles(packagesDir);
+  const files = [
+    ...(await collectTestFiles(packagesDir)),
+    ...(await collectTestFiles(testDir)),
+  ];
   const packageDirs = new Map();
 
   for (const filePath of files) {
@@ -69,10 +74,8 @@ async function discoverTestPackages() {
 
 function runCommand(cwd, args) {
   const result = spawnSync(
-    'yarn',
+    vitestBin,
     [
-      'exec',
-      'vitest',
       '--run',
       '--passWithNoTests',
       '--config',

@@ -1,0 +1,31 @@
+import { LitElement, type TemplateResult } from 'lit';
+/**
+ * Renders a template into a portal. Defaults to `document.body`.
+ *
+ * Note that every time the parent component re-renders, the portal will be re-called.
+ *
+ * See https://lit.dev/docs/components/rendering/#writing-a-good-render()-method
+ *
+ * @example
+ * ```ts
+ * render() {
+ *   return html`${showPortal
+ *     ? html`<linvo-portal .template=${portalTemplate}></linvo-portal>`
+ *     : null}`;
+ * };
+ * ```
+ */
+export declare class Portal extends LitElement {
+    private _portalRoot;
+    createRenderRoot(): HTMLDivElement | ShadowRoot;
+    disconnectedCallback(): void;
+    render(): TemplateResult | undefined;
+    accessor container: HTMLElement;
+    accessor shadowDom: boolean | ShadowRootInit;
+    accessor template: TemplateResult | undefined;
+}
+declare global {
+    interface HTMLElementTagNameMap {
+        'linvo-portal': Portal;
+    }
+}

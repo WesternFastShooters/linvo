@@ -1,0 +1,62 @@
+import { defineCustomElement } from '@linvo-core/global/utils';
+import { BlockSelection } from '@linvo-ui/components/block-selection';
+import { BlockZeroWidth } from '@linvo-ui/components/block-zero-width';
+import { effects as componentCaptionEffects } from '@linvo-ui/components/caption';
+import { effects as componentCardStyleDropdownMenuEffects } from '@linvo-ui/components/card-style-dropdown-menu';
+import { effects as componentCitationEffects } from '@linvo-ui/components/citation';
+import { effects as componentColorPickerEffects } from '@linvo-ui/components/color-picker';
+import { effects as componentContextMenuEffects } from '@linvo-ui/components/context-menu';
+import { effects as componentDatePickerEffects } from '@linvo-ui/components/date-picker';
+import { effects as componentDropIndicatorEffects } from '@linvo-ui/components/drop-indicator';
+import { effects as componentEdgelessLineStylesEffects } from '@linvo-ui/components/edgeless-line-styles-panel';
+import { effects as componentEdgelessLineWidthEffects } from '@linvo-ui/components/edgeless-line-width-panel';
+import { effects as componentEdgelessShapeColorPickerEffects } from '@linvo-ui/components/edgeless-shape-color-picker';
+import { effects as componentEmbedCardModalEffects } from '@linvo-ui/components/embed-card-modal';
+import { FilterableListComponent } from '@linvo-ui/components/filterable-list';
+import { effects as componentHighlightDropdownMenuEffects } from '@linvo-ui/components/highlight-dropdown-menu';
+import { IconButton } from '@linvo-ui/components/icon-button';
+import { effects as componentOpenDocDropdownMenuEffects } from '@linvo-ui/components/open-doc-dropdown-menu';
+import { effects as componentPortalEffects } from '@linvo-ui/components/portal';
+import { effects as componentResourceEffects } from '@linvo-ui/components/resource';
+import { effects as componentSizeDropdownMenuEffects } from '@linvo-ui/components/size-dropdown-menu';
+import { effects as componentSliderEffects } from '@linvo-ui/components/slider';
+import { SmoothCorner } from '@linvo-ui/components/smooth-corner';
+import { effects as componentToggleButtonEffects } from '@linvo-ui/components/toggle-button';
+import { ToggleSwitch } from '@linvo-ui/components/toggle-switch';
+import { effects as componentToolbarEffects } from '@linvo-ui/components/toolbar';
+import { effects as componentTooltipContentWithShortcutEffects } from '@linvo-ui/components/tooltip-content-with-shortcut';
+import { effects as componentViewDropdownMenuEffects } from '@linvo-ui/components/view-dropdown-menu';
+import { effects as stdEffects } from '@linvo-core/std/effects';
+
+export function effects() {
+  stdEffects();
+
+  componentCaptionEffects();
+  componentContextMenuEffects();
+  componentDatePickerEffects();
+  componentPortalEffects();
+  componentToolbarEffects();
+  componentDropIndicatorEffects();
+  componentToggleButtonEffects();
+  componentColorPickerEffects();
+  componentEmbedCardModalEffects();
+  componentCardStyleDropdownMenuEffects();
+  componentCitationEffects();
+  componentHighlightDropdownMenuEffects();
+  componentViewDropdownMenuEffects();
+  componentTooltipContentWithShortcutEffects();
+  componentSizeDropdownMenuEffects();
+  componentSliderEffects();
+  componentEdgelessLineWidthEffects();
+  componentEdgelessLineStylesEffects();
+  componentEdgelessShapeColorPickerEffects();
+  componentOpenDocDropdownMenuEffects();
+  componentResourceEffects();
+
+  defineCustomElement('icon-button', IconButton);
+  defineCustomElement('smooth-corner', SmoothCorner);
+  defineCustomElement('toggle-switch', ToggleSwitch);
+  defineCustomElement('linvo-filterable-list', FilterableListComponent);
+  defineCustomElement('block-zero-width', BlockZeroWidth);
+  defineCustomElement('linvo-block-selection', BlockSelection);
+}

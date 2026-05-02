@@ -1,0 +1,18 @@
+import type { GfxModel } from '@linvo-core/std/gfx';
+import type { BlockModel } from '@linvo-core/store';
+import { EmbedFigmaModel } from './figma';
+import { EmbedGithubModel } from './github';
+import type { EmbedHtmlModel } from './html';
+import type { EmbedIframeBlockModel } from './iframe/';
+import { EmbedLoomModel } from './loom';
+import { EmbedSyncedDocModel } from './synced-doc';
+import { EmbedYoutubeModel } from './youtube';
+export declare const ExternalEmbedModels: readonly [typeof EmbedFigmaModel, typeof EmbedGithubModel, typeof EmbedLoomModel, typeof EmbedYoutubeModel];
+export declare const InternalEmbedModels: readonly [typeof EmbedSyncedDocModel];
+export type ExternalEmbedModel = (typeof ExternalEmbedModels)[number];
+export type InternalEmbedModel = (typeof InternalEmbedModels)[number];
+export type EmbedCardModel = InstanceType<ExternalEmbedModel | InternalEmbedModel>;
+export type LinkableEmbedModel = EmbedCardModel | EmbedIframeBlockModel;
+export type BuiltInEmbedModel = EmbedCardModel | EmbedHtmlModel;
+export declare function isExternalEmbedModel(model: GfxModel | BlockModel): model is InstanceType<ExternalEmbedModel>;
+export declare function isInternalEmbedModel(model: GfxModel | BlockModel): model is InstanceType<InternalEmbedModel>;

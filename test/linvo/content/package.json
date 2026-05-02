@@ -1,0 +1,34 @@
+{
+  "name": "@linvo/test-linvo-content",
+  "description": "Models for Linvo in Linvo.",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "sideEffects": false,
+  "keywords": [],
+  "author": "toeverything",
+  "license": "MIT",
+  "dependencies": {
+    "@types/lodash-es": "^4.17.12",
+    "@whfzgyx/linvo-core": "workspace:*",
+    "fractional-indexing": "^3.2.0",
+    "lodash-es": "^4.17.21",
+    "rxjs": "^7.8.1",
+    "zod": "^3.23.8"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "dist",
+    "!src/__tests__",
+    "!dist/__tests__"
+  ],
+  "devDependencies": {
+    "vitest": "3.1.3"
+  },
+  "version": "0.22.4",
+  "private": true
+}

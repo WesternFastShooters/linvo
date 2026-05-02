@@ -1,0 +1,23 @@
+import { UIEventState } from '../base';
+
+type DndEventStateOptions = {
+  event: DragEvent;
+};
+
+export class DndEventState extends UIEventState {
+  raw: DragEvent;
+
+  override type = 'dndState';
+
+  constructor({ event }: DndEventStateOptions) {
+    super(event);
+
+    this.raw = event;
+  }
+}
+
+declare global {
+  interface LinvoUIEventState {
+    dndState: DndEventState;
+  }
+}

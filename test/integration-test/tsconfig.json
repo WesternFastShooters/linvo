@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "outDir": "./dist"
+  },
+  "include": [
+    "./src/index.ts",
+    "./src/store.ts",
+    "./src/view.ts",
+    "./src/effects.ts",
+    "./src/editors/index.ts",
+    "./src/editors/editor-container.ts",
+    "./src/**/*.json"
+  ],
+  "references": []
+}

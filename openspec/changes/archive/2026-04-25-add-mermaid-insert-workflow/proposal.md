@@ -55,8 +55,8 @@
 
 - `src/extensions.ts`
 - `src/editor.ts`
-- `packages/linvo/widgets/edgeless-toolbar/**`
-- `packages/linvo/blocks/image/**`
+- `packages/widgets/edgeless-toolbar/**`
+- `packages/blocks/image/**`
 - edgeless CRUD 与 overlay 相关集成点
 
 潜在新增依赖：

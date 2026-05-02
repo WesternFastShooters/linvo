@@ -1,0 +1,12 @@
+import type { Options, RoughCanvas } from '@linvo-core/block-surface';
+import { ShapeType } from '@linvo-core/content';
+import { type IVec, type XYWH } from '@linvo-core/global/gfx';
+export declare const PRESET_SHAPE_TYPES: readonly [ShapeType.Hexagon, ShapeType.Pentagon, ShapeType.Octagon, ShapeType.Parallelogram, ShapeType.LeanLeft, ShapeType.Trapezoid, ShapeType.TrapezoidAlt, ShapeType.Stadium, ShapeType.Subroutine, ShapeType.Cylinder, ShapeType.HorizontalCylinder, ShapeType.LinedCylinder, ShapeType.Document, ShapeType.LinedDocument, ShapeType.MultiDocument, ShapeType.Note, ShapeType.Package, ShapeType.Cloud, ShapeType.DoubleCircle, ShapeType.FilledCircle, ShapeType.Asymmetric, ShapeType.Hourglass, ShapeType.NotchedRect, ShapeType.NotchedPentagon, ShapeType.Bolt, ShapeType.Bang, ShapeType.Flag, ShapeType.BowRect, ShapeType.SmallCircle, ShapeType.FramedCircle, ShapeType.CrossedCircle, ShapeType.TaggedDocument, ShapeType.TaggedRect, ShapeType.BraceLeft, ShapeType.BraceRight, ShapeType.Braces, ShapeType.Delay, ShapeType.CurvedTrapezoid, ShapeType.DividedRect, ShapeType.ForkJoin, ShapeType.WindowPane, ShapeType.LinedRect, ShapeType.FlippedTriangle, ShapeType.SlopedRect, ShapeType.StackedRect, ShapeType.Odd];
+export type PresetShapeType = (typeof PRESET_SHAPE_TYPES)[number];
+export declare function isPresetShapeType(type: string): type is PresetShapeType;
+export declare function getPresetShapePoints(type: PresetShapeType, xywh: XYWH, strokeWidth?: number): IVec[];
+export declare function pointsToSvgPath(points: IVec[]): string;
+export declare function drawPresetShapeUnderlay(ctx: CanvasRenderingContext2D, type: PresetShapeType, xywh: XYWH, strokeWidth?: number): void;
+export declare function drawPresetShapeUnderlayRough(rc: RoughCanvas, type: PresetShapeType, xywh: XYWH, options: Options): void;
+export declare function drawPresetShapeOverlay(ctx: CanvasRenderingContext2D, type: PresetShapeType, xywh: XYWH, strokeWidth?: number): void;
+export declare function drawPresetShapeOverlayRough(rc: RoughCanvas, type: PresetShapeType, xywh: XYWH, options: Options): void;

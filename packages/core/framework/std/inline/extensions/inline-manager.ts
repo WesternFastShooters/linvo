@@ -1,0 +1,124 @@
+import {
+  createIdentifier,
+  type ServiceIdentifier,
+} from '@linvo-core/composition/di';
+import {
+  type BaseTextAttributes,
+  baseTextAttributes,
+  type DeltaInsert,
+  type ExtensionType,
+} from '@linvo-core/store';
+import { z } from 'zod';
+
+import { StdIdentifier } from '../../identifier';
+import type { BlockStdScope } from '../../scope';
+import type { AttributeRenderer } from '../types';
+import { getDefaultAttributeRenderer } from '../utils/attribute-renderer';
+import { MarkdownMatcherIdentifier } from './markdown-matcher';
+import type { InlineMarkdownMatch, InlineSpecs } from './type';
+
+export class InlineManager<TextAttributes extends BaseTextAttributes> {
+  embedChecker = (delta: DeltaInsert<TextAttributes>) => {
+    for (const spec of this.specs) {
+      if (spec.embed && spec.match(delta)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  getRenderer = (): AttributeRenderer<TextAttributes> => {
+    const defaultRenderer = getDefaultAttributeRenderer<TextAttributes>();
+
+    const renderer: AttributeRenderer<TextAttributes> = props => {
+      // Priority increases from front to back
+      const specs = this.specs.toReversed();
+      const wrapperSpecs = specs.filter(spec => spec.wrapper);
+      const normalSpecs = specs.filter(spec => !spec.wrapper);
+
+      let result = defaultRenderer(props);
+
+      for (const spec of normalSpecs) {
+        if (spec.match(props.delta)) {
+          result = spec.renderer(props);
+          break;
+        }
+      }
+
+      for (const spec of wrapperSpecs) {
+        if (spec.match(props.delta)) {
+          result = spec.renderer({
+            ...props,
+            children: result,
+          });
+        }
+      }
+
+      return result;
+    };
+    return renderer;
+  };
+
+  getSchema = (): z.ZodSchema => {
+    const schema = this.specs.reduce<z.ZodSchema>((acc, cur) => {
+      return z.intersection(acc, cur.schema);
+    }, baseTextAttributes);
+    return schema;
+  };
+
+  get markdownMatches(): InlineMarkdownMatch<TextAttributes>[] {
+    if (!this.enableMarkdown) {
+      return [];
+    }
+    const matches = Array.from(
+      this.std.provider.getAll(MarkdownMatcherIdentifier).values()
+    );
+    return matches as InlineMarkdownMatch<TextAttributes>[];
+  }
+
+  readonly specs: Array<InlineSpecs<TextAttributes>>;
+
+  constructor(
+    readonly std: BlockStdScope,
+    readonly enableMarkdown: boolean,
+    ...specs: Array<InlineSpecs<TextAttributes>>
+  ) {
+    this.specs = specs;
+  }
+}
+
+export type InlineManagerExtensionConfig<
+  TextAttributes extends BaseTextAttributes,
+> = {
+  id: string;
+  enableMarkdown?: boolean;
+  specs: ServiceIdentifier<InlineSpecs<TextAttributes>>[];
+};
+
+const InlineManagerIdentifier = createIdentifier<unknown>(
+  'LinvoInlineManager'
+);
+
+export function InlineManagerExtension<
+  TextAttributes extends BaseTextAttributes,
+>({
+  id,
+  enableMarkdown = true,
+  specs,
+}: InlineManagerExtensionConfig<TextAttributes>): ExtensionType & {
+  identifier: ServiceIdentifier<InlineManager<TextAttributes>>;
+} {
+  const identifier = InlineManagerIdentifier<InlineManager<TextAttributes>>(id);
+  return {
+    setup: di => {
+      di.addImpl(identifier, provider => {
+        return new InlineManager(
+          provider.get(StdIdentifier),
+          enableMarkdown,
+          ...specs.map(spec => provider.get(spec))
+        );
+      });
+    },
+    identifier,
+  };
+}

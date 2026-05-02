@@ -1,0 +1,32 @@
+{
+  "name": "@whfzgyx/linvo-integrations",
+  "description": "Optional integrations for Linvo.",
+  "type": "module",
+  "sideEffects": false,
+  "author": "toeverything",
+  "license": "MIT",
+  "version": "0.22.5",
+  "scripts": {
+    "build": "node ../../scripts/stage-publish-package.mjs packages/integrations"
+  },
+  "publishConfig": {
+    "directory": "dist",
+    "access": "public"
+  },
+  "dependencies": {
+    "@preact/signals-core": "^1.8.0",
+    "@whfzgyx/linvo-core": "workspace:*",
+    "@whfzgyx/linvo-primitives": "workspace:*",
+    "@whfzgyx/linvo-ui": "workspace:*",
+    "lit": "^3.2.0",
+    "mermaid": "^11.14.0",
+    "rxjs": "^7.8.1"
+  },
+  "exports": {
+    "./mermaid": "./mermaid/index.ts",
+    "./mermaid/*": "./mermaid/*"
+  },
+  "files": [
+    "dist"
+  ]
+}

@@ -1,0 +1,21 @@
+import { BlockModel } from '@linvo-core/store';
+
+import type { EmbedCardStyle } from '../../../helpers';
+import { defineEmbedModel } from '../../../helpers';
+
+export type EmbedFigmaBlockUrlData = {
+  title: string | null;
+  description: string | null;
+};
+
+export const EmbedFigmaStyles = ['figma'] as const satisfies EmbedCardStyle[];
+
+export type EmbedFigmaBlockProps = {
+  style: (typeof EmbedFigmaStyles)[number];
+  url: string;
+  caption: string | null;
+} & EmbedFigmaBlockUrlData;
+
+export class EmbedFigmaModel extends defineEmbedModel<EmbedFigmaBlockProps>(
+  BlockModel
+) {}

@@ -1,0 +1,14 @@
+import type { PointerEventState } from '@linvo-core/std';
+import { BaseTool } from '@linvo-core/std/gfx';
+import { type FrameOverlay } from './frame-manager';
+export declare class FrameTool extends BaseTool {
+    static toolName: string;
+    private _frame;
+    private _startPoint;
+    get frameManager(): import("./frame-manager").EdgelessFrameManager;
+    get frameOverlay(): FrameOverlay;
+    private _toModelCoord;
+    dragEnd(): void;
+    dragMove(e: PointerEventState): void;
+    dragStart(e: PointerEventState): void;
+}

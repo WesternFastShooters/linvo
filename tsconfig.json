@@ -4,7 +4,7 @@
     "useDefineForClassFields": false,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "baseUrl": ".",
+    "composite": true,
     "resolveJsonModule": true,
     "strict": true,
     "verbatimModuleSyntax": true,
@@ -18,6 +18,198 @@
       "node"
     ],
     "paths": {
+      "@linvo-core/composition": [
+        "./packages/core/framework/composition/index.ts"
+      ],
+      "@linvo-core/composition/*": [
+        "./packages/core/framework/composition/*"
+      ],
+      "@linvo-core/global": [
+        "./packages/core/framework/global/index.ts"
+      ],
+      "@linvo-core/global/*": [
+        "./packages/core/framework/global/*"
+      ],
+      "@linvo-core/std": [
+        "./packages/core/framework/std/index.ts"
+      ],
+      "@linvo-core/std/*": [
+        "./packages/core/framework/std/*"
+      ],
+      "@linvo-core/store": [
+        "./packages/core/framework/store/index.ts"
+      ],
+      "@linvo-core/store/*": [
+        "./packages/core/framework/store/*"
+      ],
+      "@linvo-core/content": [
+        "./packages/core/runtime/content/index.ts"
+      ],
+      "@linvo-core/content/*": [
+        "./packages/core/runtime/content/*"
+      ],
+      "@linvo-core/foundation": [
+        "./packages/core/runtime/foundation-base/index.ts"
+      ],
+      "@linvo-core/foundation/*": [
+        "./packages/core/runtime/foundation-base/*"
+      ],
+      "@linvo-core/shared": [
+        "./packages/core/runtime/shared-base/index.ts"
+      ],
+      "@linvo-core/shared/*": [
+        "./packages/core/runtime/shared-base/*"
+      ],
+      "@linvo-core/block-surface": [
+        "./packages/core/runtime/block-surface/index.ts"
+      ],
+      "@linvo-core/block-surface/*": [
+        "./packages/core/runtime/block-surface/*"
+      ],
+      "@linvo-core/block-root": [
+        "./packages/core/runtime/block-edgeless-root/index.ts"
+      ],
+      "@linvo-core/block-root/*": [
+        "./packages/core/runtime/block-edgeless-root/*"
+      ],
+      "@linvo-core/block-root/edgeless-block": [
+        "./packages/core/runtime/block-edgeless-root/edgeless/edgeless-root-block.ts"
+      ],
+      "@linvo-core/turbo-renderer": [
+        "./packages/core/runtime/turbo-renderer/index.ts"
+      ],
+      "@linvo-core/turbo-renderer/*": [
+        "./packages/core/runtime/turbo-renderer/*"
+      ],
+      "@linvo-core/turbo-renderer/painter": [
+        "./packages/core/runtime/turbo-renderer/painter/painter.worker.ts"
+      ],
+      "@linvo-primitives/brush": [
+        "./packages/primitives/elements/brush/index.ts"
+      ],
+      "@linvo-primitives/brush/*": [
+        "./packages/primitives/elements/brush/*"
+      ],
+      "@linvo-primitives/connector": [
+        "./packages/primitives/elements/connector/index.ts"
+      ],
+      "@linvo-primitives/connector/view": [
+        "./packages/primitives/elements/connector/view-extension.ts"
+      ],
+      "@linvo-primitives/connector/*": [
+        "./packages/primitives/elements/connector/*"
+      ],
+      "@linvo-primitives/group": [
+        "./packages/primitives/elements/group/index.ts"
+      ],
+      "@linvo-primitives/group/*": [
+        "./packages/primitives/elements/group/*"
+      ],
+      "@linvo-primitives/mindmap": [
+        "./packages/primitives/elements/mindmap/index.ts"
+      ],
+      "@linvo-primitives/mindmap/view": [
+        "./packages/primitives/elements/mindmap/view-extension.ts"
+      ],
+      "@linvo-primitives/mindmap/*": [
+        "./packages/primitives/elements/mindmap/*"
+      ],
+      "@linvo-primitives/pointer": [
+        "./packages/primitives/elements/pointer/index.ts"
+      ],
+      "@linvo-primitives/pointer/*": [
+        "./packages/primitives/elements/pointer/*"
+      ],
+      "@linvo-primitives/shape": [
+        "./packages/primitives/elements/shape/index.ts"
+      ],
+      "@linvo-primitives/shape/*": [
+        "./packages/primitives/elements/shape/*"
+      ],
+      "@linvo-primitives/text": [
+        "./packages/primitives/elements/text/index.ts"
+      ],
+      "@linvo-primitives/text/*": [
+        "./packages/primitives/elements/text/*"
+      ],
+      "@linvo-primitives/attachment": [
+        "./packages/primitives/nodes/attachment/index.ts"
+      ],
+      "@linvo-primitives/attachment/*": [
+        "./packages/primitives/nodes/attachment/*"
+      ],
+      "@linvo-primitives/embed": [
+        "./packages/primitives/nodes/embed/index.ts"
+      ],
+      "@linvo-primitives/embed/*": [
+        "./packages/primitives/nodes/embed/*"
+      ],
+      "@linvo-primitives/frame": [
+        "./packages/primitives/nodes/frame/index.ts"
+      ],
+      "@linvo-primitives/frame/*": [
+        "./packages/primitives/nodes/frame/*"
+      ],
+      "@linvo-primitives/image": [
+        "./packages/primitives/nodes/image/index.ts"
+      ],
+      "@linvo-primitives/image/*": [
+        "./packages/primitives/nodes/image/*"
+      ],
+      "@linvo-ui/components": [
+        "./packages/ui/components-base/index.ts"
+      ],
+      "@linvo-ui/components/*": [
+        "./packages/ui/components-base/*"
+      ],
+      "@linvo-ui/edgeless-dragging-area": [
+        "./packages/ui/edgeless-dragging-area/index.ts"
+      ],
+      "@linvo-ui/edgeless-dragging-area/*": [
+        "./packages/ui/edgeless-dragging-area/*"
+      ],
+      "@linvo-ui/edgeless-selected-rect": [
+        "./packages/ui/edgeless-selected-rect/index.ts"
+      ],
+      "@linvo-ui/edgeless-selected-rect/*": [
+        "./packages/ui/edgeless-selected-rect/*"
+      ],
+      "@linvo-ui/edgeless-toolbar": [
+        "./packages/ui/edgeless-toolbar/index.ts"
+      ],
+      "@linvo-ui/edgeless-toolbar/*": [
+        "./packages/ui/edgeless-toolbar/*"
+      ],
+      "@linvo-ui/edgeless-zoom-toolbar": [
+        "./packages/ui/edgeless-zoom-toolbar/index.ts"
+      ],
+      "@linvo-ui/edgeless-zoom-toolbar/*": [
+        "./packages/ui/edgeless-zoom-toolbar/*"
+      ],
+      "@linvo-ui/frame-title": [
+        "./packages/ui/frame-title/index.ts"
+      ],
+      "@linvo-ui/frame-title/*": [
+        "./packages/ui/frame-title/*"
+      ],
+      "@linvo-ui/scroll-anchoring": [
+        "./packages/ui/scroll-anchoring/index.ts"
+      ],
+      "@linvo-ui/scroll-anchoring/*": [
+        "./packages/ui/scroll-anchoring/*"
+      ],
+      "@linvo-ui/viewport-overlay": [
+        "./packages/ui/viewport-overlay/index.ts"
+      ],
+      "@linvo-ui/viewport-overlay/*": [
+        "./packages/ui/viewport-overlay/*"
+      ],
+      "@linvo-integrations/mermaid": [
+        "./packages/integrations/mermaid/index.ts"
+      ],
+      "@linvo-integrations/mermaid/*": [
+        "./packages/integrations/mermaid/*"
+      ],
       "@theme": [
         "./resources/theme/dist/index.d.ts"
       ],
@@ -39,12 +231,12 @@
     }
   },
   "include": [
-    "src",
+    "app",
     "packages"
   ],
   "exclude": [
     "**/__tests__/**",
-    "**/src/test/**",
+    "**/app/test/**",
     "**/*.spec.ts",
     "**/*.spec.tsx"
   ]
